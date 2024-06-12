@@ -11,26 +11,16 @@
 
   <!-- Stylesheets -->
 
+  
   <link href="vendor/fontawesome/all.css" rel="stylesheet">
   <link href="vendor/fancybox/fancybox.css" rel="stylesheet">
   <link href="vendor/swiper/swiper.css" rel="stylesheet">
   <link href="vendor/aos/aos.css" rel="stylesheet">
+  <link href="vendor/datatables/jquery.dataTables.min.css" rel="stylesheet">
   <link href="css/theme.css" rel="stylesheet">
+  <link href="css/custom.css" rel="stylesheet">
 
   <!--Favicon-->
-  <!-- <link rel="apple-touch-icon" sizes="57x57" href="images/favicons/apple-icon-57x57.png">
-  <link rel="apple-touch-icon" sizes="60x60" href="images/favicons/apple-icon-60x60.png">
-  <link rel="apple-touch-icon" sizes="72x72" href="images/favicons/apple-icon-72x72.png">
-  <link rel="apple-touch-icon" sizes="76x76" href="images/favicons/apple-icon-76x76.png">
-  <link rel="apple-touch-icon" sizes="114x114" href="images/favicons/apple-icon-114x114.png">
-  <link rel="apple-touch-icon" sizes="120x120" href="images/favicons/apple-icon-120x120.png">
-  <link rel="apple-touch-icon" sizes="144x144" href="images/favicons/apple-icon-144x144.png">
-  <link rel="apple-touch-icon" sizes="152x152" href="images/favicons/apple-icon-152x152.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="images/favicons/apple-icon-180x180.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="images/favicons/android-icon-192x192.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="images/favicons/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="96x96" href="images/favicons/favicon-96x96.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="images/favicons/favicon-16x16.png"> -->
   <link rel="shortcut icon" href="images/favicons/favicon.png" type="image/png">
   <link rel="icon" href="images/favicons/favicon.png" type="image/png">
 </head>
@@ -63,37 +53,24 @@
       </a>
       </li>
       <li>
-        <a href="#about.html" class="font-Inter flex items-center text-base font-medium leading-8 text-paragraph dark:text-white py-[5px] px-5 lg:px-4 xl:px-5 border rounded-large border-transparent hover:bg-white hover:border-borderColour dark:hover:bg-dark-200 
+        <a href="trading.html" class="font-Inter flex items-center text-base font-medium leading-8 text-paragraph dark:text-white py-[5px] px-5 lg:px-4 xl:px-5 border rounded-large border-transparent hover:bg-white hover:border-borderColour dark:hover:bg-dark-200 
         dark:hover:border-borderColour/10 duration-500 hover:duration-500 transition-colors ">
-          About
+          Trading
         </a>
       </li>
       <li>
         <a href="#services.html" class="font-Inter flex items-center text-base font-medium leading-8 text-paragraph dark:text-white py-[5px] px-5 lg:px-4 xl:px-5 border rounded-large border-transparent hover:bg-white hover:border-borderColour dark:hover:bg-dark-200 
         dark:hover:border-borderColour/10 duration-500 hover:duration-500 transition-colors ">
-          Services
-        </a>
-      </li>
-      <li>
-        <a href="#contact.html" class="font-Inter flex items-center text-base font-medium leading-8 text-paragraph dark:text-white py-[5px] px-5 lg:px-4 xl:px-5 border rounded-large border-transparent hover:bg-white hover:border-borderColour dark:hover:bg-dark-200 
-        dark:hover:border-borderColour/10 duration-500 hover:duration-500 transition-colors  ">
-          Contact Us
+          Wallet
         </a>
       </li>
     </ul>
 
     <ul class="flex items-center max-lg:ml-auto  [&amp;>*:not(:last-child)]:me-2.5">
-      <li class="">
-        <button class="bg-white dark:bg-dark-200 p-2.5 rounded-full " id="open-btn">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M9.11278 0C14.1369 0 18.2245 4.08758 18.2245 9.11278C18.2245 11.2861 17.4592 13.5472 16.1845 14.8512L20 18.6667L18.6667 20L14.8512 16.1856C13.5667 17.4603 11.2861 18.2245 9.11278 18.2245C4.08758 18.2245 0 14.1369 0 9.11278C0 4.08758 4.08758 0 9.11278 0ZM9.11278 16.3395C13.0974 16.3395 16.3395 13.0974 16.3395 9.11278C16.3395 5.12818 13.0974 1.88608 9.11278 1.88608C5.12709 1.88608 1.88499 5.12818 1.88499 9.11278C1.88499 13.0974 5.12709 16.3395 9.11278 16.3395Z" fill="" class="fill-paragraph dark:fill-white"></path>
-          </svg>
-        </button>
-      </li>
       <li class="max-lg:hidden">
         <a href="#login.html" class="btn btn-navbar btn-sm">
-          <i class="fa-solid fa-user text-paragraph dark:text-white me-2.5 mt-1"></i>
-          Login
+          <i class="fa-solid fa-user text-paragraph dark:text-white mt-1 hover:text-black"></i>
+          Login / Sign Up
         </a>
       </li>
       <li class="max-lg:inline-block lg:hidden ">
@@ -118,25 +95,21 @@
           </a>
         </li>
         <li>
-          <a href="#about.html" class="font-Inter flex items-center text-base font-medium leading-8 text-paragraph dark:text-white py-[5px] px-5 lg:px-4 xl:px-5 border rounded-large border-transparent hover:bg-white hover:border-borderColour dark:hover:bg-dark-200 
+          <a href="trading.html" class="font-Inter flex items-center text-base font-medium leading-8 text-paragraph dark:text-white py-[5px] px-5 lg:px-4 xl:px-5 border rounded-large border-transparent hover:bg-white hover:border-borderColour dark:hover:bg-dark-200 
             dark:hover:border-borderColour/10 duration-500 hover:duration-500 transition-colors ">
-            About
+            Trading
           </a>
         </li>
         <li>
           <a href="#services.html" class="font-Inter flex items-center text-base font-medium leading-8 text-paragraph dark:text-white py-[5px] px-5 lg:px-4 xl:px-5 border rounded-large border-transparent hover:bg-white hover:border-borderColour dark:hover:bg-dark-200 
             dark:hover:border-borderColour/10 duration-500 hover:duration-500 transition-colors ">
-            Services
+            Wallet
           </a>
         </li>
         <li>
-          <a href="#contact.html" class="font-Inter flex items-center text-base font-medium leading-8 text-paragraph dark:text-white py-[5px] px-5 lg:px-4 xl:px-5 border rounded-large border-transparent hover:bg-white hover:border-borderColour dark:hover:bg-dark-200 
-            dark:hover:border-borderColour/10 duration-500 hover:duration-500 transition-colors  ">
-            Contact Us
+          <a href="#signup.html" class="btn btn-navbar btn-sm">
+            Sign Up
           </a>
-        </li>
-
-        <li>
           <a href="#login.html" class="btn btn-navbar btn-sm">
             Login
           </a>
@@ -1027,59 +1000,8 @@
     </div>
   </div>
 </section>
-
-<!---Modal -->
-<div aria-hidden="false" class="fixed z-[99999999990] hidden inset-0 top-0 items-start justify-center  bg-metal-900 bg-dark-200/25" onclick="javascript.void(0)" id="modal" role="dialog">
-  <div class="relative w-full p-4 h-auto animate-keep-bounce max-w-xl">
-    <div class="relative bg-white dark:bg-dark-200 shadow-box rounded-medium p-2.5 ">
-      <div class=" border border-dashed rounded border-gray-100 dark:border-borderColour-dark p-10 max-lg:p-5 ">
-        <div class="flex items-center justify-between bg border-b border-dashed border-b-borderColour dark:border-borderColour-dark pb-5">
-          <h3 class="text-paragraph dark:text-white">Search</h3>
-          <button class="text-paragraph dark:text-white" id="ok-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 256 256">
-              <rect width="256" height="256" fill="none"></rect>
-              <circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="16"></circle>
-              <line x1="160" y1="96" x2="96" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></line>
-              <line x1="160" y1="160" x2="96" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></line>
-            </svg>
-          </button>
-        </div>
-        <form class="mt-5">
-          <div>
-            <div class="flex">
-              <div class="relative w-full">
-                <input class="block w-full focus:outline-none focus:ring-0 text-paragraph border-borderColour py-2.5 px-5  border border- rounded-medium bg-transparent placeholder:text-metal-400 placeholder:text-paragraph dark:placeholder:text-white outline-none focus:border-primary duration-300 transition-all" id="#id-10" placeholder="Search Component" type="text" value="">
-              </div>
-            </div>
-          </div>
-        </form>
-        <p class="pt-5 font-medium mb-12 hidden"><span>No recent searches</span></p>
-        <div class="pt-5">
-          <h3 class="mb-1">Search Result</h3>
-          <ul class="[&amp;>*:not(:last-child)]:border-dashed [&amp;>*:not(:last-child)]:border-gray-100  dark:[&amp;>*:not(:last-child)]:border-borderColour-dark  [&amp;>*:not(:last-child)]:border-b">
-            <li class="group ">
-              <a class="  flex items-center justify-between py-5 font-medium" href="#services-single.html">
-                Investment Banks
-                <i class="fa-solid fa-angle-right"></i>
-              </a>
-            </li>
-            <li class="group">
-              <a href="services-single.html" class="  flex items-center justify-between py-5 font-medium">
-                Financial Analysis <i class="fa-solid fa-angle-right"></i>
-              </a>
-            </li>
-            <li class="group">
-              <a href="#services-single.html" class="  flex items-center justify-between py-5 font-medium">
-                Sales &amp; Trading <i class="fa-solid fa-angle-right"></i>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
+<input type="hidden" id="open-btn">
+<input type="hidden" id="ok-btn">
 
 <!--
   #############
@@ -1093,6 +1015,8 @@
 <script src="vendor/gsap/motionpath.js"></script>
 <script src="vendor/swiper/swiper.js"></script>
 <script src="vendor/aos/aos.js"></script>
+<script src="vendor/jquery-3.6.0.min.js"></script>
+<script src="vendor/datatables/jquery.dataTables.min.js"></script>
 <script src="js/script.js"></script>
 
 
