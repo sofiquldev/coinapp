@@ -1,0 +1,148 @@
+/* custom CSS */
+.nav-logo, .footer-logo {
+    img {
+      height: 36px !important;
+    }
+  }
+  .hero-img {
+    @media (min-width: 1080px) {
+      width: 500px;
+    }
+    @media (min-width: 768px) {
+      width: 360px;
+    }
+  }
+
+
+  .btn {
+      i {
+          margin-right: 8px;
+          color: #fff;
+      }
+      &:hover {
+          i {
+              color: #fff;
+          }
+      }
+  }
+
+
+  /* Dark Mood */
+  .dark {
+      .btn {
+          i {
+              margin-right: 8px;
+          }
+          &:hover {
+              i {
+                  color: #000;
+              }
+          }
+      }
+  }
+
+
+  :root {
+      --background-color: #ffffff;
+      --text-color: #000000;
+      --border-color: #dddddd;
+      --table-row-odd: #f9f9f9;
+      --table-row-even: #ffffff;
+      --table-row-hover: #f1f1f1;
+      --sorting-background: #eeeeee;
+    }
+
+    html.dark {
+      --background-color: #212220;
+      --text-color: #ffffff;
+      --border-color: #333431;
+      --table-row-odd: #1c1c1c;
+      --table-row-even: #2b2b2b;
+      --table-row-hover: #111111;
+      --sorting-background: #111111;
+    }
+
+    div#crypto-table_wrapper {
+      background: var(--background-color);
+      padding: 16px;
+      border-radius: 16px;
+      border: 1px solid var(--border-color);
+    }
+
+    #crypto-table th {
+      font-weight: normal !important;
+      font-size: small;
+    }
+
+    table.dataTable.stripe tbody tr.odd,
+    table.dataTable.display tbody tr.odd {
+      background: var(--table-row-odd);
+    }
+
+    .sorting_1 {
+      background: var(--sorting-background) !important;
+    }
+
+    table.dataTable tbody tr {
+      background-color: var(--table-row-even);
+      td {
+          white-space: nowrap;
+          &.coin-name {
+              font-size: 14px;
+              display: flex;
+              gap: 12px;
+              img {
+                  width: 25px;
+              }
+          }
+          &.color-red {
+              color: rgb(244, 67, 54);
+          }
+          &.color-green {
+              color: rgb(24, 198, 131);
+          }
+      }
+    }
+
+    table.dataTable tbody tr.even .sorting_1 {
+      background-color: var(--sorting-background) !important;
+    }
+
+    table.dataTable.row-border tbody th,
+    table.dataTable.row-border tbody td,
+    table.dataTable.display tbody th,
+    table.dataTable.display tbody td {
+      border-top: 1px solid var(--border-color);
+    }
+
+    table.dataTable.hover tbody tr:hover,
+    table.dataTable.display tbody tr:hover {
+      background-color: var(--table-row-hover);
+    }
+
+    table#crypto-table {
+      tr {
+          td, th {
+              font-size: 12px;
+              @media screen and (max-width: 767px) {
+                  &:not(.coin-name, .coin-price, .coin-change) {
+                      display: none;
+                  }
+              }
+          }
+      }
+    }
+    .paginate_button {
+      padding:  0px 8px !important;
+      border-radius: 5px !important;
+  }
+
+  .header-avatar {
+      width: 36px;
+      height: 36px;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 50%;
+      border: 2px solid #ddd;
+      margin-right: 12px;
+  }

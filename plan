@@ -1,0 +1,61 @@
+Tables:
+===========================
+Users
+    Name
+    Email
+    password
+    role [1: admin, 2:user]
+    phone-number
+    gender
+    balance
+    address {address1, address2, zip, city, country}
+    status [1: active, 2: pending, 3: deactived, 4: deleted]
+
+SiteOptions
+    site-url
+    site-admin-route
+    maintains-mode 
+    contacts {phone, email, address: {address1, address2, zip, city, country}}
+    menu {home: ['/', Home, null], trading: ['/trading', Trading, null], menu: ['#', 'Menu' {submenu: ['/', Sub Menu]}]}
+
+Pages 
+    slug
+    title
+    content
+    template
+    seo {}
+
+Transections
+    id
+    user-id
+    trading-id
+    amount
+    screenshot
+    tnx-id
+    status [1: active, 2: pending, 3: deactived, 4: deleted]
+
+Notifications
+    id
+    user-id
+    title
+    content
+    is-read
+    status [1: active, 2: pending, 3: deactived, 4: deleted]
+
+Wallet
+    id
+    user_id
+    cryptocurrency_id
+    balance
+    
+Order
+    id
+    user-id
+    coin-name
+    coin-amount
+    rate
+    cost
+    total 
+    status [1: active, 2: pending, 3: deactived, 4: deleted]
+
+    
