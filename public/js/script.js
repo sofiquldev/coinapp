@@ -312,7 +312,7 @@ if (
 // Cripto Table
 // Your API key
 const apiKey = '353192f0-1697-4343-8a35-34fdb4f6d43f';
-            
+
 // API endpoint
 const url = 'https://api.coincap.io/v2/assets';
 
@@ -342,7 +342,7 @@ function fetchCryptoData() {
             const tbody = $('#crypto-table tbody');
 
             let dataChanged = false; // Flag to track if data has changed
-            
+
             assets.forEach(asset => {
                 const existingRow = tbody.find(`tr[data-id="${asset.id}"]`);
                 const symbol = asset.symbol.toLowerCase();
@@ -361,7 +361,7 @@ function fetchCryptoData() {
 
                 if (!existingData || !isEqual(existingData, newData)) {
                     dataChanged = true;
-                    
+
                     if (existingRow.length > 0) {
                         // Update only changed fields
                         if (existingData.priceUsd !== newData.priceUsd) {
@@ -396,7 +396,7 @@ function fetchCryptoData() {
                         row.append(`<td class="text-center coin-supply">${formatNumber(parseFloat(asset.supply))}</td>`);
                         row.append(`<td class="text-center coin-volume">${formatNumber(parseFloat(asset.volumeUsd24Hr))}</td>`);
                         row.append(`<td class="text-center coin-change ${Number(change) < 0 ? 'color-red': 'color-green'}">${change}</td>`);
-                        
+
                         tbody.append(row);
                     }
                 }
@@ -423,7 +423,7 @@ function fetchCryptoData() {
 }
 
 // Fetch data on page load
-fetchCryptoData();
-setInterval(fetchCryptoData, 15000); // Update only when there's a change
+// fetchCryptoData();
+// setInterval(fetchCryptoData, 15000); // Update only when there's a change
 
 })

@@ -8,6 +8,7 @@ Auth::routes();
 // Example of protecting a route with auth middleware
 // Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/trade', [App\Http\Controllers\TradeController::class, 'index'])->name('trade');
 
 Auth::routes();
 
