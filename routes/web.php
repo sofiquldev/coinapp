@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\AdminMiddleware;
+use Illuminate\Support\Facades\Auth;
+
 
 // Authentication Routes...
 Auth::routes();
@@ -13,11 +16,25 @@ Route::get('/trade', [App\Http\Controllers\TradeController::class, 'index'])->na
 Auth::routes();
 
 
+// User Dashboard
 Route::middleware(['auth'])->group(function () {
     Route::prefix('u')->group(function () {
-        Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
-        // Route::get('/profile', [ProfileController::class, 'index'])->name('dashboard.profile');
-        // Route::get('/settings', [SettingsController::class, 'index'])->name('dashboard.settings');
+        Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
         // Add more routes as needed
+    });
+});
+
+
+// Admin Dashboard
+Route::middleware([AdminMiddleware::class])->group(function () {
+    Route::prefix('u')->group(function () {
+        Route::get('/dashboard', [App\Http\Controllers\AdminDashboardController::class, 'index'])->name('dashboard');
+
+        Route::prefix('dashboard')->group(function () {
+            Route::get('/active-coins', [App\Http\Controllers\AdminDashboardController::class, 'activeCoins'])->name('dashboard.active-coins');
+
+            Route::get('/settings', [App\Http\Controllers\AdminDashboardController::class, 'settings'])->name('dashboard.settings');
+            Route::post('/site-options', [App\Http\Controllers\AdminDashboardController::class, 'siteOptions'])->name('dashboard.options.update');
+        });
     });
 });
