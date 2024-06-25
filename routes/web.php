@@ -34,7 +34,7 @@ Route::middleware([AdminMiddleware::class])->group(function () {
             Route::get('/active-coins', [App\Http\Controllers\AdminDashboardController::class, 'activeCoins'])->name('dashboard.active-coins');
 
             Route::get('/settings', [App\Http\Controllers\AdminDashboardController::class, 'settings'])->name('dashboard.settings');
-            Route::post('/site-options', [App\Http\Controllers\AdminDashboardController::class, 'siteOptions'])->name('dashboard.options.update');
+            Route::post('/site-options', [App\Http\Controllers\AdminDashboardController::class, 'updateSiteOptions'])->name('dashboard.options.update');
         });
     });
 });

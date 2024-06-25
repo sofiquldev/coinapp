@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\SiteOption;
 use Illuminate\Support\Facades\Log;
 
 if (!function_exists('fetchCryptoData')) {
@@ -37,7 +38,22 @@ if (!function_exists('fetchCryptoData')) {
             return ['error' => 'Failed to decode JSON'];
         }
 
-        return $data['data'] ?? [];
+        // Fetch active coins from the database
+        $activeCoinsJson = SiteOption::where('key', 'active-coins')->value('value');
+        $activeCoins = json_decode($activeCoinsJson, true);
+
+        // Filter the coin data to only include active coins
+        $activeAssets = array_filter($data['data'], function($asset) use ($activeCoins) {
+            foreach ($activeCoins as $coin) {
+                if ($coin['symbol'] === $asset['symbol'] && $coin['isActive']) {
+                    return true;
+                }
+            }
+            return false;
+        });
+
+
+        return $activeAssets ?? [];
     }
 
     // Function to format numbers

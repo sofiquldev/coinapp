@@ -1,0 +1,36 @@
+.trade-table {
+    background-color: #222;
+    border-radius: 16px;
+    padding: 16px 0;
+    border: 1px solid #575757;
+    table {
+        width: 100%;
+        th {
+            padding: 12px;
+            border-bottom: 1px solid #575757;
+        }
+        tr {
+            &:hover {
+                background-color: #575757;
+            }
+        }
+        td {
+            padding: 4px;
+            cursor: pointer;
+            &.coin-name {
+                img {
+                    display: inline;
+                    margin-right: 9px;
+                }
+            }
+        }
+        @media screen and (max-width: 767px) {
+            .coin-market-cap,
+            .coin-supply,
+            .coin-volume,
+            .coin-change {
+                display: none;
+            }
+        }
+    }
+}

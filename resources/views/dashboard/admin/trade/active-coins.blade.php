@@ -11,84 +11,82 @@
     </div>
 
     <div class="row g-6">
-        <div class="col-xxl-8">
+        <div class="col-12">
             <div class="d-flex flex-column gap-6">
                 <div class="table-area n0-bg cus-rounded-1 p-4 p-lg-6 cus-border ">
-                    <div class="table-main align">
-                        <table>
-                            <tr>
-                                <th>
-                                    <div class="form-check-linethrough">
-                                        <input type="checkbox" class="selectAllCheckbox form-check-input alt flex-none box_5 checkAll border-color-500">
-                                    </div>
-                                </th>
-                                <th>Coin Name</th>
-                                <th>Rate</th>
-                                <th>Amount</th>
-                                <th>Date</th>
-                                <th>Action</th>
-                            </tr>
-                            @for($i=1; $i < 10; $i++)
-                            <tr>
-                                <td>
-                                    <div class="form-check-linethrough">
-                                        <input type="checkbox" class="checkbox form-check-input alt flex-none box_5 border-color-500">
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="d-flex align-items-center gap-3">
-                                        <img src="{{ asset('/images/bitcoin_mid.png') }}" class="box_8" alt="icon">
-                                        <span>Bought BTC</span>
-                                    </div>
-                                </td>
-                                <td>1.23%</td>
-                                <td>$516,55</td>
-                                <td>03/05/2024</td>
-                                <td>
-                                    <div class="position-relative d-center"><span class="material-symbols-outlined action_setting"> more_vert </span>
-                                        <div class="action_drop">
-                                            <a href="#">Edit</a>
-                                            <a href="#">delete</a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            @endfor
+                    <form class="table-main align" id="activeCoinForm">
+                        <table class="display">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">#</th>
+                                    <th class="text-center">Name</th>
+                                    <th class="text-center" style="max-width: 72px">Active</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($data->active_coins as $key => $coins)
+                                    @php
+                                        $symbol = strtolower($coins->symbol);
+                                        $iconUrl = "https://assets.coincap.io/assets/icons/{$symbol}@2x.png";
+                                    @endphp
+                                    <tr data-id="{{ $key+1 }}">
+                                        <td class="text-center">{{ $key+1 }}</td>
+                                        <td class="coin-name" title="{{ $coins->name }}">
+                                            <img style="width: 36px" src="{{ $iconUrl }}" alt="{{ $coins->name }}"> {{ $coins->name }}
+                                        </td>
+                                        <td style="max-width: 72px">
+                                            <input type="checkbox" name="activeCoins[]" data-symbol="{{ $coins->symbol }}" data-name="{{ $coins->name }}" class="checkbox form-check-input alt bg-dark flex-none box_5 border-color-500" {{ $coins->isActive ? 'checked': '' }}>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
                         </table>
-                    </div>
+                        <div class="d-flex gap-5 gap-lg-6 pt-4 justify-content-end">
+                            <button type="submit" class="btn_box py-2 py-lg-3 px-5 px-lg-6 cus-rounded-1 cus-border border-color">Save Changes</button>
+                            <button type="reset" class="btn_box btn_alt py-2 py-lg-3 px-5 px-lg-6 cus-rounded-1 cus-border border-color">Cancel</button>
+                        </div>
+                    </form>
                 </div>
            </div>
         </div>
-        <div class="col-xxl-4">
-            <div class="d-flex flex-column gap-6 h-100">
-                <div class="n0-bg cus-rounded-1 p-4 p-lg-6 p-xxl-8 cus-border h-100">
-                    <div
-                        class="header-part d-flex flex-wrap justify-content-between align-items-center gap-8 row-gap-3 pb-5 pb-xxl-6 mb-5 mb-xxl-6">
-                        <h4 class="fw-semibold">Add New Coin</h4>
-                    </div>
-                    <form class="d-flex flex-column gap-5 gap-lg-6 w-100">
-                        <div class="single-input">
-                            <div class="single-input">
-                                <label for="coin-name" class="fs-six-up fw-medium mb-2 mb-sm-4">Coin Name</label>
-                                <input type="text" class="fs-seven py-3 px-5 px-lg-6" id="coin-name" placeholder="Coin Name" required>
-                            </div>
-                        </div>
-                        <div class="single-input">
-                            <label for="coin-price" class="fs-six-up fw-medium mb-2 mb-sm-4">Coin Price</label>
-                            <input type="number" class="fs-seven py-3 px-5 px-lg-6" id="coin-price" placeholder="15,125" required>
-                        </div>
-                        <div class="d-flex gap-5 gap-lg-6 pt-4">
-                            <button type="submit" class="btn_box py-2 py-lg-3 px-5 px-lg-6 cus-rounded-1 cus-border border-color">Save Change</button>
-                            <button type="reset" class="btn_box btn_alt py-2 py-lg-3 px-5 px-lg-6 cus-rounded-1 cus-border border-color">Cancle</button>
-                        </div>
-                    </form>
-                    <a href="{{ route('trade') }}">
-                        <h6 class="d-flex align-items-center gap-2 p1-color mt-5 mt-lg-6">Go to Trade Page <span
-                                class="material-symbols-outlined">arrow_right_alt</span></h6>
-                    </a>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+    $(document).ready(function() {
+        $('#activeCoinForm').on('submit', function(e) {
+            e.preventDefault();
+
+            let activeCoins = [];
+            $('#activeCoinForm input[type="checkbox"]').each(function() {
+                let coin = {
+                    name: $(this).data('name'),
+                    symbol: $(this).data('symbol'),
+                    isActive: $(this).is(':checked')
+                };
+                activeCoins.push(coin);
+            });
+
+            let token = '{{ csrf_token() }}';
+
+            $.ajax({
+                url: '{{ route('dashboard.options.update') }}',
+                method: 'POST',
+                data: {
+                    _token: token,
+                    key: 'active-coins',
+                    value: JSON.stringify(activeCoins)
+                },
+                success: function(response) {
+                    alert(response.message); // Show "Saved!" message
+                },
+                error: function(xhr, status, error) {
+                    alert('An error occurred: ' + xhr.responseText);
+                }
+            });
+        });
+    });
+</script>
 @endsection

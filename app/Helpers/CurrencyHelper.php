@@ -1,23 +1,32 @@
 <?php
 use App\Models\SiteOption;
 
+class CustomCurrencyFormatter
+{
+    protected static $currencySymbols = [
+        'USD' => '$',
+        'EUR' => '€',
+        'JPY' => '¥',
+        'GBP' => '£',
+        'AUD' => 'A$',
+        'CAD' => 'C$',
+        'CHF' => 'CHF',
+        'CNY' => '¥',
+    ];
+
+    public static function formatCurrency($amount, $isoCode = 'USD')
+    {
+        $symbol = self::$currencySymbols[$isoCode] ?? '$';
+        return $symbol . number_format($amount, 2). ' '. $isoCode;
+    }
+}
+
 if (!function_exists('currencyHelper')) {
     function currencyHelper($amount)
     {
         $siteCurrency = SiteOption::where('key', 'site-currency')->first();
         $isoCode = $siteCurrency->value ?? 'USD';
 
-        $fmt = new NumberFormatter( config('app.locale'), NumberFormatter::CURRENCY );
-        return $fmt->formatCurrency($amount, $isoCode).' '.$isoCode;
+        return CustomCurrencyFormatter::formatCurrency($amount, $isoCode);
     }
-}
-
-function getCurrencySymbol($isoCode)
-{
-    $symbols = [
-        'USD' => '$',
-        'EUR' => '€',
-    ];
-
-    return $symbols[$isoCode] ?? '$'; // Default to '$' if not found
 }

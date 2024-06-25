@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('phone_number')->nullable();
             $table->string('gender')->nullable();
             $table->decimal('balance', 15, 2)->default(0.00);
+            $table->string('coins')->nullable(); //[]
             $table->json('address')->nullable(); // Stores address in JSON format
             $table->tinyInteger('status')->default(1); // 1: active, 2: pending, 3: deactivated, 4: deleted
             $table->string('image')->default('no-avatar.webp');

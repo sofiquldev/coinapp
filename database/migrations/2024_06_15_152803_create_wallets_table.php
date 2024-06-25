@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('wallets', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('cryptocurrency_id')->constrained()->onDelete('cascade'); // Assuming a cryptocurrencies table exists
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('cryptocurrency_id'); // Assuming a cryptocurrencies table exists
             $table->decimal('balance', 15, 8)->default(0.00000000);
             $table->timestamps();
         });

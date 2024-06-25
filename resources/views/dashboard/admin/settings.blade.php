@@ -177,15 +177,22 @@
                                             default currency</label>
                                         <div
                                             class="input_select d-flex align-items-center gap-2 bg1-opty cus-border cus-rounded-1 py-3 ps-3 ps-xxl-4 ">
+                                            @php
+                                                if(empty($data->currency->value)) {
+                                                    $currencyValue = 'USD';
+                                                } else {
+                                                    $currencyValue = $data->currency->value;
+                                                }
+                                            @endphp
                                             <select class="select_form pe-7 pe-lg-10 pe-xxl-12" id="site-currency">
-                                                <option value="USD" {{ $data->currency->value === 'USD' ? 'selected' : '' }}>US Dollar (USD)</option>
-                                                <option value="EUR" {{ $data->currency->value === 'EUR' ? 'selected' : '' }}>Euro (EUR)</option>
-                                                <option value="JPY" {{ $data->currency->value === 'JPY' ? 'selected' : '' }}>Japanese Yen (JPY)</option>
-                                                <option value="GBP" {{ $data->currency->value === 'GBP' ? 'selected' : '' }}>British Pound (GBP)</option>
-                                                <option value="AUD" {{ $data->currency->value === 'AUD' ? 'selected' : '' }}>Australian Dollar (AUD)</option>
-                                                <option value="CAD" {{ $data->currency->value === 'CAD' ? 'selected' : '' }}>Canadian Dollar (CAD)</option>
-                                                <option value="CHF" {{ $data->currency->value === 'CHF' ? 'selected' : '' }}>Swiss Franc (CHF)</option>
-                                                <option value="CNY" {{ $data->currency->value === 'CNY' ? 'selected' : '' }}>Chinese Yuan (CNY)</option>
+                                                <option value="USD" {{ $currencyValue === 'USD' ? 'selected' : '' }}>US Dollar (USD)</option>
+                                                <option value="EUR" {{ $currencyValue === 'EUR' ? 'selected' : '' }}>Euro (EUR)</option>
+                                                <option value="JPY" {{ $currencyValue === 'JPY' ? 'selected' : '' }}>Japanese Yen (JPY)</option>
+                                                <option value="GBP" {{ $currencyValue === 'GBP' ? 'selected' : '' }}>British Pound (GBP)</option>
+                                                <option value="AUD" {{ $currencyValue === 'AUD' ? 'selected' : '' }}>Australian Dollar (AUD)</option>
+                                                <option value="CAD" {{ $currencyValue === 'CAD' ? 'selected' : '' }}>Canadian Dollar (CAD)</option>
+                                                <option value="CHF" {{ $currencyValue === 'CHF' ? 'selected' : '' }}>Swiss Franc (CHF)</option>
+                                                <option value="CNY" {{ $currencyValue === 'CNY' ? 'selected' : '' }}>Chinese Yuan (CNY)</option>
                                             </select>
                                         </div>
                                     </div>

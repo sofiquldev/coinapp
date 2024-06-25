@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('order_id')->constrained()->onDelete('cascade'); // Assuming order_id refers to a trading table
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('order_id');
             $table->decimal('amount', 15, 2);
             $table->string('screenshot')->nullable();
             $table->string('tnx_id')->unique();

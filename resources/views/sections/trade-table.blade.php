@@ -25,16 +25,17 @@
             @if (isset($error))
                 <div class="alert alert-danger">{{ $error }}</div>
             @else
-                <table id="crypto-table" class="display">
+            <div class="trade-table">
+                <table>
                     <thead>
                         <tr>
-                            <th class="text-center">Rank</th>
+                            <th class="text-center" style="min-width: 36px">#</th>
                             <th class="text-center">Name</th>
-                            <th class="text-center">Price</th>
-                            <th class="text-center">Market Cap</th>
-                            <th class="text-center">Supply</th>
-                            <th class="text-center">Volume (24hr)</th>
-                            <th class="text-center">Change (24hr)</th>
+                            <th class="text-center coin-price">Price</th>
+                            <th class="text-center coin-market-cap">Market Cap</th>
+                            <th class="text-center coin-supply">Supply</th>
+                            <th class="text-center coin-volume">Volume (24hr)</th>
+                            <th class="text-center coin-change">Change (24hr)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -48,36 +49,22 @@
                                 <td class="coin-name" title="{{ $asset['name'] }}">
                                     <img src="{{ $iconUrl }}" alt="{{ $asset['name'] }}"> {{ $asset['symbol'] }}
                                 </td>
-                                <td class="coin-price text-center">${{ formatNumber($asset['priceUsd'], 2) }}</td>
-                                <td class="text-center coin-market-cap">${{ formatNumber($asset['marketCapUsd'], 2) }}
+                                <td class="text-center coin-price">${{ formatNumber($asset['priceUsd']) }}</td>
+                                <td class="text-center coin-market-cap">${{ formatNumber($asset['marketCapUsd']) }}
                                 </td>
-                                <td class="text-center coin-supply">${{ formatNumber($asset['supply'], 2) }}</td>
-                                <td class="text-center coin-volume">${{ formatNumber($asset['volumeUsd24Hr'], 2) }}
+                                <td class="text-center coin-supply">${{ formatNumber($asset['supply']) }}</td>
+                                <td class="text-center coin-volume">${{ formatNumber($asset['volumeUsd24Hr']) }}
                                 </td>
-                                <td class="text-center coin-change {{ $asset['changePercent24Hr'] < 0 ? 'color-red' : 'color-green' }}">
-                                    {{ formatNumber($asset['changePercent24Hr']) }}</td>
+                                <td
+                                    class="text-center coin-change">
+                                    {{ formatNumber($asset['changePercent24Hr']) }}%
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
+            </div>
             @endif
-            {{-- <table id="crypto-table" class="display">
-
-                <thead>
-                    <tr>
-                        <th>Rank</th>
-                        <th class="coin-name">Name</th>
-                        <th class="coin-price">Price (USD)</th>
-                        <th>Market Cap (USD)</th>
-                        <th>Supply</th>
-                        <th>Volume (24Hr USD)</th>
-                        <th class="coin-change">Change (24Hr %)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Data will be inserted here -->
-                </tbody>
-            </table> --}}
         </div>
     </div>
 </section>
