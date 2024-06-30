@@ -18,10 +18,13 @@ Auth::routes();
 
 // User Dashboard
 Route::middleware(['auth'])->group(function () {
-    Route::prefix('u')->group(function () {
-        Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
-        // Add more routes as needed
-    });
+    // Route::prefix('u')->group(function () {
+    //     Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+    //     // Add more routes as needed
+    // });
+    Route::post('/orders', [App\Http\Controllers\OrderController::class, 'store'])->name('order.post');
+    Route::get('/payment', [App\Http\Controllers\OrderController::class, 'paymentPage'])->name('payment');
+    Route::post('/transactions', [App\Http\Controllers\TransactionController::class, 'store'])->name('transactions.post');
 });
 
 

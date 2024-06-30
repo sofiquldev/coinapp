@@ -309,6 +309,7 @@ if (
 }
 
 
+
 // Cripto Table
 // Your API key
 const apiKey = '353192f0-1697-4343-8a35-34fdb4f6d43f';

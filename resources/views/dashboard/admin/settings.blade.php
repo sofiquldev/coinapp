@@ -204,6 +204,25 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-12">
+                        <div class="box_part_area n0-bg cus-rounded-1 p-4 p-md-7 p-xxl-10 cus-border">
+                            <div class="d-flex flex-wrap justify-content-between align-items-center gap-8 row-gap-3">
+                                <h4>Service Fee</h4>
+                                <small>Profit Margin</small>
+                            </div>
+                            <div class="box_part__content">
+                                <form class="d-flex flex-column gap-5 gap-lg-6 w-100 cus-border-dashed top border-color-30 pt-5 pt-xxl-6 mt-5 mt-xxl-6" id="site-service-fee-update">
+                                    <div class="single-input">
+                                        <label for="site-service-fee" class="fs-six-up fw-medium mb-2 mb-sm-4">Set Your Service fee (%)</label>
+                                        <input type="number" step="0.1" class="fs-seven py-3 px-5 px-lg-6" id="site-service-fee" placeholder="6.15%" required value="{{ $data->serviceFee ? $data->serviceFee : env("SITE_SERVICE_FEE", 5)}}">
+                                    </div>
+                                    <div class="d-flex gap-5 gap-lg-6 pt-4">
+                                        <button type="submit" class="btn_box py-2 py-lg-3 px-5 px-lg-6 cus-rounded-1 cus-border border-color">Save Change</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                     {{-- <div class="col-12">
                         <div class="box_part_area n0-bg cus-rounded-1  p-4 p-md-7 p-xxl-10 cus-border">
                             <div class="d-flex flex-wrap justify-content-between align-items-center gap-8 row-gap-3">
@@ -253,6 +272,28 @@
                         _token: token,
                         key: 'site-currency',
                         value: currency
+                    },
+                    success: function(response) {
+                        alert(response.message); // Show "Saved!" message
+                    },
+                    error: function(xhr, status, error) {
+                        alert('An error occurred: ' + xhr.responseText);
+                    }
+                });
+            });
+            $('#site-service-fee-update').on('submit', function(e) {
+                e.preventDefault();
+
+                let serviceFee = $('#site-service-fee').val();
+                let token = '{{ csrf_token() }}';
+
+                $.ajax({
+                    url: '{{ route('dashboard.options.update') }}',
+                    method: 'POST',
+                    data: {
+                        _token: token,
+                        key: 'site-service-fee',
+                        value: serviceFee
                     },
                     success: function(response) {
                         alert(response.message); // Show "Saved!" message

@@ -35,7 +35,7 @@
                             <th class="text-center coin-market-cap">Market Cap</th>
                             <th class="text-center coin-supply">Supply</th>
                             <th class="text-center coin-volume">Volume (24hr)</th>
-                            <th class="text-center coin-change">Change (24hr)</th>
+                            <th class="text-center">Trade</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -55,9 +55,14 @@
                                 <td class="text-center coin-supply">${{ formatNumber($asset['supply']) }}</td>
                                 <td class="text-center coin-volume">${{ formatNumber($asset['volumeUsd24Hr']) }}
                                 </td>
-                                <td
-                                    class="text-center coin-change">
-                                    {{ formatNumber($asset['changePercent24Hr']) }}%
+                                <td class="text-center">
+                                    {{-- {{ formatNumber($asset['changePercent24Hr']) }}% --}}
+                                    <button
+                                        type="button"
+                                        class="btn btn-navbar btn-sm open-trade-btn"
+                                        data-coin="{{ $asset['symbol'] }}"
+                                        data-price="{{ $asset['priceUsd'] }}"
+                                    >Trade</button>
                                 </td>
                             </tr>
                         @endforeach

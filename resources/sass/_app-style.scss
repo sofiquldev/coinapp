@@ -3,34 +3,131 @@
     border-radius: 16px;
     padding: 16px 0;
     border: 1px solid #575757;
+
     table {
         width: 100%;
+
+        @media screen and (max-width: 767px) {
+            * {
+                font-size: clamp(12px, 1vw, 16px);
+            }
+        }
+        @media screen and (max-width: 575px) {
+            .btn-sm {
+                padding: 0.3rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+
         th {
             padding: 12px;
             border-bottom: 1px solid #575757;
         }
+
         tr {
             &:hover {
                 background-color: #575757;
             }
         }
+
         td {
             padding: 4px;
             cursor: pointer;
+
             &.coin-name {
                 img {
+                    width: clamp(32px, 5vw, 56px);
                     display: inline;
                     margin-right: 9px;
                 }
             }
         }
+
         @media screen and (max-width: 767px) {
+
             .coin-market-cap,
             .coin-supply,
             .coin-volume,
             .coin-change {
                 display: none;
             }
+        }
+    }
+
+    .btn {
+        &::after {
+            background-color: #333;
+        }
+    }
+}
+
+#trade-modal {
+    text-align: center;
+    background-color: #49652c40;
+    #highlight-coin-name {
+        color: #c4f241;
+    }
+
+    form {
+        input {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #444;
+            background-color: #333;
+            margin: 12px 0 16px;
+            text-align: center;
+        }
+
+        .modal-btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn {
+            display: block;
+            @media screen and (max-width: 480px) {
+                font-size: 0.9rem;
+            }
+            &::after {
+                background-color: #333;
+            }
+
+            &-danger {
+                color: #222;
+
+                &::after {
+                    background-color: rgb(233, 63, 12);
+                }
+            }
+        }
+    }
+}
+
+.paymemt-section {
+    padding: clamp(100px, 20vw, 250px) 0 clamp(50px, 10vw, 100px);
+    text-align: center;
+    background-color: #111;
+
+    form {
+        max-width: clamp(300px, 60vw, 650px);
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+        input {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            border-radius: 12px;
+            background-color: #222;
         }
     }
 }

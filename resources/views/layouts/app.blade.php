@@ -42,7 +42,7 @@
 </head>
 
 <body class="relative overflow-x-hidden  text-base antialiased bg-white dark:bg-dark-300 font-Inter">
-    @include('partials.app-dark-mode-toggler')
+    @include('partials.app.dark-mode-toggler')
 
     @yield('content')
 
