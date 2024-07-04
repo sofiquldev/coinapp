@@ -21,10 +21,11 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
-        'phone_number', 
-        'gender', 
-        'balance', 
-        'address', 
+        'phone_number',
+        'gender',
+        'balance',
+        'address',
+        'ip_address',
         'status'
     ];
 
@@ -70,4 +71,5 @@ class User extends Authenticatable
     {
         return $this->hasMany(Order::class);
     }
+
 }

@@ -17,31 +17,27 @@
     <div class="main-menu">
         <ul class="main-menu__part">
             <li class="main-menu__title fw-semibold ">Dashboard</li>
-            <li class="nav_dropdown"><button class="dropdown_arrow"><span class="material-symbols-outlined fs-four-up">
-                        house </span> <span class="nav_text">Dashboards</span></button>
-                <ul class="nav_dropdown-menu ">
-                    <li><a href="{{ route('dashboard') }}">Default</a></li>
-                    <li><a href="analytics.html">Analytics</a></li>
-                    <li><a href="wallet.html">Wallet</a></li>
-                </ul>
-            </li>
+            <li><a href="{{ route('dashboard') }}"><span class="material-symbols-outlined fs-four-up">house </span> Dashboard</a></li>
+
             <li class="nav_dropdown"><button class="dropdown_arrow"><span class="material-symbols-outlined fs-four-up">
                         group </span> <span class="nav_text">Users</span></button>
                 <ul class="nav_dropdown-menu ">
                     <li><a href="#">Create User</a></li>
-                    <li><a href="#">All Users</a></li>
+                    <li><a href="{{ route('dashboard.users') }}">All Users</a></li>
                     <li><a href="#">Users Group</a></li>
                 </ul>
             </li>
+
             <li class="nav_dropdown"><button class="dropdown_arrow"><span class="material-symbols-outlined fs-four-up">
                         paid </span> <span class="nav_text">Trade</span></button>
                 <ul class="nav_dropdown-menu ">
                     <li><a href="#">All Trades</a></li>
                     <li><a href="#">Pending Trades</a></li>
-                    <li><a href="#">Transection History</a></li>
+                    <li><a href="{{ route('dashboard.transactions') }}">Transection History</a></li>
                     <li><a href="{{ route('dashboard.active-coins') }}">Active Coins</a></li>
                 </ul>
             </li>
+
             <li class="nav_dropdown"><button class="dropdown_arrow"><span class="material-symbols-outlined fs-four-up">
                         settings </span> <span class="nav_text">Site Options</span></button>
                 <ul class="nav_dropdown-menu ">

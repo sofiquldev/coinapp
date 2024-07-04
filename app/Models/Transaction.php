@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Transaction extends Model
 {
     use HasFactory;
-    
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -17,5 +17,10 @@ class Transaction extends Model
     public function order()
     {
         return $this->belongsTo(Order::class); // Assuming a Order model exists
+    }
+
+    public function getScreenshotUrlAttribute()
+    {
+        return $this->screenshot ? Storage::url($this->screenshot) : null;
     }
 }

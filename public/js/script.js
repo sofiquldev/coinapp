@@ -199,7 +199,7 @@ function myTabClicks(e) {
 }
 for (let e = 0; e < faqTabs.length; e++)
     faqTabs[e].addEventListener("click", myTabClicks);
-Fancybox.bind("[data-fancybox]", {}),
+    Fancybox.bind("[data-fancybox]", {}),
     gsap.registerPlugin(MotionPathPlugin),
     gsap.set("#rect, #rect-2, #rect-3, #rect-4, #rect-5, #rect-6", {
         opacity: 1,

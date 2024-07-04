@@ -58,6 +58,7 @@
     <script type="text/javascript" src="{{ asset('vendor/aos/aos.js') }}"></script>
     <script type="text/javascript" src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/script.js') }}"></script>
+    @yield('scripts')
 </body>
 
 </html>
