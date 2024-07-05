@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Models\Order;
+use App\Models\Transaction;
+use GrahamCampbell\ResultType\Success;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -35,5 +37,16 @@ class OrderController extends Controller
         $order_id = $request->query('order_id');
         $data = Order::where('id', $order_id)->first();
         return view('payment', ['data' => $data]);
+    }
+
+    public function updateOrder(Request $request) {
+        // Transaction
+        $tnx_id = $request->query('tnx_id');
+        $transection = Transaction::findOrFail($tnx_id);
+        return json_encode($transection);
+        return json_encode([
+            'status'    => 'success',
+            'message'   => 'Order/Transection Updated!'
+        ]);
     }
 }

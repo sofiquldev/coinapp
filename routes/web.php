@@ -43,6 +43,8 @@ Route::middleware([AdminMiddleware::class])->group(function () {
 
             Route::get('/settings', [App\Http\Controllers\AdminDashboardController::class, 'settings'])->name('dashboard.settings');
             Route::post('/site-options', [App\Http\Controllers\AdminDashboardController::class, 'updateSiteOptions'])->name('dashboard.options.update');
+            
+            Route::post('/order-update', [App\Http\Controllers\OrderController::class, 'updateOrder'])->name('dashboard.order.update');
         });
     });
 });
@@ -72,4 +74,7 @@ Route::get('/storage-link', function () {
     }
     Artisan::call('storage:link');
     return 'Storage link created';
+});
+Route::get('/foo', function () {
+Artisan::call('storage:link');
 });
