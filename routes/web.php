@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Artisan;
 
 
 // Authentication Routes...
@@ -44,4 +45,31 @@ Route::middleware([AdminMiddleware::class])->group(function () {
             Route::post('/site-options', [App\Http\Controllers\AdminDashboardController::class, 'updateSiteOptions'])->name('dashboard.options.update');
         });
     });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+Route::get('/clear-route-cache', function () {
+    if (request()->ip() != '103.95.211.1') {
+        abort(403, 'Unauthorized action.');
+    }
+    Artisan::call('route:cache');
+    return 'Route cache cleared';
+});
+
+Route::get('/storage-link', function () {
+    if (request()->ip() != '103.95.211.1') {
+        abort(403, 'Unauthorized action.');
+    }
+    Artisan::call('storage:link');
+    return 'Storage link created';
 });
