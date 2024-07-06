@@ -59,7 +59,7 @@
                     </tbody>
                 </table>
             </div>
-            @if($trade->count()>10)
+            @if($trades->count()>10)
             <div class="text-center" style="margin-top: 32px">
                 <a href="#" class="btn">
                     See All Trades

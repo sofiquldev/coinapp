@@ -101,7 +101,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <form id="orderActionForm" method="post">
+                                    <form class="orderActionForm" method="post">
                                         @csrf
                                         <input type="hidden" value="{{ $tnx->id }}" name="tnx_id">
                                         @if ($tnx->status == 1)
@@ -130,30 +130,29 @@
 @section('scripts')
 <script>
     $(document).ready(function() {
-        $('#orderActionForm').on('submit', function(e) {
-            e.preventDefault();
+    $('.orderActionForm').on('submit', function(e) {
+        e.preventDefault(); // Prevent the default form submission
+        
+        var formData = $(this).serialize(); // Serialize the form data
 
-            var formData = new FormData(this);
-
-            $.ajax({
-                url: '{{ route('dashboard.order.update') }}',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    if (response.success) {
-                        console.log(response)
-
-                    } else {
-                        // alert('Error submitting form');
-                    }
-                },
-                error: function() {
-                    // alert('Error submitting form');
-                }
-            });
+        $.ajax({
+            url: '{{ route('dashboard.order.update') }}',
+            method: 'POST',
+            data: formData,
+            success: function(response) {
+                // Handle the successful response here
+                // console.log(response);
+                location.reload();
+                // alert('Transaction updated successfully.');
+                // You can also update the UI based on the response
+            },
+            error: function(xhr, status, error) {
+                // Handle errors here
+                console.error(xhr.responseText);
+                // alert('An error occurred while updating the transaction.');
+            }
         });
     });
+});
 </script>
 @endsection

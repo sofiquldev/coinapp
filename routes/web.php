@@ -26,6 +26,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/orders', [App\Http\Controllers\OrderController::class, 'store'])->name('order.post');
     Route::get('/payment', [App\Http\Controllers\OrderController::class, 'paymentPage'])->name('payment');
     Route::post('/transactions', [App\Http\Controllers\TransactionController::class, 'store'])->name('transactions.post');
+    
+    Route::get('/withdraw', [App\Http\Controllers\OrderController::class,'withdraw'])->name('withdraw');
+    Route::post('/withdraw', [App\Http\Controllers\OrderController::class,'withdrawPost'])->name('withdraw.post');
+    Route::get('/withdraw-process', [App\Http\Controllers\OrderController::class,'withdrawProcess'])->name('withdraw.process');
 });
 
 

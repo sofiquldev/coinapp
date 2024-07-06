@@ -40,13 +40,38 @@ class OrderController extends Controller
     }
 
     public function updateOrder(Request $request) {
-        // Transaction
-        $tnx_id = $request->query('tnx_id');
-        $transection = Transaction::findOrFail($tnx_id);
-        return json_encode($transection);
-        return json_encode([
-            'status'    => 'success',
-            'message'   => 'Order/Transection Updated!'
+        // Validate the request data
+        $request->validate([
+            'tnx_id' => 'required|integer|exists:transactions,id',
+            'tnx_status' => 'required|integer'
         ]);
+    
+        $transaction = Transaction::find($request->input('tnx_id'));
+        $order_id = Transaction::find($request->input('tnx_id'))->order->id;
+        $order = Order::find($order_id);
+    
+        // Update the status
+        $transaction->status = intval($request->input('tnx_status'));
+        $order->status = intval($request->input('tnx_status'));
+    
+        // Save the changes
+        $transaction->save();
+        $order->save();
+    
+        // Return a response
+        return response()->json(['message' => 'Transaction updated successfully.', 'order'=>$order]);
     }
+
+
+
+    public function withdraw() {
+        return view('withdraw');
+    }
+    public function withdrawPost(Request $request) {
+        return view('withdraw');
+    }
+    public function withdrawProcess() {
+        return view('withdraw-process');
+    }
+    
 }

@@ -69,7 +69,7 @@
 
                         @if(Auth::user()->role == 2)
                         <li class="relative overflow-hidden text-base capitalize text-paragraph pb-2.5 before:absolute before:bottom-0 before:left-0 before:h-[2px] before:w-full before:origin-right before:scale-x-0 before:bg-paragraph dark:before:bg-white  before:transition-transform before:duration-500 duration-500 before:content-[''] before:hover:origin-left before:hover:scale-x-100">
-                            <a href="#" class="flex">
+                            <a href="{{ route('withdraw') }}" class="flex">
                                 Withdraw Cash
                             </a>
                         </li>
@@ -134,6 +134,15 @@
                         Wallet
                     </a>
                 </li>
+                @if(Auth::user()->role == 2)
+                <li>
+                    <a href="{{ route('withdraw') }}"
+                        class="font-Inter flex items-center text-base font-medium leading-8 text-paragraph dark:text-white py-[5px] px-5 lg:px-4 xl:px-5 border rounded-large border-transparent hover:bg-white hover:border-borderColour dark:hover:bg-dark-200
+            dark:hover:border-borderColour/10 duration-500 hover:duration-500 transition-colors {{ Route::currentRouteName() == 'withdraw' ? 'active' : '' }}">
+                        Withdraw
+                    </a>
+                </li>
+                @endif
                 @guest
                     <li class="nav-item">
                         @if (Route::has('login'))
