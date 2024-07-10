@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Order;
+use App\Models\User;
 use App\Models\Transaction;
 use GrahamCampbell\ResultType\Success;
 use Illuminate\Support\Facades\Auth;
@@ -11,67 +12,77 @@ class OrderController extends Controller
 {
     public function store(Request $request)
     {
-        // $validatedData = $request->validate([
-        //     'coin' => 'required|string|max:255',
-        //     'rate' => 'required|numeric',
-        //     'invested_money' => 'required|numeric',
-        //     'coin_amount' => 'required|numeric',
-        // ]);
 
-        $order = new Order();
-        $order->user_id = Auth::id();
-        $order->coin_name = $request->coin;
-        $order->rate = $request->rate;
-        $order->cost = $request->invested_money;
-        $order->coin_amount = $request->coin_amount;
-        $order->total = $request->invested_money; // Assuming total is same as invested_money for simplicity
-        $order->status = 2; // on-process
-        $order->save();
+        if($request->invested_money < 1) {
+            return redirect()->route('trade');
+        } else {
+            $order = new Order();
+            $order->user_id = Auth::id();
+            $order->coin_name = $request->coin;
+            $order->rate = $request->rate;
+            $order->cost = $request->invested_money;
+            $order->coin_amount = $request->coin_amount;
+            $order->time = $request->trade_time;
+            $order->total = $request->invested_money; // Assuming total is same as invested_money for simplicity
+            $order->status = 2; // on-process
+            $order->save();
 
-        // Redirect to payment page with order details
-        return redirect()->route('payment', ['order_id' => $order->id]);
+            // Redirect to deposit page with order details
+            return redirect()->route('trade.process', ['trade_id' => $order->id]);
+        }
     }
 
-    public function paymentPage(Request $request)
-    {
-        $order_id = $request->query('order_id');
-        $data = Order::where('id', $order_id)->first();
-        return view('payment', ['data' => $data]);
+    public function tradeProcess(Request $request) {
+        $order_id = $request->trade_id;
+        $order = Order::findOrFail($order_id);
+        return view('trade-proccess', compact('order'));
     }
+
 
     public function updateOrder(Request $request) {
-        // Validate the request data
-        $request->validate([
-            'tnx_id' => 'required|integer|exists:transactions,id',
-            'tnx_status' => 'required|integer'
-        ]);
-    
-        $transaction = Transaction::find($request->input('tnx_id'));
-        $order_id = Transaction::find($request->input('tnx_id'))->order->id;
-        $order = Order::find($order_id);
-    
+
+        $order = Order::find($request->input('trade_id'));
+        $user = User::findOrFail($order->user_id);
+        $trade_result = $request->input('trade_result');
+
         // Update the status
-        $transaction->status = intval($request->input('tnx_status'));
-        $order->status = intval($request->input('tnx_status'));
-    
+        $order->status = intval($request->input('trade_status'));
+        $order->result = intval($trade_result);
+
+        if($trade_result == 1) { // profit
+            $user->balance = $user->balance + $order->total;
+            $user->save();
+        } else if($trade_result == 2) { // lose
+            $user->balance = $user->balance - $order->total;
+            $user->save();
+        }
+
         // Save the changes
-        $transaction->save();
         $order->save();
-    
+
         // Return a response
         return response()->json(['message' => 'Transaction updated successfully.', 'order'=>$order]);
     }
 
 
+    public function checkStatus(Request $request)
+    {
+        $validated = $request->validate([
+            'order_id' => 'required|integer',
+        ]);
 
-    public function withdraw() {
-        return view('withdraw');
+        // if ($transaction) {
+        //     return response()->json([
+        //         'amount'         => $transaction->amount,
+        //         // 'account_type'   => $transaction->account_type,
+        //         // 'account_number' => $transaction->account_number,
+        //         'tnx_id'         => $transaction->account_number,
+        //         'status'         => $transaction->status == 1 ? 'success' : 'pending',
+        //         // 'screenshot_url' => $transaction->screenshot,
+        //         'created_at' => $transaction->created_at->toISOString()
+        //     ]);
+        // }
+
+        return response()->json(['status' => 'not_found'], 404);
     }
-    public function withdrawPost(Request $request) {
-        return view('withdraw');
-    }
-    public function withdrawProcess() {
-        return view('withdraw-process');
-    }
-    
 }

@@ -11,8 +11,8 @@
 <section class="paymemt-section">
     <div class="container text-center">
         <br><br>
-        <h2 style="color: #c4f241">Success!</h2>
-        <p>Your withdraw request has been proceed!</p>
+        <h2 style="color: #c4f241">Thank You!</h2>
+        <p>Your Deposit request has been proceed!</p>
         <br>
         <a href="{{ route('home') }}" class="btn btn-header">Go back to Home</a>
         <br><br>

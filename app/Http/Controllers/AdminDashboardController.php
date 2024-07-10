@@ -6,10 +6,10 @@ use App\Models\SiteOption;
 use App\Models\User;
 use App\Http\Middleware\AdminMiddleware;
 use App\Models\Transaction;
+use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-
-
+use Illuminate\Support\Facades\Redirect;
 
 class AdminDashboardController extends Controller
 {
@@ -26,9 +26,9 @@ class AdminDashboardController extends Controller
     public function index()
     {
         $currency = SiteOption::where('key', 'site-currency')->first() ?? 'USD';
-        $transactions = Transaction::where('status', 1)->take(15)->get();
-        $deposites = Transaction::where('tnx_type', 1)->where('status', 1)->take(15)->sum('amount');
-        $withdraws = Transaction::where('tnx_type', 2)->where('status', 1)->take(15)->sum('amount');
+        $transactions = Transaction::where('status', 1)->latest()->take(15)->get();
+        $deposites = Transaction::where('tnx_type', 1)->where('status', 1)->latest()->take(15)->sum('amount');
+        $withdraws = Transaction::where('tnx_type', 2)->where('status', 1)->latest()->take(15)->sum('amount');
         $users = User::all();
         return view('dashboard.admin.index', compact('currency', 'transactions', 'users', 'deposites', 'withdraws'));
     }
@@ -58,6 +58,17 @@ class AdminDashboardController extends Controller
 
         // Pass the user data to the view
         return view('dashboard.user.single', compact('user'));
+    }
+
+    public function freegeUser(Request $request)
+    {
+        // Retrieve the user by their ID
+        $user = User::findOrFail($request->input('user_id'));
+        $user->status = $request->input('user_status');
+        $user->save();
+
+        // Pass the user data to the view
+        return redirect()->back()->withMessage('Profile updated!');
     }
 
 
@@ -107,6 +118,24 @@ class AdminDashboardController extends Controller
         $transactions = $query->paginate(10); // 20 items per page
 
         return view('dashboard.admin.trade.transactions', compact('transactions'));
+    }
+
+    public function trades(Request $request)
+    {
+        $query = Order::query();
+
+        // Search functionality
+        if ($request->has('search__text')) {
+            $searchText = $request->input('search__text');
+            $query->where('account_number', 'like', '%' . $searchText . '%')
+                ->orWhere('tnx_id', 'like', '%' . $searchText . '%')
+                ->orWhere('user_id', 'like', '%' . $searchText . '%');
+        }
+
+        // Pagination
+        $trades = $query->paginate(10); // 20 items per page
+
+        return view('dashboard.admin.trade.trades', compact('trades'));
     }
 
 

@@ -32,7 +32,7 @@
                         paid </span> <span class="nav_text">Trade</span></button>
                 <ul class="nav_dropdown-menu ">
                     <li><a href="#">All Trades</a></li>
-                    <li><a href="#">Pending Trades</a></li>
+                    <li><a href="{{ route('dashboard.trades') }}">Trades History</a></li>
                     <li><a href="{{ route('dashboard.transactions') }}">Transection History</a></li>
                     <li><a href="{{ route('dashboard.active-coins') }}">Active Coins</a></li>
                 </ul>

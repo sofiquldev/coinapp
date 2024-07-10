@@ -51,6 +51,15 @@
                     </div>
                 </div>
             </div>
+            <div class="text-center">
+                <br><br>
+                <a href="{{ route('deposit') }}" class="btn btn-navbar">
+                    Deposit Cash
+                </a>
+                <a href="{{ route('withdraw') }}" class="btn btn-navbar">
+                    Withdraw Cash
+                </a>
+            </div>
         </div>
     </div>
 </section>

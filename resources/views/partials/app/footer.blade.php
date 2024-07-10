@@ -117,3 +117,14 @@
         </div>
     </div>
 </section>
+
+@auth
+    @if (Auth::user()->status == 5)
+        <div class="freege-acc">
+            <p class="text-center">
+                Your Account has been <b>Freege</b> <br>
+                Please Contact with <a href="mailto:suppoer@mail.com">support</a>
+            </p>
+        </div>
+    @endif
+@endauth

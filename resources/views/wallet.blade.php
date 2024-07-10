@@ -4,7 +4,8 @@
     @include('partials.app.header')
 
     @include('sections.wallet-wallet')
-    @include('sections.wallet-table')
+    @include('sections.wallet-transections')
+    {{-- @include('sections.wallet-table') --}}
 
     {{-- @include('partials.app.cta') --}}
     @include('partials.app.footer')

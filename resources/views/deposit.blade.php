@@ -1,42 +1,31 @@
 <?php
-use Illuminate\Support\Facades\Auth;
-
 $site_currency = App\Models\SiteOption::where('key', 'site-currency')->first();
 if(empty($site_currency)) {
     $site_currency = 'INR';
 } else {
     $site_currency = $site_currency['value'];
 }
-
-// use App\Models\User;
-$user_balance = Auth::user()->balance;
 ?>
 
 @extends('layouts.app')
 
 @section('content')
-@include('partials.app.header')
+    @include('partials.app.header')
 
-<section class="paymemt-section">
-    <div class="container">
-        <h2 id="form-title">Withdraw Request</h2>
-        <br><br>
-        @if (Auth::user()->status == 5)
-            <h3 style="color: #c4f241">Your Account has been &nbsp; <b>Freege</b></h3>
-            <br>
-            <p>Please Contact with <a href="mailto:support@mail.com" style="color: #c4f241">Support</a></p>
-            <br>
-            <a href="mailto:support@mail.com" class="btn btn-nav">Contact to Support</a>
-        @else
+    <section class="paymemt-section">
+        <div class="container">
+            <h2>Deposit Cash</h2>
+            <p>Complete your payment</p>
+            <br><br>
             <form method="post" enctype="multipart/form-data" id="payment-form" action="{{ route('transactions.post') }}">
                 @csrf
-                <input type="hidden" name="tnx_type" value="2">
+                <input type="hidden" name="tnx_type" value="1">
                 <div>
-                    <label for="amount">Available for withdraw</label>
-                    <h2 style="color: #c4f241">{{ currencyHelper($user_balance) }}</h2>
+                    <label for="amount">Amount ({{ $site_currency }})</label>
+                    <input type="number" id="amount" name="amount" min="{{ env('SITE_MIN_DEPOSITE', 100) }}" value="{{ env('SITE_MIN_DEPOSITE', 100) }}" required>
                 </div>
                 <div>
-                    <label for="account_type">Bank</label>
+                    <label for="account_type">Account Type</label>
                     <select id="account_type" name="account_type" required>
                         <optgroup label="Bangladesh">
                             <option value="bkash">Bkash</option>
@@ -89,21 +78,24 @@ $user_balance = Auth::user()->balance;
                     </select>
                 </div>
                 <div>
-                    <label for="amount">Amount ({{ $site_currency }})</label>
-                    <input type="number" id="amount" name="amount" required max="{{ $user_balance }}">
-                </div>
-                <div>
                     <label for="account_number">Account Number</label>
                     <input type="text" id="account_number" name="account_number" required>
                 </div>
+                <div>
+                    <label for="tnx_id">Transaction ID</label>
+                    <input type="text" id="tnx_id" name="tnx_id" required>
+                </div>
+                <div>
+                    <label for="screenshot">Screenshot (optional)</label>
+                    <input type="file" id="screenshot" name="screenshot" accept="image/*">
+                </div>
                 <div class="modal-btn-group">
-                    <button type="submit" class="btn btn-primary">Withdraw Request</button>
+                    <button type="submit" class="btn btn-primary">Deposit Cash</button>
                 </div>
             </form>
-        @endif
-    </div>
-</section>
+        </div>
+    </section>
 
 
-@include('partials.app.footer')
+    @include('partials.app.footer')
 @endsection

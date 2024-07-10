@@ -6,6 +6,13 @@ if(empty($site_currency)) {
 } else {
     $site_currency = $site_currency['value'];
 }
+if(Auth::user()->balance < floatval(env('SITE_MIN_DEPOSITE', 100))) {
+    $default_val = Auth::user()->balance;
+} else {
+    $default_val = floatval(env('SITE_MIN_DEPOSITE', 100));
+}
+
+
 
 ?>
 
@@ -16,6 +23,8 @@ if(empty($site_currency)) {
     <div class="relative w-full p-4 h-auto animate-keep-bounce max-w-xl">
         <div class="relative bg-white dark:bg-dark-200 shadow-box rounded-medium p-2.5 ">
             <div class=" border border-dashed rounded border-gray-100 dark:border-borderColour-dark p-10 max-lg:p-5 ">
+                <div class="user-balance"><i class="fa-solid fa-coins"></i> {{ Auth::user()->balance }}</div>
+
                 <div
                     class="flex items-center justify-center bg border-b border-dashed border-b-borderColour dark:border-borderColour-dark pb-5">
                     <h3 class="text-paragraph dark:text-white">Buy <span id="highlight-coin-name">Coin</span></h3>
@@ -34,14 +43,20 @@ if(empty($site_currency)) {
                     </div>
                     <div>
                         <label for="invested-money">Invested Money: ({{$site_currency}})</label>
-                        <input type="number" id="invested-money" name="invested_money"
-                            min="{{ env('SITE_MIN_DEPOSITE', 100) }}" value="{{ env('SITE_MIN_DEPOSITE', 100) }}"
-                            required>
+                        <input type="number" id="invested-money" name="invested_money" value="{{ floatval($default_val) }}" min="0" max="{{ Auth::user()->balance }}" required>
                     </div>
                     <div>
                         <p>You got</p>
                         <h1 class="text-center" id="coin-amount"></h1>
-                        <br><br>
+                        <br>
+                    </div>
+                    <div class="time-selector">
+                        <input type="radio" id="1mnt" name="trade_time" value="60" checked>
+                        <label for="1mnt"><span>1 Minute</span></label>
+                        <input type="radio" id="3mnt" name="trade_time" value="180">
+                        <label for="3mnt"><span>3 Minute</span></label>
+                        <input type="radio" id="5mnt" name="trade_time" value="300">
+                        <label for="5mnt"><span>5 Minute</span></label>
                     </div>
                     <div class="modal-btn-group">
                         <button type="button" class="btn btn-sm btn-danger" id="ok-trade-btn">Cancel</button>
@@ -66,7 +81,7 @@ if(empty($site_currency)) {
         buyButton = document.getElementById("buy-button");
 
     // Default invested money value
-    const defaultInvestedMoney = parseFloat("{{ env('SITE_MIN_DEPOSITE', 100) }}");
+    const defaultInvestedMoney = parseFloat("{{ $default_val }}");
 
     // Attach click event to each open button
     tradeModalOpenBtns.forEach(btn => {

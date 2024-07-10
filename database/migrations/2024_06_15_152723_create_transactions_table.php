@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('order_id');
             $table->integer('tnx_type')->nullable(); // 1: credit, 2: debit
             $table->decimal('amount', 15, 2);
             $table->string('account_type', 255);

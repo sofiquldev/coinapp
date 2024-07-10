@@ -19,6 +19,8 @@ return new class extends Migration
             $table->decimal('rate', 15, 2);
             $table->decimal('cost', 15, 2);
             $table->decimal('total', 15, 2);
+            $table->integer('time'); // Time in seconds
+            $table->tinyInteger('result')->nullable(); // 1: profit, 2: lose, 3: equal
             $table->tinyInteger('status')->default(1); // 1: active, 2: pending, 3: deactivated, 4: deleted
             $table->timestamps();
         });

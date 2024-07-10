@@ -68,7 +68,7 @@
                                             </td>
                                             <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
                                             <td>{{ $user->ip_address }} </td>
-                                            <td>{{ $balance }}</td>
+                                            <td>{{ currencyHelper($balance) }}</td>
                                             <td>
                                                 @if ($user->status == 1)
                                                     <span

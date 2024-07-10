@@ -7,7 +7,8 @@
         ->where('tnx_type', 2)
         ->where('status', 1)
         ->sum('amount');
-    $balance = $total_deposit - $total_withdraw;
+    // $balance = $total_deposit - $total_withdraw;
+    $balance = $user->balance;
 @endphp
 
 @extends('layouts.admin-dashboard')
@@ -18,6 +19,20 @@
             <div class="col-12">
                 <div class="top-area flex-wrap d-center justify-content-between gap-8 row-gap-3">
                     <h2>Profile</h2>
+                    <form method="POST" action="{{ route('dashboard.user.freege') }}">
+                        @csrf
+                        <input type="hidden" name="user_id" value="{{ $user->id }}">
+                        @if($user->status == 1)
+                            <input type="hidden" name="user_status" value="5">
+                            <button type="submit" class="btn btn-danger">Freege</button>
+                        @elseif($user->status == 5)
+                            <input type="hidden" name="user_status" value="1">
+                            <button type="submit" class="btn btn-success"><i>un-</i>Freege</button>
+                        @else
+                            <input type="hidden" name="user_status" value="1">
+                            <button type="submit" class="btn btn-success"><i>un-</i>Freege</button>
+                        @endif
+                    </form>
                 </div>
             </div>
         </div>

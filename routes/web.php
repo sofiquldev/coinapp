@@ -14,6 +14,7 @@ Auth::routes();
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/trade', [App\Http\Controllers\TradeController::class, 'index'])->name('trade');
 Route::get('/transaction-status', [App\Http\Controllers\TransactionController::class, 'checkStatus'])->name('transaction-status');
+Route::get('/trade-status', [App\Http\Controllers\OrderController::class, 'checkStatus'])->name('trade-status');
 
 
 // User Dashboard
@@ -24,12 +25,13 @@ Route::middleware(['auth'])->group(function () {
     // });
     Route::get('/wallet', [App\Http\Controllers\WalletController::class, 'index'])->name('wallet');
     Route::post('/orders', [App\Http\Controllers\OrderController::class, 'store'])->name('order.post');
-    Route::get('/payment', [App\Http\Controllers\OrderController::class, 'paymentPage'])->name('payment');
+    Route::get('/trade-process', [App\Http\Controllers\OrderController::class, 'tradeProcess'])->name('trade.process');
+    Route::get('/deposit', [App\Http\Controllers\TransactionController::class, 'deposit'])->name('deposit');
+    Route::get('/withdraw', [App\Http\Controllers\TransactionController::class,'withdraw'])->name('withdraw');
     Route::post('/transactions', [App\Http\Controllers\TransactionController::class, 'store'])->name('transactions.post');
-    
-    Route::get('/withdraw', [App\Http\Controllers\OrderController::class,'withdraw'])->name('withdraw');
-    Route::post('/withdraw', [App\Http\Controllers\OrderController::class,'withdrawPost'])->name('withdraw.post');
-    Route::get('/withdraw-process', [App\Http\Controllers\OrderController::class,'withdrawProcess'])->name('withdraw.process');
+    Route::get('/deposit-process', [App\Http\Controllers\TransactionController::class, 'depositProcess'])->name('deposit.process');
+    Route::get('/withdraw-process', [App\Http\Controllers\TransactionController::class,'withdrawProcess'])->name('withdraw.process');
+
 });
 
 
@@ -41,14 +43,17 @@ Route::middleware([AdminMiddleware::class])->group(function () {
         Route::prefix('dashboard')->group(function () {
             Route::get('/users', [App\Http\Controllers\AdminDashboardController::class, 'users'])->name('dashboard.users');
             Route::get('/user/{id}', [App\Http\Controllers\AdminDashboardController::class, 'singleUser'])->name('dashboard.user');
+            Route::post('/user/freege', [App\Http\Controllers\AdminDashboardController::class, 'freegeUser'])->name('dashboard.user.freege');
 
             Route::get('/active-coins', [App\Http\Controllers\AdminDashboardController::class, 'activeCoins'])->name('dashboard.active-coins');
+            Route::get('/trades', [App\Http\Controllers\AdminDashboardController::class, 'trades'])->name('dashboard.trades');
             Route::get('/transactions', [App\Http\Controllers\AdminDashboardController::class, 'transactions'])->name('dashboard.transactions');
 
             Route::get('/settings', [App\Http\Controllers\AdminDashboardController::class, 'settings'])->name('dashboard.settings');
             Route::post('/site-options', [App\Http\Controllers\AdminDashboardController::class, 'updateSiteOptions'])->name('dashboard.options.update');
-            
+
             Route::post('/order-update', [App\Http\Controllers\OrderController::class, 'updateOrder'])->name('dashboard.order.update');
+            Route::post('/tnx-update', [App\Http\Controllers\TransactionController::class, 'updateTnx'])->name('dashboard.tnx.update');
         });
     });
 });

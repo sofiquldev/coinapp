@@ -8,3 +8,33 @@
 [data-mode="dark"] body.bg-white {
     background-color: #23262b !important;
 }
+.orderActionForm {
+    display: flex;
+    align-items: center;
+}
+.trade-action-profit-lose {
+    display: inline-block;
+    input {
+        display: none;
+        &+label {
+            padding: 2px 12px;
+            border: 1px solid #444;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8em;
+            margin: 2px;
+        }
+        &:checked {
+            &+label {
+                background-color: green;
+                color: #fff;
+                &.lose {
+                    background-color: red !important;
+                }
+            }
+        }
+    }
+    label {
+        display: block;
+    }
+ }
