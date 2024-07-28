@@ -72,4 +72,10 @@ class PageController extends Controller
 
         return redirect()->route('pages.index')->with('success', 'Page deleted successfully.');
     }
+
+
+    // thank-you page
+    public function thankYou() {
+        return view('thank-you');
+    }
 }

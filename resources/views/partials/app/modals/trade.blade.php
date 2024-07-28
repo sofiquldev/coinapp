@@ -1,20 +1,24 @@
 <?php
 use App\Models\SiteOption;
 $site_currency = SiteOption::where('key', 'site-currency')->first();
-if(empty($site_currency)) {
+
+if (empty($site_currency)) {
     $site_currency = 'INR';
 } else {
     $site_currency = $site_currency['value'];
 }
-if(Auth::user()->balance < floatval(env('SITE_MIN_DEPOSITE', 100))) {
+if (Auth::user() && Auth::user()->balance < floatval(env('SITE_MIN_DEPOSITE', 100))) {
     $default_val = Auth::user()->balance;
 } else {
     $default_val = floatval(env('SITE_MIN_DEPOSITE', 100));
 }
 
-
-
 ?>
+<style>
+    .invalid-feedback strong {
+        color: rgb(240, 69, 69)
+    }
+</style>
 
 <!---Modal -->
 <div aria-hidden="false"
@@ -22,8 +26,11 @@ if(Auth::user()->balance < floatval(env('SITE_MIN_DEPOSITE', 100))) {
     id="trade-modal" role="dialog">
     <div class="relative w-full p-4 h-auto animate-keep-bounce max-w-xl">
         <div class="relative bg-white dark:bg-dark-200 shadow-box rounded-medium p-2.5 ">
-            <div class=" border border-dashed rounded border-gray-100 dark:border-borderColour-dark p-10 max-lg:p-5 ">
-                <div class="user-balance"><i class="fa-solid fa-coins"></i> {{ Auth::user()->balance }}</div>
+            <div class="border border-dashed rounded border-gray-100 dark:border-borderColour-dark p-10 max-lg:p-5 ">
+                @if(Auth::user())
+                <div class="user-balance">
+                    <i class="fa-solid fa-coins"></i> {{ Auth::user() ? Auth::user()->balance : 0 }}
+                </div>
 
                 <div
                     class="flex items-center justify-center bg border-b border-dashed border-b-borderColour dark:border-borderColour-dark pb-5">
@@ -42,8 +49,10 @@ if(Auth::user()->balance < floatval(env('SITE_MIN_DEPOSITE', 100))) {
                             style="background: transparent;padding: 0;border:none;font-size: 1.5em;pointer-events: none;color:#c4f241">
                     </div>
                     <div>
-                        <label for="invested-money">Invested Money: ({{$site_currency}})</label>
-                        <input type="number" id="invested-money" name="invested_money" value="{{ floatval($default_val) }}" min="0" max="{{ Auth::user()->balance }}" required>
+                        <label for="invested-money">Invested Money: ({{ $site_currency }})</label>
+                        <input type="number" id="invested-money" name="invested_money"
+                            value="{{ floatval($default_val) }}" min="0"
+                            max="{{ Auth::user() ? Auth::user()->balance : 0 }}" required>
                     </div>
                     <div>
                         <p>You got</p>
@@ -63,10 +72,60 @@ if(Auth::user()->balance < floatval(env('SITE_MIN_DEPOSITE', 100))) {
                         <button type="submit" class="btn btn-sm btn-navbar" id="buy-button">Buy Coin</button>
                     </div>
                 </form>
+                @else
+                <h2>You need to login first</h2>
+                <br>
+                <form method="POST" action="{{ route('login') }}" id="buy-coin-form">
+                    @method('post')
+                    @csrf
+                    <div class="d-flex flex-column gap-5">
+                        <div class="single-input">
+                            <label class="fs-six-up fw-medium mb-2 mb-sm-4" for="email">Enter Your Email ID</label>
+                            <input type="email" class="fs-seven py-2 py-lg-3 px-3 px-lg-6 @error('email') is-invalid @enderror" id="email" name="email" placeholder="Enter Your Email..." value="{{ old('email') }}" required autocomplete="email" autofocus>
+
+                            @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="single-input">
+                            <label class="fs-six-up fw-medium mb-2 mb-sm-4" for="password">Enter Your
+                                Password</label>
+                            <div class="input-pass">
+                                <input type="password"
+                                    class="fs-seven py-2 py-sm-3 ps-3 ps-lg-5 ps-lg-6 pe-10 pe-lg-13 @error('password') is-invalid @enderror"
+                                    name="password" id="password" placeholder="Enter Your Password..." required autocomplete="current-password">
+                                <span class="password-eye-icon"></span>
+                            </div>
+                            @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="part">
+                            @if (Route::has('password.request'))
+                            <a href="{{ route('password.request') }}" class="d-flex justify-content-end fs-seven p1-color">Forget
+                                password</a>
+                            @endif
+                            @if (Route::has('register'))
+                                <p>Don’t have an account? <a href="{{ route('register') }}" class="p1-color fw-semibold">Signup</a></p>
+                            @endif
+                        </div>
+                    </div>
+                    <br>
+                    <div class="modal-btn-group">
+                        <button type="button" class="btn btn-sm btn-danger" id="ok-trade-btn">Cancel</button>
+                        <button type="submit" class="btn btn-sm btn-navbar" id="buy-button">Login</button>
+                    </div>
+                </form>
+                @endif
             </div>
         </div>
     </div>
 </div>
+@if(Auth::user())
 <script>
     let tradeModal = document.getElementById("trade-modal"),
         tradeForm = document.getElementById("buy-coin-form"),
@@ -128,7 +187,7 @@ if(Auth::user()->balance < floatval(env('SITE_MIN_DEPOSITE', 100))) {
         let rate = parseFloat(rateInput.value);
         let investedMoney = parseFloat(investedMoneyInput.value);
 
-        let convertedMoney = await convertCurrency('{{$site_currency}}', investedMoney);
+        let convertedMoney = await convertCurrency('{{ $site_currency }}', investedMoney);
 
         if (!isNaN(rate) && !isNaN(convertedMoney)) {
             let coinAmount = (convertedMoney / rate).toFixed(8);
@@ -161,3 +220,34 @@ if(Auth::user()->balance < floatval(env('SITE_MIN_DEPOSITE', 100))) {
         }
     }
 </script>
+@else
+<script>
+    let tradeModal = document.getElementById("trade-modal"),
+        tradeModalOpenBtns = document.querySelectorAll(".open-trade-btn"),
+        tradeModalCloseBtn = document.getElementById("ok-trade-btn");
+
+
+    // Attach click event to each open button
+    tradeModalOpenBtns.forEach(btn => {
+        btn.onclick = async function() {
+            // Display the modal
+            tradeModal.classList.remove('hidden');
+            tradeModal.style.display = "flex";
+        };
+    });
+
+    // Close button event
+    tradeModalCloseBtn.onclick = function() {
+        tradeModal.style.display = "none";
+        tradeModal.classList.add('hidden');
+    };
+
+    // Close modal when clicking outside of it
+    window.onclick = function(e) {
+        if (e.target == tradeModal) {
+            tradeModal.style.display = "none";
+            tradeModal.classList.add('hidden');
+        }
+    };
+</script>
+@endif

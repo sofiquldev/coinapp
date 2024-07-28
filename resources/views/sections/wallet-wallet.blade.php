@@ -60,6 +60,17 @@
                     Withdraw Cash
                 </a>
             </div>
+            <br>
+            <div class="bg-white dark:bg-dark-200 shadow-box rounded-medium p-2.5">
+                <div class="border border-dashed rounded border-gray-100 dark:border-borderColour-dark p-10 h-full max-lg:p-5 text-center">
+                    <img src="{{ asset('images/banking/savings.svg') }}" alt="banking logo" class="inline-block dark:hidden mb-6">
+                    <img src="{{ asset('images/banking/savings-dark.svg') }}" alt="banking logo" class="hidden dark:inline-block mb-6">
+                    <h3 class="mb-2.5">New Task </h3>
+                    <a href="{{ route('trade') }}" class="btn btn-navbar">
+                        Trade Now
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </section>

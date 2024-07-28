@@ -39,11 +39,11 @@ class TransactionController extends Controller
         $transaction->save();
 
         if($request->input('tnx_type') == 1) {
-            return redirect()->route('deposit.process');
+            return redirect()->route('thank-you');
         } else if($request->input('tnx_type') == 2) {
             return redirect()->route('withdraw.process');
         } else {
-            return redirect()->route('home');
+            return redirect()->route('thank-you');
         }
     }
 

@@ -33,7 +33,8 @@
     'resources/sass/app.scss',
     'resources/js/app.js'
     ])
-    <link href="{{ asset('vendor/datatables/jquery.dataTables.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="//cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css">
+    {{-- <link href="{{ asset('vendor/datatables/jquery.dataTables.min.css') }}" rel="stylesheet"> --}}
     <link href="{{ asset('dashboard/css/plugins/quill.snow.css') }}" rel="stylesheet">
     <link href="{{ asset('dashboard/css/style.min.css') }}" rel="stylesheet">
 
@@ -79,7 +80,8 @@
   <script type="text/javascript" src="{{ asset('dashboard/js/plugins/apexcharts.min.js') }}"></script>
   <script type="text/javascript" src="{{ asset('dashboard/js/plugins/custom_apexcharts.js') }}"></script>
   <script type="text/javascript" src="{{ asset('dashboard/assets/js/plugins/plugin-custom.js') }}"></script>
-  <script type="text/javascript" src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
+  {{-- <script type="text/javascript" src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script> --}}
+  <script type="text/javascript" src="//cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
   <script type="text/javascript" src="{{ asset('dashboard/js/main.js') }}"></script>
 
   @yield('scripts')

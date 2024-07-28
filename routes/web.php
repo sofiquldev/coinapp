@@ -15,6 +15,7 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Route::get('/trade', [App\Http\Controllers\TradeController::class, 'index'])->name('trade');
 Route::get('/transaction-status', [App\Http\Controllers\TransactionController::class, 'checkStatus'])->name('transaction-status');
 Route::get('/trade-status', [App\Http\Controllers\OrderController::class, 'checkStatus'])->name('trade-status');
+Route::get('/thank-you', [App\Http\Controllers\PageController::class, 'thankYou'])->name('thank-you');
 
 
 // User Dashboard

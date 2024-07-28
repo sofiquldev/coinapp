@@ -124,59 +124,66 @@
                                 <tr>
                                     <th>#</th>
                                     <th>User</th>
-                                    <th>Coin Name</th>
                                     <th class="text-center">Date</th>
-                                    <th>Amount</th>
+                                    <th class="text-center">Amount</th>
                                     <th>Status</th>
                                     <th>Transaction</th>
+                                    <th>Action</th>
                                 </tr>
                                 @foreach ($transactions as $key => $tnx)
-                                    @php
-                                        $symbol = strtolower($tnx->order->coin_name);
-                                        $iconUrl = "https://assets.coincap.io/assets/icons/{$symbol}@2x.png";
-                                    @endphp
-                                    <tr>
-                                        <td>{{ $key + 1 }}</td>
-                                        <td><a href="{{ url('u/dashboard/user/'.$tnx->user->id) }}">{{ $tnx->user->name }}</a></td>
-                                        <td>
-                                            <div class="d-flex align-items-center gap-3">
-                                                <img src="{{ asset('dashboard/images/bitcoin.png') }}" alt="icon">
-                                                <span class="fw-medium">{{ $tnx->order->coin_name }}</span>
-                                            </div>
-                                        </td>
-                                        <td class="text-center">
-                                            {{ date('d-m-Y', strtotime($tnx->created_at)) }} <br>
-                                            <small>{{ date('h:i:s A', strtotime($tnx->created_at)) }}</small>
-                                        </td>
-                                        <td>{{ currencyHelper($tnx->amount) }}</td>
-                                        <td>
+                                <tr>
+                                    <td>{{ $key + 1 }}</td>
+                                    <td><a href="{{ url('u/dashboard/user/'.$tnx->user->id) }}">{{ $tnx->user->name }}</a></td>
+                                    <td class="text-center">
+                                        {{ date('d-m-Y', strtotime($tnx->created_at)) }} <br>
+                                        <small>{{ date('h:i:s A', strtotime($tnx->created_at)) }}</small>
+                                    </td>
+                                    <td class="text-center">
+                                        {{ currencyHelper($tnx->amount) }} <br>
+                                        @if ($tnx->tnx_type == 1)
+                                        <small class="text-success">Deposite</small>
+                                        @elseif ($tnx->tnx_type == 2)
+                                        <small class="text-danger">Withdraw</small>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($tnx->status == 1)
+                                        <span class="bg2-opty s1-color cus-border py-2 px-4 px-lg-5 text-center cus-rounded-2 w-100">
+                                            Successful</span>
+                                        @elseif ($tnx->status == 2)
+                                        <span class="bg4-opty s4-color cus-border py-2 px-4 px-lg-5 text-center cus-rounded-2 w-100">
+                                            Pending</span>
+                                        @else
+                                        <span class="bg3-opty s2-color cus-border py-2 px-4 px-lg-5 text-center cus-rounded-2 w-100">
+                                            Reject</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <div class="d-flex flex-column gap-1 text-center">
+                                            <span class="fw-medium">{{ $tnx->tnx_id ?? 'nothing' }}</span>
+                                            <span class="fs-eight">
+                                                @if ($tnx->screenshot)
+                                                <a href="{{ asset('storage/' . $tnx->screenshot) }}" data-lightbox="screenshot" data-title="{{ $tnx->user->name}} (#{{$tnx->user->id}}) - {{$tnx->tnx_id }}">View Screenshot</a>
+                                                @else
+                                                No screenshot found
+                                                @endif
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <form class="orderActionForm" method="post">
+                                            @csrf
+                                            <input type="hidden" value="{{ $tnx->id }}" name="tnx_id">
                                             @if ($tnx->status == 1)
-                                                <span
-                                                    class="bg2-opty s1-color cus-border py-2 px-4 px-lg-5 text-center cus-rounded-2 w-100">
-                                                    Successful</span>
-                                            @elseif ($tnx->status == 2)
-                                                <span
-                                                    class="bg4-opty s4-color cus-border py-2 px-4 px-lg-5 text-center cus-rounded-2 w-100">
-                                                    Pending</span>
+                                            <input type="hidden" value="2" name="tnx_status">
+                                            <button type="submit" class="btn btn-danger">Reject</button>
                                             @else
-                                                <span
-                                                    class="bg3-opty s2-color cus-border py-2 px-4 px-lg-5 text-center cus-rounded-2 w-100">
-                                                    Reject</span>
+                                            <input type="hidden" value="1" name="tnx_status">
+                                            <button type="submit" class="btn btn-success">Approve</button>
                                             @endif
-                                        </td>
-                                        <td>
-                                            <div class="d-flex flex-column gap-1 text-center">
-                                                <span class="fw-medium">{{ $tnx->tnx_id ?? 'nothing' }}</span>
-                                                <span class="fs-eight">
-                                                    @if ($tnx->screenshot)
-                                                        <a href="{{ asset('storage/' . $tnx->screenshot) }}" data-lightbox="screenshot" data-title="{{ $tnx->user->name}} (#{{$tnx->user->id}}) - {{$tnx->tnx_id }}">View Screenshot</a>
-                                                    @else
-                                                        No screenshot found
-                                                    @endif
-                                                </span>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                        </form>
+                                    </td>
+                                </tr>
                                 @endforeach
                             </table>
                         </div>
@@ -300,5 +307,33 @@
       'resizeDuration': 200,
       'wrapAround': true
     })
+</script>
+@endsection
+@section('scripts')
+<script>
+    $(document).ready(function() {
+    $('.orderActionForm').on('submit', function(e) {
+        e.preventDefault(); // Prevent the default form submission
+
+        var formData = $(this).serialize(); // Serialize the form data
+
+        $.ajax({
+            url: '{{ route('dashboard.tnx.update') }}',
+            method: 'POST',
+            data: formData,
+            success: function(response) {
+                // Handle the successful response here
+                // console.log(response);
+                location.reload();
+                // You can also update the UI based on the response
+            },
+            error: function(xhr, status, error) {
+                // Handle errors here
+                console.error(xhr.responseText);
+                // alert('An error occurred while updating the transaction.');
+            }
+        });
+    });
+});
 </script>
 @endsection

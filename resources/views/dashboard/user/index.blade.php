@@ -32,7 +32,7 @@
                             </div>
                         </div>
                         <div class="table-main align">
-                            <table>
+                            <table id="admin-users-table">
                                 <tbody>
                                     <tr>
                                         <th>#</th>
@@ -114,6 +114,10 @@
 
 @section('scripts')
     <script>
+        let table = new DataTable('#admin-users-table', {
+            responsive: true
+        });
+
         $(document).ready(function() {
             $('.action_setting').on('click', function() {
                 $(this).siblings('.action_drop').toggle();

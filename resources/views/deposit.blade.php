@@ -20,82 +20,98 @@ if(empty($site_currency)) {
             <form method="post" enctype="multipart/form-data" id="payment-form" action="{{ route('transactions.post') }}">
                 @csrf
                 <input type="hidden" name="tnx_type" value="1">
-                <div>
-                    <label for="amount">Amount ({{ $site_currency }})</label>
-                    <input type="number" id="amount" name="amount" min="{{ env('SITE_MIN_DEPOSITE', 100) }}" value="{{ env('SITE_MIN_DEPOSITE', 100) }}" required>
+                <input type="hidden" id="account_number" name="account_number" value="1">
+
+                <div class="select_coin">
+                    <input type="radio" name="account_type" id="select_coin_btc" value="btc" checked>
+                    <label for="select_coin_btc">
+                        <img src="https://assets.coincap.io/assets/icons/btc@2x.png" alt="btc">
+                        BTC
+                    </label>
+
+                    <input type="radio" name="account_type" id="select_coin_usdt" value="usdt">
+                    <label for="select_coin_usdt">
+                        <img src="https://assets.coincap.io/assets/icons/usdt@2x.png" alt="btc">
+                        USDT
+                    </label>
                 </div>
-                <div>
-                    <label for="account_type">Account Type</label>
-                    <select id="account_type" name="account_type" required>
-                        <optgroup label="Bangladesh">
-                            <option value="bkash">Bkash</option>
-                            <option value="nagad">Nagad</option>
-                            <option value="dutch-bangla-bank-limited">Dutch-Bangla Bank Limited (DBBL)</option>
-                            <option value="sonali-bank">Sonali Bank</option>
-                            <option value="rupali-bank">Rupali Bank</option>
-                            <option value="brac-bank">BRAC Bank</option>
-                            <option value="city-bank">City Bank</option>
-                            <option value="ab-bank">AB Bank</option>
-                            <option value="islami-bank">Islami Bank</option>
-                            <option value="prime-bank">Prime Bank</option>
-                        </optgroup>
-                        <optgroup label="Pakistan">
-                            <option value="habib-bank-limited">Habib Bank Limited (HBL)</option>
-                            <option value="united-bank-limited">United Bank Limited (UBL)</option>
-                            <option value="mcg-bank">MCG Bank</option>
-                            <option value="bank-alfalah">Bank Alfalah</option>
-                            <option value="meezan-bank">Meezan Bank</option>
-                            <option value="askari-bank">Askari Bank</option>
-                            <option value="faysal-bank">Faysal Bank</option>
-                            <option value="standard-chartered">Standard Chartered</option>
-                            <option value="mcb-bank">MCB Bank</option>
-                            <option value="bank-of-punjab">Bank of Punjab (BOP)</option>
-                        </optgroup>
-                        <optgroup label="India">
-                            <option value="hdfc-bank">HDFC Bank</option>
-                            <option value="icici-bank">ICICI Bank</option>
-                            <option value="state-bank-of-india">State Bank of India (SBI)</option>
-                            <option value="axis-bank">Axis Bank</option>
-                            <option value="kotak-mahindra-bank">Kotak Mahindra Bank</option>
-                            <option value="indusind-bank">IndusInd Bank</option>
-                            <option value="yes-bank">Yes Bank</option>
-                            <option value="punjab-national-bank">Punjab National Bank</option>
-                            <option value="bank-of-baroda">Bank of Baroda</option>
-                            <option value="canara-bank">Canara Bank</option>
-                        </optgroup>
-                        <optgroup label="UAE">
-                            <option value="emirates-nbd">Emirates NBD</option>
-                            <option value="abu-dhabi-commercial-bank">Abu Dhabi Commercial Bank (ADCB)</option>
-                            <option value="dubai-islamic-bank">Dubai Islamic Bank</option>
-                            <option value="rakbank">RAKBANK</option>
-                            <option value="mashreq-bank">Mashreq Bank</option>
-                            <option value="national-bank-of-abu-dhabi">National Bank of Abu Dhabi (NBAD)</option>
-                            <option value="abu-dhabi-islamic-bank">Abu Dhabi Islamic Bank (ADIB)</option>
-                            <option value="first-abu-dhabi-bank">First Abu Dhabi Bank (FAB)</option>
-                            <option value="noor-bank">Noor Bank</option>
-                            <option value="union-national-bank">Union National Bank (UNB)</option>
-                        </optgroup>
-                    </select>
+                <div class="deposit_amount_field">
+                    <input type="number" id="amount" name="amount" step="0.00001" min="0" value="0" required>
                 </div>
-                <div>
-                    <label for="account_number">Account Number</label>
-                    <input type="text" id="account_number" name="account_number" required>
-                </div>
-                <div>
-                    <label for="tnx_id">Transaction ID</label>
-                    <input type="text" id="tnx_id" name="tnx_id" required>
-                </div>
-                <div>
-                    <label for="screenshot">Screenshot (optional)</label>
-                    <input type="file" id="screenshot" name="screenshot" accept="image/*">
+                <div class="loading">Loading...</div>
+                <div id="show_wallet">
+                    <div class="show_wallet_item btc">
+                        <img class="wallet_qr" src="{{ asset('images/wallets/BTC.jpg') }}" alt="0x3956cfbcddf1d75c2f24604653994c4a5fbc20b0">
+                        <p class="coin_address">0x3956cfbcddf1d75c2f24604653994c4a5fbc20b0</p>
+                    </div>
+                    <div class="show_wallet_item usdt">
+                        <img class="wallet_qr" src="{{ asset('images/wallets/USDT.jpg') }}" alt="TCFPY5TtXFZ15M68LZpgspNYkR65A3WTRP">
+                        <p class="coin_address">TCFPY5TtXFZ15M68LZpgspNYkR65A3WTRP</p>
+                    </div>
                 </div>
                 <div class="modal-btn-group">
-                    <button type="submit" class="btn btn-primary">Deposit Cash</button>
+                    <button type="button" id="submit_btn" class="btn btn-primary">Generate Wallet Address</button>
+                    <button type="submit" id="submit_deposit" class="btn btn-primary">Submit Deposit</a>
                 </div>
             </form>
         </div>
     </section>
 
-
     @include('partials.app.footer')
+@endsection
+
+@section('scripts')
+<script>
+    $(document).ready(function () {
+    $('#submit_btn').on('click', function (e) {
+        e.preventDefault(); // Prevent default form submission
+
+        // Get the selected account type value
+        const selectedAccountType = $('input[name="account_type"]:checked').val();
+        generateWallet(selectedAccountType)
+
+        // var formData = $(this).serialize(); // Serialize the form data
+
+
+
+        // $.ajax({
+        //     url: '{{ route('transactions.post') }}',
+        //     type: 'POST',
+        //     data: formData,
+        //     success: function(response) {
+        //         $('.submit_btn').on('click', function() {
+        //             window.location.href = "{{ route('thank-you') }}"
+        //         })
+        //     },
+        //     error: function(error) {
+        //         // Handle error
+        //     }
+        // });
+    });
+
+
+    $('input[name="account_type"]').on('click', function(){
+        $(`#show_wallet, .show_wallet_item`).hide()
+        $(`#show_wallet`).hide(300)
+        $('#submit_deposit').hide()
+        $('#submit_btn').show()
+    })
+
+    function generateWallet(wallet) {
+        $('.loading').show(100)
+        setTimeout(() => {
+            $('.loading').hide(100)
+            $(`#show_wallet, .show_wallet_item`).hide()
+            $(`#show_wallet .${wallet}`).show()
+            $(`#show_wallet`).show(300)
+
+
+            $('#submit_deposit').show()
+            $('#submit_btn').hide()
+        }, 2000);
+    }
+
+});
+
+</script>
 @endsection

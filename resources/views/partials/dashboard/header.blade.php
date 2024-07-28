@@ -299,14 +299,18 @@
                                 class="material-symbols-outlined fs-four"> person </span>My Account</a></li>
                     <li><a href="#" class="d-flex align-items-center gap-2 p1-color"><span
                                 class="material-symbols-outlined fs-four"> settings </span>Settings</a></li>
-                    <li><a href="#" class="d-flex align-items-center gap-2 p1-color"><span
-                                class="material-symbols-outlined fs-four"> lock </span>Password</a></li>
-                    <li><a href="#" class="d-flex align-items-center gap-2 p1-color"><span
-                                class="material-symbols-outlined fs-four"> image </span>Media</a></li>
-                    <li><a href="#" class="d-flex align-items-center gap-2 p1-color"><span
-                                class="material-symbols-outlined fs-four"> ios_share </span>Share</a></li>
-                    <li><a href="#" class="d-flex align-items-center gap-2 p1-color"><span
-                                class="material-symbols-outlined fs-four"> logout </span>Log Out</a></li>
+                    <li>
+                        <a class="d-flex align-items-center gap-2 p1-color" href="{{ route('logout') }}"
+                            onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();">
+                            <span class="material-symbols-outlined fs-four"> logout </span>
+                            {{ __('Logout') }}
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    </li>
                 </ul>
             </div>
         </div>

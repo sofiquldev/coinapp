@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->integer('tnx_type')->nullable(); // 1: credit, 2: debit
-            $table->decimal('amount', 15, 2);
+            $table->decimal('amount', 15, 12);
             $table->string('account_type', 255);
             $table->string('account_number', 36);
             $table->string('tnx_id')->nullable();

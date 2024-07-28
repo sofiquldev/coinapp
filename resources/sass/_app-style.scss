@@ -207,6 +207,83 @@
     }
 }
 
+
+.select_coin {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    input {
+        &[type="radio"] {
+            display: none;
+            &+label {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                font-size: clamp(18px, 2vw, 36px);
+                border: 2px solid #222;
+                padding: 16px;
+                border-radius: clamp(6px, 1vw, 16px);
+                transition: all ease-in-out 300ms;
+                cursor: pointer;
+                color: #888;
+                font-weight: 600;
+                &:hover {
+                    border-color: #c4f241;
+                }
+            }
+            &:checked {
+                &+label {
+                    border-color: #c4f241;
+                    color: #fff;
+                }
+            }
+        }
+    }
+}
+.deposit_amount_field input {
+    padding: 24px 16px !important;
+    font-size: clamp(18px, 2vw, 36px);
+    text-align: center;
+}
+
+.loading {
+    display: none;
+}
+#show_wallet {
+    display: none;
+    &_item {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .wallet_qr {
+        display: block;
+        margin: auto;
+        width: clamp(300px, 50%, 500px);
+        border: 3px solid #fff;
+        border-radius: 16px;
+        background-color: #fff;
+        padding: 12px;
+        margin-bottom: 12px;
+    }
+    .coin_address {
+        width: 100%;
+        font-family: monospace;
+        font-size: clamp(12px, 2vw, 24px);
+    }
+}
+
+.thank-you-message {
+    padding: clamp(200px, 20vw, 360px) 0;
+    text-align: center;
+    color: #c4f241;
+}
+#submit_deposit {
+    display: none;
+}
+
 /* #countdown {
     display: none;
     position: relative;
