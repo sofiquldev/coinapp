@@ -5,7 +5,7 @@
                 <img src="images/logo.png" alt="logo" class="inline-block dark:hidden mb-10">
                 <img src="images/logo-light.png" alt="logo dark version" class="hidden dark:inline-block  mb-10">
                 <p class="max-w-[350px] max-lg:mx-auto">
-                    Turpis tortor nunc sed amet et faucibus vitae morbi congue sed id mauris.
+                    The future of business is being shaped by coinApp
                 </p>
             </div>
             <div class="col-span-12 lg:col-span-2 max-lg:text-center">

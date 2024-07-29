@@ -11,12 +11,11 @@
             </div>
 
             <div>
-                <p class="section-tagline">ABOUT ONLINE BANKING</p>
+                <p class="section-tagline">ABOUT Coinapp</p>
 
-                <h2 class="max-md:mb-4 mb-8">Incredibly easy and hassle-free online banking</h2>
+                <h2 class="max-md:mb-4 mb-8">Incredibly easy and hassle-free online trading</h2>
                 <p class="max-md:mb-6 mb-11">
-                    Until recently, the prevailing view assumed lorem ipsum was born as a nonsense text nothing Before &amp; After
-                    magazine.
+                    CoinApp simplifies crypto trading. Experience seamless buying, selling, and trading with our user-friendly platform. No more complexities, just pure ease and efficiency.
                 </p>
                 <ul class="max-md:mb-0 mb-14 [&amp;>*:not(:last-child)]:mb-6 max-md:[&amp;>*:not(:last-child)]:mb-4">
                     <li class="flex items-center gap-x-2 ">
@@ -26,7 +25,7 @@
                                 <path d="M15 0C6.75 0 0 6.75 0 15C0 23.25 6.75 30 15 30C23.25 30 30 23.25 30 15C30 6.75 23.25 0 15 0ZM16.125 1.25C20.5 1.625 24.25 4 26.5 7.5H12.375L16.125 1.25ZM18.375 8.75L22.125 15L18.375 21.25H11.5L7.875 14.75L11.625 8.75H18.375ZM14.75 1.25L7.25 13.5L3.625 7.25C6.125 3.75 10.125 1.375 14.75 1.25ZM1.25 15C1.25 12.625 1.875 10.375 2.875 8.5L10.125 21.25H2.75C1.75 19.375 1.25 17.25 1.25 15ZM13.875 28.75C9.5 28.375 5.75 26 3.5 22.5H17.625L13.875 28.75ZM15.375 28.75L23 16.25L26.75 22.375C24.25 26.125 20.125 28.625 15.375 28.75ZM19.875 8.75H27.25C28.25 10.625 28.75 12.75 28.75 15C28.75 17.125 28.25 19.25 27.375 21L19.875 8.75Z" fill="" class="fill-paragraph dark:fill-primary"></path>
                             </svg>
                         </span>
-                        <span class="dark:text-white"> Income and expenses tracker </span>
+                        <span class="dark:text-white"> Instant Transactions </span>
                     </li>
                     <li class="flex items-center gap-x-2">
                         <span class=" relative  rounded-full bg-white dark:bg-dark-200 shadow-icon flex item-center justify-center">
@@ -35,7 +34,7 @@
                                 <path d="M25.095 5.53842L17.072 0.834716C15.1751 -0.278239 12.8189 -0.278239 10.922 0.834716L2.90499 5.53842C1.11547 6.5928 0 8.51411 0 10.5584V19.4445C0 21.4888 1.11547 23.4101 2.90499 24.4645L10.922 29.1682C11.8705 29.7247 12.9323 30 14 30C15.0677 30 16.1295 29.7188 17.078 29.1682L25.095 24.4645C26.8845 23.416 28 21.4888 28 19.4445V10.5584C27.994 8.51411 26.8845 6.5928 25.095 5.53842ZM3.55518 6.61037L11.5722 1.90667C13.0695 1.02802 14.9246 1.02802 16.4218 1.90667L24.4389 6.61037C24.9638 6.92082 25.4171 7.31914 25.775 7.78776L14 14.2839L2.219 7.79362C2.58287 7.325 3.03025 6.92082 3.55518 6.61037ZM3.55518 23.3867C2.14742 22.5608 1.27056 21.0495 1.27056 19.4445V10.5584C1.27056 9.97852 1.38389 9.41033 1.59864 8.88314L13.3617 15.3676V28.7055C12.7414 28.6235 12.1329 28.4184 11.5722 28.0904L3.55518 23.3867ZM26.7235 19.4445C26.7235 21.0495 25.8466 22.5608 24.4389 23.3867L16.4218 28.0904C15.8611 28.4184 15.2527 28.6235 14.6323 28.7055V15.3617L26.3954 8.87728C26.6101 9.40447 26.7235 9.97266 26.7235 10.5526V19.4445Z" fill="" class="fill-paragraph dark:fill-primary"></path>
                             </svg>
                         </span>
-                        <span class="dark:text-white"> Automated invoicing </span>
+                        <span class="dark:text-white"> Advanced Charting Tools </span>
                     </li>
                     <li class="flex items-center gap-x-2 ">
                         <span class=" relative  rounded-full bg-white dark:bg-dark-200 shadow-icon flex item-center justify-center">
@@ -45,7 +44,7 @@
                             </svg>
                         </span>
 
-                        <span class="dark:text-white"> Crypto connection </span>
+                        <span class="dark:text-white"> 24/7 Customer Support </span>
                     </li>
                 </ul>
             </div>

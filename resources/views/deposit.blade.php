@@ -48,6 +48,11 @@ if(empty($site_currency)) {
                         <img class="wallet_qr" src="{{ asset('images/wallets/USDT.jpg') }}" alt="TCFPY5TtXFZ15M68LZpgspNYkR65A3WTRP">
                         <p class="coin_address">TCFPY5TtXFZ15M68LZpgspNYkR65A3WTRP</p>
                     </div>
+                    <br>
+                    <div class="screenshot">
+                        <label for="screenshot">Screenshot (After completing the deposit)</label>
+                        <input type="file" id="screenshot" name="screenshot" accept="">
+                    </div>
                 </div>
                 <div class="modal-btn-group">
                     <button type="button" id="submit_btn" class="btn btn-primary">Generate Wallet Address</button>

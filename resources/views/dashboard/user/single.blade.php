@@ -43,8 +43,9 @@
                         <h4 style="text-transform: capitalize;">{{ $user->name }}</h4>
                     </div>
                     <div class="box_part__content">
-                        <form
+                        <form action="{{ route('user.update', [$user->id]) }}" method="POST" enctype="multipart/form-data"
                             class="d-flex flex-column gap-5 gap-lg-6 w-100 cus-border-dashed top border-color-30 pt-5 pt-xxl-6 mt-5 mt-xxl-6">
+                            @csrf
                             <span class="fs-six-up fw-medium">Profile Photo</span>
                             <div
                                 class="flex-wrap cus-border-dashed bottom pb-5 pb-lg-6 border-color-30 d-flex align-items-center gap-5 gap-lg-6">
@@ -67,60 +68,52 @@
                                 <div class="single-input">
                                     <label for="name" class="fs-six-up fw-medium mb-2 mb-sm-4">User Name</label>
                                     <input type="text" class="fs-seven py-3 py-4 px-6 px-lg-8" id="name"
-                                        value="{{ $user->name }}" placeholder="Enter First Name" required>
+                                        value="{{ $user->name }}" name="name" placeholder="Enter Name" required>
                                 </div>
                             </div>
                             <div class="single-input">
                                 <label for="email" class="fs-six-up fw-medium mb-2 mb-sm-4">email</label>
                                 <input type="text" class="fs-seven py-3 py-4 px-6 px-lg-8" value="{{ $user->email }}"
-                                    id="email" placeholder="Enter Gmail Account" required>
+                                    id="email" name="email" placeholder="Enter Gmail Account" required>
                             </div>
                             <div class="single-input">
                                 <label for="phone" class="fs-six-up fw-medium mb-2 mb-sm-4">Phone <span
                                         class="n100-color">(Optional)</span></label>
                                 <input type="text" class="fs-seven py-3 py-4 px-6 px-lg-8" value="{{ $user->phone }}"
-                                    id="phone" placeholder="Enter Gmail Account" required>
+                                    id="phone" name="phone_number" placeholder="Enter Phone Number">
                             </div>
                             <div class="single-input">
                                 <label for="phone" class="fs-six-up fw-medium mb-2 mb-sm-4">Gender :</label>
                                 <div class="d-flex gap-5 gap-lg-6">
                                     <div class="d-center gap-2">
-                                        <input class="form-radio-input" type="radio" name="gender" id="male"
-                                            checked>
+                                        <input class="form-radio-input" type="radio" name="gender" id="male" value="male"
+                                            {{ $user->gender == 'male' ? 'checked': '' }}>
                                         <label class="form-radio-label" for="male">Male </label>
                                     </div>
                                     <div class="d-center gap-2">
-                                        <input class="form-radio-input" type="radio" name="gender" id="femail">
-                                        <label class="form-radio-label" for="femail"> Female </label>
+                                        <input class="form-radio-input" type="radio" name="gender" id="female" value="female" {{ $user->gender == 'female' ? 'checked': '' }}>
+                                        <label class="form-radio-label" for="female"> Female </label>
                                     </div>
                                     <div class="d-center gap-2">
-                                        <input class="form-radio-input" type="radio" name="gender" id="others">
+                                        <input class="form-radio-input" type="radio" name="gender" id="others" value="others" {{ $user->gender == 'others' ? 'checked': '' }}>
                                         <label class="form-radio-label" for="others"> Others </label>
                                     </div>
                                 </div>
                             </div>
-                            <div class="single-input">
+                            {{-- <div class="single-input">
                                 <label class="fs-six-up fw-medium mb-2 mb-sm-4">Tagline :</label>
                                 <div id="editor" class="text_editor_area bg1-opty  cus-rounded-1 top ">
                                     <span>Hello i am</span>
                                 </div>
-                            </div>
+                            </div> --}}
 
-                            <br>
-                            <h4>Address</h4>
+                            {{-- <br> --}}
+                            {{-- <h4>Address</h4> --}}
                             <div class="single-input">
-                                <label class="fs-six-up fw-medium mb-2 mb-sm-4">Location</label>
-                                <div
-                                    class="input_select d-flex align-items-center gap-2 bg1-opty cus-border cus-rounded-1 py-3 ps-3 ps-xxl-4 ">
-                                    <select class="select_form pe-7 pe-lg-10 pe-xxl-12" name="bank_name">
-                                        <option value="Select Currency">Select Country</option>
-                                        <option value="Option 1">Option 1</option>
-                                        <option value="Option 2">Option 2 </option>
-                                        <option value="Option 3">Option 3 </option>
-                                    </select>
-                                </div>
+                                <label class="fs-six-up fw-medium mb-2 mb-sm-4" for="address">Address</label>
+                                <input type="text" name="address" class="fs-seven py-3 py-4 px-6 px-lg-8" value="{{ $user->address }}">
                             </div>
-                            <div class="row gap-3 gap-sm-0">
+                            {{-- <div class="row gap-3 gap-sm-0">
                                 <div class="col-sm-6">
                                     <div class="single-input">
                                         <label for="address1" class="fs-six-up fw-medium mb-2 mb-sm-4">Address
@@ -142,13 +135,13 @@
                                 <label for="zip" class="fs-six-up fw-medium mb-2 mb-sm-4">Zip Code</label>
                                 <input type="text" class="fs-seven py-3 px-5 px-lg-6" id="zip"
                                     placeholder="Enter Code" required>
-                            </div>
+                            </div> --}}
                             <div class="d-flex gap-5 gap-lg-6 pt-4">
                                 <button type="button"
                                     class="btn_box py-2 py-lg-3 px-5 px-lg-6 cus-rounded-1 cus-border border-color">Save
                                     Change</button>
                                 <button type="reset"
-                                    class="btn_box btn_alt py-2 py-lg-3 px-5 px-lg-6 cus-rounded-1 cus-border border-color">Cancle</button>
+                                    class="btn_box btn_alt py-2 py-lg-3 px-5 px-lg-6 cus-rounded-1 cus-border border-color">Cancel</button>
                             </div>
                         </form>
                     </div>

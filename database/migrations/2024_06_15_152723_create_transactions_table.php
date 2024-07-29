@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('tnx_type')->nullable(); // 1: credit, 2: debit
             $table->decimal('amount', 15, 12);
             $table->string('account_type', 255);
-            $table->string('account_number', 36);
+            $table->string('account_number', 255);
             $table->string('tnx_id')->nullable();
             $table->integer('balance')->nullable();
             $table->string('screenshot')->nullable();

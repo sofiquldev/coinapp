@@ -15,7 +15,7 @@ class TransactionController extends Controller
         // Validate the incoming request
         $validated = $request->validate([
             'tnx_type' => 'required|numeric',
-            'amount' => 'required|numeric',
+            'amount' => 'required|numeric|between:0,9999999',
             'account_type' => 'required|string',
             'account_number' => 'required|string',
             'tnx_id' => 'nullable|string',

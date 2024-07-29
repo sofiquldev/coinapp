@@ -17,7 +17,7 @@
                         <div
                             class="header-part d-flex flex-wrap justify-content-between align-items-center gap-8 row-gap-3 pb-5 pb-xxl-6 mb-5 mb-xxl-6">
                             <h4 class="fw-semibold">Users List ({{ $data->count() }})</h4>
-                            <div class="d-flex flex-wrap flex-sm-nowrap gap-4 gap-xxl-6 ">
+                            {{-- <div class="d-flex flex-wrap flex-sm-nowrap gap-4 gap-xxl-6 ">
                                 <form method="GET" action="{{ route('dashboard.users') }}"
                                     class="search__form order-2 order-sm-0">
                                     <div class="d-center gap-1 bg1-opty p-1 ps-6 ps-lg-8 cus-border cus-rounded-1 alt_form">
@@ -29,20 +29,21 @@
                                         </button>
                                     </div>
                                 </form>
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="table-main align">
                             <table id="admin-users-table">
-                                <tbody>
+                                <thead>
                                     <tr>
                                         <th>#</th>
                                         <th>Name</th>
                                         <th>Mail</th>
-                                        <th>City</th>
                                         <th>Balance</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
+                                </thead>
+                                <tbody>
                                     @foreach ($data as $key => $user)
                                         @php
                                             $total_deposit = App\Models\Transaction::where('user_id', $user->id)
@@ -67,7 +68,6 @@
                                                 </div>
                                             </td>
                                             <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
-                                            <td>{{ $user->ip_address }} </td>
                                             <td>{{ currencyHelper($balance) }}</td>
                                             <td>
                                                 @if ($user->status == 1)
@@ -85,25 +85,12 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <div class="position-relative d-center"><span
-                                                        class="material-symbols-outlined action_setting"> more_vert </span>
-                                                    <div class="action_drop" style="display: none;">
-                                                        <a href="#">Edit</a>
-                                                        <a href="#">Delete</a>
-                                                        <a href="#">Add Fund</a>
-                                                        <a href="#">See Statements</a>
-                                                    </div>
-                                                </div>
+                                                <a href="{{ url('u/dashboard/user/' . $user->id) }}"><span class="material-symbols-outlined">visibility</span></a>
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
-                        </div>
-                        <div class="table-bottom d-center justify-content-between mt-5 mt-lg-6 flex-wrap gap-6 row-gap-3">
-                            <p>Showing {{ $data->firstItem() }} to {{ $data->lastItem() }} of {{ $data->total() }}
-                                entries</p>
-                            {{ $data->appends(request()->query())->links() }}
                         </div>
                     </div>
                 </div>

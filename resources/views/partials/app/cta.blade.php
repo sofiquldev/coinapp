@@ -46,16 +46,16 @@
     <div class="container relative z-10">
         <div class=" text-center   mx-auto">
             <h2 class="mb-5 max-lg:text-[32px] text-[48px] font-semibold">
-                Start Your Free <br>
-                Trial Today.
+                Start Your first <br>
+                Trade Today.
             </h2>
             <p class="max-lg:mt-6 mb-12 max-w-[400px] mx-auto">
-                By creating a custom Web design for your business, we can bring your vision to life.
+                Join the crypto revolution and start earning today.
             </p>
             <a href="#contact.html" class="btn">
                 Get Started Today
             </a>
-            <ul class=" flex max-md:flex-col max-md:gap-5 items-center justify-between max-lg:mt-5 mt-20 max-w-[815px] mx-auto">
+            {{-- <ul class=" flex max-md:flex-col max-md:gap-5 items-center justify-between max-lg:mt-5 mt-20 max-w-[815px] mx-auto">
                 <li class="flex items-center">
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="mr-3">
                         <path d="M14.125 7.75L8.62497 13L5.875 10.375M19 10C19 14.9706 14.9706 19 10 19C5.02944 19 1 14.9706 1 10C1 5.02944 5.02944 1 10 1C14.9706 1 19 5.02944 19 10Z" stroke="" class="stroke-paragraph dark:stroke-primary" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -74,7 +74,7 @@
                     </svg>
                     <p>Money Back Guarente.</p>
                 </li>
-            </ul>
+            </ul> --}}
         </div>
     </div>
 </section>

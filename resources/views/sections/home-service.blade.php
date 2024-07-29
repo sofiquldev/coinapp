@@ -18,8 +18,8 @@
                     <div class="border border-dashed rounded border-gray-100 dark:border-borderColour-dark p-10 h-full max-lg:p-5 text-center ">
                         <img src="{{ asset('images/banking/agent.svg') }}" alt="banking logo" class="inline-block dark:hidden mb-6">
                         <img src="{{ asset('images/banking/agent-dark.svg') }}" alt="banking logo" class="hidden dark:inline-block mb-6">
-                        <h3 class="mb-2.5">Agent Banking</h3>
-                        <p>The prevailing view asumed lorem ipsum was born as nonsense text.</p>
+                        <h3 class="mb-2.5">Secure Crypto Wallet</h3>
+                        <p>Safeguard your digital assets with our robust and user-friendly crypto wallet.</p>
                     </div>
                 </div>
 
@@ -27,8 +27,8 @@
                     <div class="border border-dashed rounded border-gray-100 dark:border-borderColour-dark p-10 h-full max-lg:p-5 text-center">
                         <img src="{{ asset('images/banking/savings.svg') }}" alt="banking logo" class="inline-block dark:hidden mb-6">
                         <img src="{{ asset('images/banking/savings-dark.svg') }}" alt="banking logo" class="hidden dark:inline-block mb-6">
-                        <h3 class="mb-2.5">Savings Account</h3>
-                        <p>The prevailing view asumed lorem ipsum was born as nonsense text.</p>
+                        <h3 class="mb-2.5">Real-Time Market Analysis</h3>
+                        <p>Stay ahead of the crypto market with our advanced analytics tools.</p>
                     </div>
                 </div>
 
@@ -36,8 +36,8 @@
                     <div class="border border-dashed rounded border-gray-100 dark:border-borderColour-dark p-10 h-full max-lg:p-5 text-center">
                         <img src="{{ asset('images/banking/interest.svg') }}" alt="banking logo" class="inline-block dark:hidden mb-6">
                         <img src="{{ ('images/banking/interest-dark.svg') }}" alt="banking logo" class="hidden dark:inline-block mb-6">
-                        <h3 class="mb-2.5">Low Interest</h3>
-                        <p>The prevailing view asumed lorem ipsum was born as nonsense text.</p>
+                        <h3 class="mb-2.5">Crypto Conversion</h3>
+                        <p>Easily convert your local currency into various cryptocurrencies and vice versa.</p>
                     </div>
                 </div>
             </div>
@@ -52,24 +52,24 @@
             <div class=" bg-white dark:bg-dark-200 border border-dashed rounded border-gray-100 dark:border-borderColour-dark py-10 grid grid-cols-3 max-md:grid-cols-1  max-md:gap-y-10 items-center  [&amp;>*:not(:last-child)]:after:absolute  md:[&amp;>*:not(:last-child)]:after:right-0 md:[&amp;>*:not(:last-child)]:after:w-[1px] md:[&amp;>*:not(:last-child)]:after:h-[60px] md:[&amp;>*:not(:last-child)]:after:content-[url('../images/clients/client-item-border.svg')] md:[&amp;>*:not(:last-child)]:after:top-1/2 md:[&amp;>*:not(:last-child)]:after:-translate-y-1/2 md:dark:[&amp;>*:not(:last-child)]:after:content-[url('../images/clients/client-item-border-dark.svg')]  max-md:[&amp;>*:not(:last-child)]:after:h-[1px] max-md:[&amp;>*:not(:last-child)]:after:w-[270px] max-md:[&amp;>*:not(:last-child)]:after:-bottom-5 max-md:[&amp;>*:not(:last-child)]:after:left-1/2 max-md:[&amp;>*:not(:last-child)]:after:-translate-x-1/2  max-md:[&amp;>*:not(:last-child)]:after:content-[url('../images/clients/client-item-border-mobile.svg')] max-md:dark:[&amp;>*:not(:last-child)]:after:content-[url('../images/clients/client-item-border-mobile-dark.svg')] " id="counter">
                 <div class="flex flex-col items-center justify-center relative">
                     <h2 class="text-[48px]">
-                        <span class="counter" data-value="60">
-                        </span><span class="percent">%</span>
-                    </h2>
-                    <p class="font-jakarta_sans text-light">Project Completed</p>
-                </div>
-                <div class="flex flex-col items-center justify-center relative">
-                    <h2 class="text-[48px]">
-                        <span class="counter" data-value="30">
+                        <span class="counter" data-value="894">
                         </span><span class="percent">+</span>
                     </h2>
-                    <p class="font-jakarta_sans text-light">Team Members</p>
+                    <p class="font-jakarta_sans text-light">Transections</p>
                 </div>
                 <div class="flex flex-col items-center justify-center relative">
                     <h2 class="text-[48px]">
-                        <span class="counter" data-value="40">
+                        <span class="counter" data-value="456">
                         </span><span class="percent">K</span>
                     </h2>
-                    <p class="font-jakarta_sans text-light">Satisfied Clients</p>
+                    <p class="font-jakarta_sans text-light">Transections (USD)</p>
+                </div>
+                <div class="flex flex-col items-center justify-center relative">
+                    <h2 class="text-[48px]">
+                        <span class="counter" data-value="645">
+                        </span><span class="percent">+</span>
+                    </h2>
+                    <p class="font-jakarta_sans text-light">Registerd Users</p>
                 </div>
             </div>
         </div>

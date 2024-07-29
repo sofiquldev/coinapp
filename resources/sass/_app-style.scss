@@ -284,6 +284,17 @@
     display: none;
 }
 
+
+.dt-search {
+    width: fit-content;
+    margin-left: auto;
+    margin-right: 5px;
+}
+
+.dt-search label {
+    display: none;
+}
+
 /* #countdown {
     display: none;
     position: relative;
