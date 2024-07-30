@@ -1,7 +1,7 @@
 <section class="hero  overflow-hidden relative max-lg:pt-150 pt-[240px] pb-[60px]">
     <div class="container">
         <div class="max-w-[948px] mx-auto text-center" data-aos="fade-up" data-aos-offset="200" data-aos-duration="1000" data-aos-once="true">
-            <p class="mb-4 font-medium uppercase">Cripto is future</p>
+            <p class="mb-4 font-medium uppercase">Crypto is future</p>
             <h1 class="max-lg:mb-10 mb-10">The future of business is being shaped by coinApp</h1>
             <p class="max-lg:mb-10 mb-12 max-w-[590px] mx-auto">CoinApp is at the forefront of the crypto revolution, empowering individuals and businesses to thrive in the digital economy.</p>
         </div>

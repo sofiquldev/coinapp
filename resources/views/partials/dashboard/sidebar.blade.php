@@ -53,13 +53,15 @@
                 </ul>
             </li> --}}
         </ul>
-        {{-- <ul class="main-menu__part">
-                    <li class="main-menu__title fw-semibold ">Resources</li>
-                    <li><a href="charts.html"><span class="material-symbols-outlined p1-color fs-four-up"> insert_chart </span> <span class="nav_text">Charts</span></a></li>
-                </ul>
-                <ul class="main-menu__part logout_area mt-auto d-none">
-                    <li><a href="logout.html"><span class="material-symbols-outlined p1-color"> logout </span></a></li>
-                </ul> --}}
+        <ul class="main-menu__part">
+            <li class="main-menu__title fw-semibold ">Support</li>
+            <li>
+                <a href="https://dashboard.tawk.to/#/inbox/66a9132d32dca6db2cb781ab/all" target="_blank"><span class="material-symbols-outlined p1-color fs-four-up"> support_agent </span> <span class="nav_text">Support Reply</span></a>
+            </li>
+        </ul>
+        {{-- <ul class="main-menu__part logout_area mt-auto d-none">
+            <li><a href="logout.html"><span class="material-symbols-outlined p1-color"> logout </span></a></li>
+        </ul> --}}
         <div class="upgrade_area pb-4 pb-xl-6 mt-auto pt-12">
             {{-- <img src="{{ asset('dashboard/images/upgrade.png') }}" alt="Images">
                     <p class="mt-4 fs-seven">Upgrade your account to <strong>PRO</strong> for even more examples.</p> --}}
