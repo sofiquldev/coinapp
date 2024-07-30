@@ -197,44 +197,4 @@ class AdminDashboardController extends Controller
         return $this->updateSiteOptionsFn($request->key, $request->value);
     }
 
-
-    /**
-     * Update the user in themeself.
-     */
-    public function updateUser(Request $request)
-    {
-        // Fetch the user record
-        $user = User::findOrFail($request->input('user_id'));
-
-        // Validate and update only the fields present in the request
-        $validatedData = $request->validate([
-            'name' => 'sometimes|string|max:255',
-            'email' => 'sometimes|string|email|max:255|unique:users,email,' . $user->id,
-            'phone_number' => 'sometimes|string|max:20',
-            'gender' => 'sometimes|string|in:male,female',
-            'address' => 'sometimes|json',
-        ]);
-
-        // Handle image upload if present
-        if ($request->hasFile('image')) {
-            // Delete previous image if it exists and is not the default one
-            if ($user->image !== 'no-avatar.webp') {
-                Storage::delete('public/' . $user->image);
-            }
-
-            // Store the new image
-            $imagePath = $request->file('image')->store('public/user_images');
-            $validatedData['image'] = str_replace('public/', '', $imagePath); // Save only the path in the database
-            $user->update($validatedData);
-            return response()->json($user);
-        }
-
-
-        // Update the user model with validated data
-        $user->update($validatedData);
-
-        // Optionally, return a response or redirect somewhere
-        // return response()->json($user);
-        return redirect()->route('home');
-    }
 }

@@ -1,6 +1,6 @@
-<section class="bg-white dark:bg-dark-300 overflow-hidden relative pt-20">
+<section class="bg-white dark:bg-dark-300 overflow-hidden relative">     {{--  pt-20 --}}
     <div class="container">
-        <div class="grid grid-cols-12 mb-20 max-lg:gap-y-10 max-lg:text-center">
+        {{-- <div class="grid grid-cols-12 mb-20 max-lg:gap-y-10 max-lg:text-center">
             <div class="col-span-12 lg:col-span-6 footer-logo">
                 <img src="images/logo.png" alt="logo" class="inline-block dark:hidden mb-10">
                 <img src="images/logo-light.png" alt="logo dark version" class="hidden dark:inline-block  mb-10">
@@ -12,34 +12,30 @@
                 <h3 class="mb-8 font-medium text-lg">Explore</h3>
                 <ul class="[&amp;>*:not(:last-child)]:mb-3">
                     <li>
-                        <a href="#about.html" class="relative inline-block overflow-hidden text-base capitalize text-paragraph dark:text-white before:absolute before:bottom-0 before:left-0 before:h-[1px] before:w-full before:origin-right before:scale-x-0 before:bg-paragraph dark:before:bg-white  before:transition-transform before:duration-500 before:content-[''] before:hover:origin-left before:hover:scale-x-100">
-                            About
+                        <a href="{{ route('trade') }}" class="relative inline-block overflow-hidden text-base capitalize text-paragraph dark:text-white before:absolute before:bottom-0 before:left-0 before:h-[1px] before:w-full before:origin-right before:scale-x-0 before:bg-paragraph dark:before:bg-white  before:transition-transform before:duration-500 before:content-[''] before:hover:origin-left before:hover:scale-x-100">
+                            Trade
                         </a>
                     </li>
                     <li>
-                        <a href="#services.html" class="relative inline-block overflow-hidden text-base capitalize text-paragraph dark:text-white before:absolute before:bottom-0 before:left-0 before:h-[1px] before:w-full before:origin-right before:scale-x-0 before:bg-paragraph dark:before:bg-white  before:transition-transform before:duration-500 before:content-[''] before:hover:origin-left before:hover:scale-x-100">
-                            Services
+                        <a href="{{ route('wallet') }}" class="relative inline-block overflow-hidden text-base capitalize text-paragraph dark:text-white before:absolute before:bottom-0 before:left-0 before:h-[1px] before:w-full before:origin-right before:scale-x-0 before:bg-paragraph dark:before:bg-white  before:transition-transform before:duration-500 before:content-[''] before:hover:origin-left before:hover:scale-x-100">
+                            User Wallet
                         </a>
                     </li>
                 </ul>
             </div>
             <div class="col-span-12 lg:col-span-2 max-lg:text-center">
-                <h3 class="mb-8 font-medium text-lg">Resources</h3>
+                <h3 class="mb-8 font-medium text-lg">Currencries</h3>
                 <ul class="[&amp;>*:not(:last-child)]:mb-3">
                     <li>
-                        <a href="https://bitcoin.org" class="relative inline-block overflow-hidden text-base capitalize text-paragraph dark:text-white before:absolute before:bottom-0 before:left-0 before:h-[1px] before:w-full before:origin-right before:scale-x-0 before:bg-paragraph dark:before:bg-white  before:transition-transform before:duration-500 before:content-[''] before:hover:origin-left before:hover:scale-x-100">
-                            Bitcoin
-                        </a>
+                        BTC
                     </li>
                     <li>
                         <a href="https://www.blockchain.com" class="relative inline-block overflow-hidden text-base capitalize text-paragraph dark:text-white before:absolute before:bottom-0 before:left-0 before:h-[1px] before:w-full before:origin-right before:scale-x-0 before:bg-paragraph dark:before:bg-white  before:transition-transform before:duration-500 before:content-[''] before:hover:origin-left before:hover:scale-x-100">
-                            blockchain
+                            USDT
                         </a>
                     </li>
                     <li>
-                        <a href="https://www.coinbase.com" class="relative inline-block overflow-hidden text-base capitalize text-paragraph dark:text-white before:absolute before:bottom-0 before:left-0 before:h-[1px] before:w-full before:origin-right before:scale-x-0 before:bg-paragraph dark:before:bg-white  before:transition-transform before:duration-500 before:content-[''] before:hover:origin-left before:hover:scale-x-100">
-                            Coinbase
-                        </a>
+                        ETH
                     </li>
                 </ul>
             </div>
@@ -96,7 +92,7 @@
         <div class="seperator">
             <img src="{{ asset('images/footer-seperator.svg') }}" alt="footer-seperator" class="dark:hidden w-full object-cover">
             <img src="{{ asset('images/footer-seperator-dark.svg') }}" alt="footer-seperator" class="hidden dark:block w-full object-cover">
-        </div>
+        </div> --}}
 
         <div class="py-10 max-lg:text-center">
             <div class="flex max-lg:flex-col lg:items-center">

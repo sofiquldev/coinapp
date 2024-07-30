@@ -48,7 +48,14 @@
                     <a href="javascript:void(0)"
                         class="font-Inter flex items-center text-base font-medium leading-8 text-paragraph dark:text-white py-[5px] px-5 lg:px-4 xl:px-5 border rounded-large border-transparent hover:bg-white hover:border-borderColour dark:hover:bg-dark-200
                 dark:hover:border-borderColour/10 duration-500 hover:duration-500 transition-colors ">
-                        <img class="header-avatar" src="{{ asset('images/no-avatar.webp') }}" alt="{{ Auth::user()->name }}">
+                        @php
+                            $profile_picture = auth()->user()->image == 'no-avatar.webp'
+                                ? asset('images/no-avatar.webp')
+                                : asset('storage/' . auth()->user()->image);
+                        @endphp
+                        <img src="{{ $profile_picture }}" class="header-avatar"
+                            alt="{{ Auth::user()->name }}">
+
                         <span class="max-lg:hidden">
                             {{ Auth::user()->name }}
                         </span>
@@ -61,7 +68,7 @@
                                 Dashboard
                             </a>
                             @else
-                            <a href="#user" class="flex">
+                            <a href="{{ route('user.profile') }}" class="flex">
                                User  Profile
                             </a>
                             @endif

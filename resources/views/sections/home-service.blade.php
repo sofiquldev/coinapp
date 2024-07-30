@@ -46,7 +46,7 @@
 </section>
 
 
-<section class="relative z-10">
+<section class="relative z-10" style="transform: translateY(50px)">
     <div class="container">
         <div class=" bg-white dark:bg-dark-200 rounded-medium p-2.5 max-w-[850px] mx-auto shadow-nav">
             <div class=" bg-white dark:bg-dark-200 border border-dashed rounded border-gray-100 dark:border-borderColour-dark py-10 grid grid-cols-3 max-md:grid-cols-1  max-md:gap-y-10 items-center  [&amp;>*:not(:last-child)]:after:absolute  md:[&amp;>*:not(:last-child)]:after:right-0 md:[&amp;>*:not(:last-child)]:after:w-[1px] md:[&amp;>*:not(:last-child)]:after:h-[60px] md:[&amp;>*:not(:last-child)]:after:content-[url('../images/clients/client-item-border.svg')] md:[&amp;>*:not(:last-child)]:after:top-1/2 md:[&amp;>*:not(:last-child)]:after:-translate-y-1/2 md:dark:[&amp;>*:not(:last-child)]:after:content-[url('../images/clients/client-item-border-dark.svg')]  max-md:[&amp;>*:not(:last-child)]:after:h-[1px] max-md:[&amp;>*:not(:last-child)]:after:w-[270px] max-md:[&amp;>*:not(:last-child)]:after:-bottom-5 max-md:[&amp;>*:not(:last-child)]:after:left-1/2 max-md:[&amp;>*:not(:last-child)]:after:-translate-x-1/2  max-md:[&amp;>*:not(:last-child)]:after:content-[url('../images/clients/client-item-border-mobile.svg')] max-md:dark:[&amp;>*:not(:last-child)]:after:content-[url('../images/clients/client-item-border-mobile-dark.svg')] " id="counter">

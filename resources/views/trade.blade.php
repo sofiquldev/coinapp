@@ -5,8 +5,8 @@
     @include('sections.trade-hero')
     @include('sections.trade-table')
     @include('sections.home-service')
-    @include('sections.home-integration')
-    @include('sections.home-testimonial')
+    {{-- @include('sections.home-integration')
+    @include('sections.home-testimonial') --}}
     @include('partials.app.cta')
     @include('partials.app.footer')
     @include('partials.app.modals.trade')

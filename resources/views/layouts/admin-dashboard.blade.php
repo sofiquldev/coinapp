@@ -83,6 +83,10 @@
   {{-- <script type="text/javascript" src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script> --}}
   <script type="text/javascript" src="//cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
   <script type="text/javascript" src="{{ asset('dashboard/js/main.js') }}"></script>
+  <script>
+    document.documentElement.setAttribute('data-mode', 'dark');
+    localStorage.setItem('theme', 'dark');
+  </script>
 
   @yield('scripts')
 

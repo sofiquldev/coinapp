@@ -52,7 +52,7 @@
             <p class="max-lg:mt-6 mb-12 max-w-[400px] mx-auto">
                 Join the crypto revolution and start earning today.
             </p>
-            <a href="#contact.html" class="btn">
+            <a href="{{ route('wallet') }}" class="btn">
                 Get Started Today
             </a>
             {{-- <ul class=" flex max-md:flex-col max-md:gap-5 items-center justify-between max-lg:mt-5 mt-20 max-w-[815px] mx-auto">

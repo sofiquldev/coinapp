@@ -53,7 +53,7 @@
             <div class="btn_box btn_alt box_12 cus-border nav_search_short d-md-none">
                 <span class="material-symbols-outlined  fs-four"> search </span>
             </div>
-            <div class="toggle-switch btn_box btn_alt box_12 cus-border ">
+            <div class="toggle-switch btn_box btn_alt box_12 cus-border d-none">
                 <input type="checkbox" class="checkbox" id="checkbox">
                 <label for="checkbox" class="checkbox-label">
                     <span class="material-symbols-outlined fs-four"> dark_mode </span>
@@ -61,7 +61,7 @@
                 </label>
             </div>
             <div class="position-relative notification_area">
-                <div class="notification_icon btn_box btn_alt box_12 cus-border d-center">
+                <div class="notification_icon btn_box btn_alt box_12 cus-border d-center d-none">
                     <span class="material-symbols-outlined fs-four"> notifications </span>
                 </div>
                 <ul
@@ -69,7 +69,12 @@
                     <li>
                         <div class="d-flex align-items-center gap-3">
                             <a href="#" class="user_profile_thumb">
-                                <img src="{{ asset('dashboard/images/user_profile10.png') }}" class="rounded-circle"
+                                @php
+                                    $profile_picture = auth()->user()->image == 'no-avatar.webp'
+                                        ? asset('images/no-avatar.webp')
+                                        : asset('storage/' . auth()->user()->image);
+                                @endphp
+                                <img src="{{ $profile_picture }}" class="box_30 cus-rounded-1"
                                     alt="image">
                             </a>
                             <div class="user_profile_title flex-fill">
@@ -292,12 +297,18 @@
 
             <div class="user-account box_12 position-relative">
                 <div class="profile-nav">
-                    <img src="{{ asset('dashboard/images/user.png') }}" class="box_12 cus-rounded-1" alt="img">
+                    @php
+                        $profile_picture = auth()->user()->image == 'no-avatar.webp'
+                            ? asset('dashboard/images/user.png')
+                            : asset('storage/' . auth()->user()->image);
+                    @endphp
+                    <img src="{{ $profile_picture }}" class="box_12 cus-rounded-1"
+                        alt="image">
                 </div>
                 <ul class="user-profile hover-scroll n0-bg d-flex flex-column gap-1 p-3 cus-rounded-1">
-                    <li><a href="#" class="d-flex align-items-center gap-2 p1-color"><span
+                    <li><a href="{{ route('user.profile') }}" class="d-flex align-items-center gap-2 p1-color"><span
                                 class="material-symbols-outlined fs-four"> person </span>My Account</a></li>
-                    <li><a href="#" class="d-flex align-items-center gap-2 p1-color"><span
+                    <li><a href="{{ route('dashboard.settings') }}" class="d-flex align-items-center gap-2 p1-color"><span
                                 class="material-symbols-outlined fs-four"> settings </span>Settings</a></li>
                     <li>
                         <a class="d-flex align-items-center gap-2 p1-color" href="{{ route('logout') }}"

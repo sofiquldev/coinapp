@@ -32,8 +32,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/transactions', [App\Http\Controllers\TransactionController::class, 'store'])->name('transactions.post');
     Route::get('/deposit-process', [App\Http\Controllers\TransactionController::class, 'depositProcess'])->name('deposit.process');
     Route::get('/withdraw-process', [App\Http\Controllers\TransactionController::class,'withdrawProcess'])->name('withdraw.process');
-    Route::post('/user/{id}', [App\Http\Controllers\AdminDashboardController::class, 'updateUser'])->name('user.update');
-
+    Route::get('/profile', [App\Http\Controllers\UserController::class, 'userProfile'])->name('user.profile');
+    Route::post('/user/update', [App\Http\Controllers\UserController::class, 'updateUser'])->name('user.update');
 });
 
 

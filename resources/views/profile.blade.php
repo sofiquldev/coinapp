@@ -11,28 +11,15 @@
     $balance = $user->balance;
 @endphp
 
-@extends('layouts.admin-dashboard')
+@extends('layouts.dashboard')
 
 @section('content')
-    <div class="container-fluid ">
-        <div class="row">
+    <div class="container">
+        <div class="row py-4">
             <div class="col-12">
                 <div class="top-area flex-wrap d-center justify-content-between gap-8 row-gap-3">
-                    <h2>Profile</h2>
-                    <form method="POST" action="{{ route('dashboard.user.freege') }}">
-                        @csrf
-                        <input type="hidden" name="user_id" value="{{ $user->id }}">
-                        @if($user->status == 1)
-                            <input type="hidden" name="user_status" value="5">
-                            <button type="submit" class="btn btn-danger">Freege</button>
-                        @elseif($user->status == 5)
-                            <input type="hidden" name="user_status" value="1">
-                            <button type="submit" class="btn btn-success"><i>un-</i>Freege</button>
-                        @else
-                            <input type="hidden" name="user_status" value="1">
-                            <button type="submit" class="btn btn-success"><i>un-</i>Freege</button>
-                        @endif
-                    </form>
+                    <h2>{{ $user->name }}'s Profile</h2>
+                    <a href="{{ route('home') }}" class="btn btn-success">Go Back</a>
                 </div>
             </div>
         </div>
@@ -46,7 +33,6 @@
                         <form action="{{ route('user.update') }}" method="POST" enctype="multipart/form-data"
                             class="d-flex flex-column gap-5 gap-lg-6 w-100 cus-border-dashed top border-color-30 pt-5 pt-xxl-6 mt-5 mt-xxl-6">
                             @csrf
-                            {{-- @method('put') --}}
                             <input type="hidden" name="user_id" value="{{ $user->id }}">
                             <span class="fs-six-up fw-medium">Profile Photo</span>
                             <div
@@ -223,9 +209,10 @@
     </div>
 @endsection
 
+
 @section('scripts')
-    <script>
-         $(document).ready(function() {
+<script>
+        $(document).ready(function() {
             $('#user_image').change(function() {
                 var formData = new FormData();
                 formData.append('_token:', '{{ csrf_token() }}');
@@ -243,6 +230,7 @@
                     processData: false,
                     success: function(response) {
                         $('.user_thumbs>img').attr('src', `/storage/${response.user.image}`);
+                        // $('.user_thumbs>img').attr('src', `/storage/${response.user.image}`);
                     },
                     error: function(xhr, status, error) {
                         // Handle error

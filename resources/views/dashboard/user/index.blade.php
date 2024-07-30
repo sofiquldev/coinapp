@@ -61,7 +61,12 @@
                                             <td>
                                                 <div class="d-flex align-items-center gap-3">
                                                     <a href="{{ url('u/dashboard/user/' . $user->id) }}">
-                                                        <img src="{{ asset('images/user.png') }}" class="box_8"
+                                                        @php
+                                                            $profile_picture = auth()->user()->image == 'no-avatar.webp'
+                                                                ? asset('dashboard/images/user.png')
+                                                                : asset('storage/' . auth()->user()->image);
+                                                        @endphp
+                                                        <img src="{{ $profile_picture }}" class="box_8"
                                                             alt="icon">
                                                         <span>{{ $user->name }}</span>
                                                     </a>

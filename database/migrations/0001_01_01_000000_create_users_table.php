@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('gender')->nullable();
             $table->decimal('balance', 15, 2)->default(0.00);
             $table->string('coins')->nullable(); //[]
-            $table->json('address')->nullable(); // Stores address in JSON format
+            $table->string('address')->nullable(); // Stores address in JSON format
             $table->string('ip_address')->nullable();
             $table->tinyInteger('status')->default(1); // 1: active, 2: pending, 3: deactivated, 4: deleted, 5: freege
             $table->string('image')->default('no-avatar.webp');

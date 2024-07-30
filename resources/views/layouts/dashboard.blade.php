@@ -52,6 +52,8 @@
   <script type="text/javascript" src="{{ asset('dashboard/assets/js/plugins/plugin-custom.js') }}"></script>
   <script type="text/javascript" src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
   <script type="text/javascript" src="{{ asset('dashboard/js/main.js') }}"></script>
+
+  @yield('scripts')
 </body>
 
 </html>

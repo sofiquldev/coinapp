@@ -465,32 +465,34 @@
 
 
         // toggleSwitch dark-light mode
-        if (document.querySelector(".toggle-switch")){
+        document.documentElement.setAttribute('data-mode', 'dark');
+        localStorage.setItem('theme', 'dark');
+        // if (document.querySelector(".toggle-switch")){
 
-            const toggleSwitch = document.getElementById('checkbox');
-            const currentMode = localStorage.getItem('theme');
+        //     const toggleSwitch = document.getElementById('checkbox');
+        //     const currentMode = localStorage.getItem('theme');
 
-            if (currentMode) {
-                document.documentElement.setAttribute('data-mode', currentMode);
+        //     if (currentMode) {
+        //         document.documentElement.setAttribute('data-mode', currentMode);
 
-                if (currentMode === 'dark') {
-                    toggleSwitch.checked = true;
-                }
-            }
+        //         if (currentMode === 'dark') {
+        //             toggleSwitch.checked = true;
+        //         }
+        //     }
 
-            function switchTheme(e) {
-                if (e.target.checked) {
-                    document.documentElement.setAttribute('data-mode', 'dark');
-                    localStorage.setItem('theme', 'dark');
-                }
-                else {
-                    document.documentElement.setAttribute('data-mode', 'light');
-                    localStorage.setItem('theme', 'light');
-                }
-            }
+        //     function switchTheme(e) {
+        //         if (e.target.checked) {
+        //             document.documentElement.setAttribute('data-mode', 'dark');
+        //             localStorage.setItem('theme', 'dark');
+        //         }
+        //         else {
+        //             document.documentElement.setAttribute('data-mode', 'light');
+        //             localStorage.setItem('theme', 'light');
+        //         }
+        //     }
 
-            toggleSwitch.addEventListener('change', switchTheme, false);
-        }
+        //     toggleSwitch.addEventListener('change', switchTheme, false);
+        // }
 
         // cssProgress bar
         $('.cssProgress').each(function () {
