@@ -41,7 +41,7 @@
                                     <label class="fs-six-up fw-medium mb-2 mb-sm-4" for="password10">Enter Your Password</label>
                                     <div class="input-pass">
                                         <input type="password" class="fs-seven py-2 py-sm-3 ps-3 ps-sm-5 ps-lg-6 pe-10 pe-lg-13 @error('password') is-invalid @enderror" id="password10" name="password" value="123456" placeholder="Password" required autocomplete="new-password">
-                                        <span class="password-eye-icon"></span>
+                                        {{-- <span class="password-eye-icon"></span> --}}
                                     </div>
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
@@ -53,7 +53,7 @@
                                     <label class="fs-six-up fw-medium mb-2 mb-sm-4" for="password-confirm">Confirm Password</label>
                                     <div class="input-pass">
                                         <input type="password" class="fs-seven py-2 py-sm-3 ps-3 ps-sm-5 ps-lg-6 pe-10 pe-lg-13 @error('password') is-invalid @enderror" id="password-confirm" name="password_confirmation" value="123456" placeholder="Confirm Password" required autocomplete="new-password">
-                                        <span class="password-eye-icon"></span>
+                                        {{-- <span class="password-eye-icon"></span> --}}
                                     </div>
                                 </div>
                                 @if (Route::has('login'))

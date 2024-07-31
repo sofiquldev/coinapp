@@ -36,7 +36,7 @@
                                         <input type="password"
                                             class="fs-seven py-2 py-sm-3 ps-3 ps-lg-5 ps-lg-6 pe-10 pe-lg-13 @error('password') is-invalid @enderror"
                                             name="password" id="password" placeholder="Enter Your Password..." required autocomplete="current-password">
-                                        <span class="password-eye-icon"></span>
+                                        {{-- <span class="password-eye-icon"></span> --}}
                                     </div>
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
