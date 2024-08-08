@@ -43,6 +43,7 @@
                             @php
                                 $symbol = strtolower($asset['symbol']);
                                 $iconUrl = "https://assets.coincap.io/assets/icons/{$symbol}@2x.png";
+                                $balance = json_decode(auth()->user()->balance, true);
                             @endphp
                             <tr data-id="{{ $asset['id'] }}">
                                 <td class="text-center">{{ $asset['rank'] }}</td>
@@ -61,7 +62,8 @@
                                         type="button"
                                         class="btn btn-navbar btn-sm open-trade-btn"
                                         data-coin="{{ $asset['symbol'] }}"
-                                        data-price="{{ $asset['priceUsd'] }}"
+                                        {{-- data-price="{{ $asset['priceUsd'] }}" --}}
+                                        data-balance={{ $balance[strtolower($asset['symbol'])] }}
                                     >Trade</button>
                                 </td>
                             </tr>

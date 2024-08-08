@@ -27,7 +27,7 @@ class AdminDashboardController extends Controller
 
     public function index()
     {
-        $currency = SiteOption::where('key', 'site-currency')->first() ?? 'USD';
+        $currency = SiteOption::where('key', 'site-currency')->first()->value ?? 'USD';
         $transactions = Transaction::where('status', 1)->latest()->take(15)->get();
         $deposites = Transaction::where('tnx_type', 1)->where('status', 1)->latest()->take(15)->sum('amount');
         $withdraws = Transaction::where('tnx_type', 2)->where('status', 1)->latest()->take(15)->sum('amount');
@@ -77,7 +77,7 @@ class AdminDashboardController extends Controller
     public function settings()
     {
         $data = (object) [
-            'currency' => SiteOption::where('key', 'site-currency')->first() ?? 'USD',
+            'currency' => SiteOption::where('key', 'site-currency')->first()->value ?? 'USD',
             'serviceFee' => SiteOption::where('key', 'site-serviceFee')->first() ?? 5
         ];
         return view('dashboard.admin.settings', compact('data'));

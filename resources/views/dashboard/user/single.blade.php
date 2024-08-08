@@ -1,5 +1,5 @@
 @php
-    $total_deposit = App\Models\Transaction::where('user_id', $user->id)
+    /* $total_deposit = App\Models\Transaction::where('user_id', $user->id)
         ->where('tnx_type', 1)
         ->where('status', 1)
         ->sum('amount');
@@ -8,7 +8,8 @@
         ->where('status', 1)
         ->sum('amount');
     // $balance = $total_deposit - $total_withdraw;
-    $balance = $user->balance;
+    $balance = $user->balance; */
+    $balance = json_decode($user->balance);
 @endphp
 
 @extends('layouts.admin-dashboard')
@@ -160,25 +161,45 @@
                         <div class="n0-bg cus-rounded-1 p-4 p-lg-6 p-xxl-8 cus-border">
                             <div class="d-center justify-content-between">
                                 <span class="fw-medium">Balance</span>
-                                <p class="p1-color d-flex align-items-center gap-1"><span
-                                        class="material-symbols-outlined fs-five"> arrow_upward </span>15.4%</p>
                             </div>
-                            <h3 class="n700-color mt-4 mb-8 mb-lg-10">{{ currencyHelper($balance) }}</h3>
+                            <h3 class="n700-color mt-4">{{ floatval($balance->btc) }} <small>BTC</small></h3>
+                            <h3 class="n700-color mb-4">{{ floatval($balance->usdt) }} <small>USDT</small></h3>
+                            <hr>
                             <div class="d-center justify-content-between gap-6 flex-wrap">
-                                <div class="d-flex flex-column gap-4">
-                                    <p class="d-flex align-items-center gap-1"><span
-                                            class="material-symbols-outlined fs-five p1-color "> arrow_downward
-                                        </span>Deposite
+                                <div class="d-flex flex-column">
+                                    <p class="d-flex align-items-center gap-1 mb-2">
+                                        <img src="https://assets.coincap.io/assets/icons/btc@2x.png" alt="btc" width="25">
+                                        Bitcoin
                                     </p>
-                                    <span class="fw-semibold">{{ currencyHelper($total_deposit) }}</span>
+                                    <div class="d-flex gap-2">
+                                        <p class="d-flex align-items-center gap-1"><span class="material-symbols-outlined fs-five text-success"> arrow_upward </span>
+                                        </p>
+                                        <span class="fw-semibold">{{ floatval($balance->btc) }} <small>BTC</small></span>
+                                    </div>
+                                    <div class="d-flex gap-2">
+                                        <p class="d-flex align-items-center gap-1"><span class="material-symbols-outlined fs-five s2-color"> arrow_downward</span>
+                                        </p>
+                                        <span class="fw-semibold">{{ floatval($balance->btc) }} <small>BTC</small></span>
+                                    </div>
                                 </div>
-                                <div class="d-flex flex-column gap-4">
-                                    <p class="d-flex align-items-center gap-1"><span
-                                            class="material-symbols-outlined fs-five s2-color "> arrow_upward
-                                        </span>Withdraw
+
+                                <div class="d-flex flex-column">
+                                    <p class="d-flex align-items-center gap-1 mb-2">
+                                        <img src="https://assets.coincap.io/assets/icons/usdt@2x.png" alt="btc" width="25">
+                                        USDT
                                     </p>
-                                    <span class="fw-semibold">{{ currencyHelper($total_withdraw) }}</span>
+                                    <div class="d-flex gap-2">
+                                        <p class="d-flex align-items-center gap-1"><span class="material-symbols-outlined fs-five text-success"> arrow_upward </span>
+                                        </p>
+                                        <span class="fw-semibold">{{ floatval($balance->btc) }} <small>BTC</small></span>
+                                    </div>
+                                    <div class="d-flex gap-2">
+                                        <p class="d-flex align-items-center gap-1"><span class="material-symbols-outlined fs-five s2-color"> arrow_downward</span>
+                                        </p>
+                                        <span class="fw-semibold">{{ floatval($balance->btc) }} <small>BTC</small></span>
+                                    </div>
                                 </div>
+
                             </div>
                         </div>
                         <br>
@@ -207,7 +228,7 @@
                                                             <span class="bg4-opty s4-color cus-border py-1 px-2 px-lg-3 text-center cus-rounded-1 w-100">Unknown</span>
                                                         @endif
                                                     </td>
-                                                    <td>{{ currencyHelper($tnx->amount) }}</td>
+                                                    <td>{{ floatval($tnx->amount) }} <small class="ms-1"> {{ strtoupper($tnx->account_type) }}</small></td>
                                                 </tr>
                                                 @endforeach
                                             </tbody>

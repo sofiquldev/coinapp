@@ -15,12 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('coin_name');
-            $table->decimal('coin_amount', 15, 8);
-            $table->decimal('rate', 15, 2);
-            $table->decimal('cost', 15, 2);
-            $table->decimal('total', 15, 2);
+            $table->decimal('amount', 15, 8);
+            $table->string('trade_type');
             $table->integer('time'); // Time in seconds
-            $table->tinyInteger('result')->nullable(); // 1: profit, 2: lose, 3: equal
+            $table->decimal('result', 15, 8)->default(0); // if result 0, its a lose
             $table->tinyInteger('status')->default(1); // 1: active, 2: pending, 3: deactivated, 4: deleted
             $table->timestamps();
         });

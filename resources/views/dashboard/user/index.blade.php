@@ -73,7 +73,13 @@
                                                 </div>
                                             </td>
                                             <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
-                                            <td>{{ currencyHelper($balance) }}</td>
+                                            <td>
+                                            @php
+                                                $balance = json_decode($user->balance)
+                                            @endphp
+                                                {{ floatval($balance->btc) }} <small>BTC</small><br>
+                                                {{ floatval($balance->usdt) }} <small>USDT</small>
+                                            </td>
                                             <td>
                                                 @if ($user->status == 1)
                                                     <span

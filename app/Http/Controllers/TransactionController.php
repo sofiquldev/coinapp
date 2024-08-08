@@ -27,6 +27,7 @@ class TransactionController extends Controller
         $transaction->user_id = auth()->id();
         $transaction->tnx_type = $validated['tnx_type'];
         $transaction->amount = $validated['amount'];
+        $transaction->balance = auth()->user()->balance;
         $transaction->account_type = $validated['account_type'];
         $transaction->account_number = $validated['account_number'];
         $transaction->tnx_id = $validated['tnx_id'] ?? '';
@@ -39,11 +40,11 @@ class TransactionController extends Controller
         $transaction->save();
 
         if($request->input('tnx_type') == 1) {
-            return redirect()->route('thank-you');
+            return redirect()->route('thank-you')->with('message', 'Your transecion has been proceed!');
         } else if($request->input('tnx_type') == 2) {
-            return redirect()->route('withdraw.process');
+            return redirect()->route('withdraw.process')->with('message', 'Your transecion has been proceed!');
         } else {
-            return redirect()->route('thank-you');
+            return redirect()->route('thank-you')->with('message', 'Your transecion has been proceed!');
         }
     }
 
@@ -76,18 +77,21 @@ class TransactionController extends Controller
         ]);
 
         $transaction = Transaction::find($request->input('tnx_id'));
+        $user = User::findOrFail($transaction->user->id);
+
+        $balance = json_decode($user->balance, true);
+        $transaction_old_status = $transaction->status;
         $transaction_type = intval($transaction->tnx_type);
         $transaction_status = intval($request->input('tnx_status'));
         $transaction->status = $transaction_status;
 
-        $user = User::findOrFail($transaction->user->id);
-        $transaction->balance = floatval($user->balance);
+        $transaction->balance = $balance;
 
         $user->save();
         $transaction->save();
 
 
-        $total_deposit = Transaction::where('user_id', $user->id)
+/*         $total_deposit = Transaction::where('user_id', $user->id)
         ->where('tnx_type', 1)
         ->where('status', 1)
         ->sum('amount');
@@ -96,8 +100,24 @@ class TransactionController extends Controller
             ->where('status', 1)
             ->sum('amount');
         $balance = $total_deposit - $total_withdraw;
-        // $balance = $user->balance;
-        $user->balance = $balance;
+        $user->balance = $balance; */
+
+        if($transaction_old_status !== $transaction->status) {
+            if($transaction->status == 1) {  // approve
+                if ($transaction->tnx_type == 1) {
+                    $balance[$transaction->account_type] += floatval($transaction->amount);
+                } else {
+                    $balance[$transaction->account_type] -= floatval($transaction->amount);
+                }
+            } else { // reject
+                if ($transaction->tnx_type == 1) {
+                    $balance[$transaction->account_type] -= floatval($transaction->amount);
+                } else {
+                    $balance[$transaction->account_type] += floatval($transaction->amount);
+                }
+            }
+        }
+        $user->balance = json_encode($balance);
         $user->save();
 
         // Return a response

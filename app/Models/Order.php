@@ -16,7 +16,7 @@ class Order extends Model
         'coin_name',
         'rate',
         'cost',
-        'coin_amount',
+        'amount',
         'total',
         'status',
     ];

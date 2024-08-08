@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('account_type', 255);
             $table->string('account_number', 255);
             $table->string('tnx_id')->nullable();
-            $table->integer('balance')->nullable();
+            $table->json('balance')->nullable();
             $table->string('screenshot')->nullable();
             $table->json('account_info')->nullable();
             $table->tinyInteger('status')->default(1); // 1: active, 2: pending, 3: deactivated, 4: deleted

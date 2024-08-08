@@ -28,6 +28,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/orders', [App\Http\Controllers\OrderController::class, 'store'])->name('order.post');
     Route::get('/trade-process', [App\Http\Controllers\OrderController::class, 'tradeProcess'])->name('trade.process');
     Route::get('/deposit', [App\Http\Controllers\TransactionController::class, 'deposit'])->name('deposit');
+    Route::get('/buy-sell', [App\Http\Controllers\TransactionController::class, 'buySell'])->name('buy-sell');
+    Route::post('/buy-sell', [App\Http\Controllers\TransactionController::class, 'buySellFn'])->name('buy-sell.post');
     Route::get('/withdraw', [App\Http\Controllers\TransactionController::class,'withdraw'])->name('withdraw');
     Route::post('/transactions', [App\Http\Controllers\TransactionController::class, 'store'])->name('transactions.post');
     Route::get('/deposit-process', [App\Http\Controllers\TransactionController::class, 'depositProcess'])->name('deposit.process');

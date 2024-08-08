@@ -126,7 +126,7 @@
             </button>
             <ul class="nav-list flex flex-col gap-5 w-full max-w-[500px] landscape:h-full">
                 <li>
-                    <a href="#{{ route('home') }}"
+                    <a href="{{ route('home') }}"
                         class="font-Inter flex items-center text-base font-medium leading-8 text-paragraph dark:text-white py-[5px] px-5 lg:px-4 xl:px-5 border rounded-large border-transparent hover:bg-white hover:border-borderColour dark:hover:bg-dark-200
             dark:hover:border-borderColour/10 duration-500 hover:duration-500 transition-colors {{ Route::currentRouteName() == 'home' ? 'active' : '' }}">
                         Home

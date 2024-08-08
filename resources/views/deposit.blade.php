@@ -14,7 +14,7 @@ if(empty($site_currency)) {
 
     <section class="paymemt-section">
         <div class="container">
-            <h2>Deposit Cash</h2>
+            <h2>Deposit Balance</h2>
             <p>Complete your payment</p>
             <br><br>
             <form method="post" enctype="multipart/form-data" id="payment-form" action="{{ route('transactions.post') }}">
@@ -31,7 +31,7 @@ if(empty($site_currency)) {
 
                     <input type="radio" name="account_type" id="select_coin_usdt" value="usdt">
                     <label for="select_coin_usdt">
-                        <img src="https://assets.coincap.io/assets/icons/usdt@2x.png" alt="btc">
+                        <img src="https://assets.coincap.io/assets/icons/usdt@2x.png" alt="usdt">
                         USDT
                     </label>
                 </div>
@@ -56,7 +56,7 @@ if(empty($site_currency)) {
                 </div>
                 <div class="modal-btn-group">
                     <button type="button" id="submit_btn" class="btn btn-primary">Generate Wallet Address</button>
-                    <button type="submit" id="submit_deposit" class="btn btn-primary">Submit Deposit</a>
+                    <button type="button" id="submit_deposit" class="btn btn-primary">Submit Deposit</a>
                 </div>
             </form>
         </div>
@@ -74,25 +74,16 @@ if(empty($site_currency)) {
         // Get the selected account type value
         const selectedAccountType = $('input[name="account_type"]:checked').val();
         generateWallet(selectedAccountType)
-
-        // var formData = $(this).serialize(); // Serialize the form data
-
-
-
-        // $.ajax({
-        //     url: '{{ route('transactions.post') }}',
-        //     type: 'POST',
-        //     data: formData,
-        //     success: function(response) {
-        //         $('.submit_btn').on('click', function() {
-        //             window.location.href = "{{ route('thank-you') }}"
-        //         })
-        //     },
-        //     error: function(error) {
-        //         // Handle error
-        //     }
-        // });
     });
+
+    $('#submit_deposit').on('click', function() {
+        if(Number($('#amount').val())) {
+            $('#payment-form').submit();
+        } else {
+            alert('Amount must be bigger then 0 (Zero)!');
+            return false;
+        }
+    })
 
 
     $('input[name="account_type"]').on('click', function(){

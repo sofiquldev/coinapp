@@ -29,35 +29,30 @@ if (Auth::user() && Auth::user()->balance < floatval(env('SITE_MIN_DEPOSITE', 10
             <div class="border border-dashed rounded border-gray-100 dark:border-borderColour-dark p-10 max-lg:p-5 ">
                 @if(Auth::user())
                 <div class="user-balance">
-                    <i class="fa-solid fa-coins"></i> {{ Auth::user() ? Auth::user()->balance : 0 }}
+                    <i class="fa-solid fa-coins"></i>
+                    <span id="user-balance-val">0</span>
                 </div>
 
                 <div
                     class="flex items-center justify-center bg border-b border-dashed border-b-borderColour dark:border-borderColour-dark pb-5">
-                    <h3 class="text-paragraph dark:text-white">Buy <span id="highlight-coin-name">Coin</span></h3>
+                    <h3 class="text-paragraph dark:text-white">Trade <span id="highlight-coin-name">Coin</span></h3>
                 </div>
                 <form method="POST" action="{{ route('order.post') }}" id="buy-coin-form">
                     @method('post')
                     @csrf
                     <input type="hidden" id="coin" name="coin">
-                    <input type="hidden" id="coin-amount-input" name="coin_amount">
-
-                    <br>
                     <div>
-                        <label for="rate">Rate: (USD)</label>
-                        <input type="text" id="rate" name="rate" readonly
-                            style="background: transparent;padding: 0;border:none;font-size: 1.5em;pointer-events: none;color:#c4f241">
+                        <label for="amount">Trade Amount</label>
+                        <input type="number" id="amount" name="amount" min="0" value="0" step="0.0000001" required>
                     </div>
                     <div>
-                        <label for="invested-money">Invested Money: ({{ $site_currency }})</label>
-                        <input type="number" id="invested-money" name="invested_money"
-                            value="{{ floatval($default_val) }}" min="0"
-                            max="{{ Auth::user() ? Auth::user()->balance : 0 }}" required>
-                    </div>
-                    <div>
-                        <p>You got</p>
-                        <h1 class="text-center" id="coin-amount"></h1>
-                        <br>
+                        <label for="trade_type">Trade Type</label>
+                        <select name="trade_type" id="trade_type">
+                            <option value="buy_up">Buy Up</option>
+                            <option value="buy_down">Buy Down</option>
+                            <option value="sale_up">Sale Up</option>
+                            <option value="sale_down">Sale Down</option>
+                        </select>
                     </div>
                     <div class="time-selector">
                         <input type="radio" id="1mnt" name="trade_time" value="60" checked>
@@ -69,14 +64,13 @@ if (Auth::user() && Auth::user()->balance < floatval(env('SITE_MIN_DEPOSITE', 10
                     </div>
                     <div class="modal-btn-group">
                         <button type="button" class="btn btn-sm btn-danger" id="ok-trade-btn">Cancel</button>
-                        <button type="submit" class="btn btn-sm btn-navbar" id="buy-button">Buy Coin</button>
+                        <button type="submit" class="btn btn-sm btn-navbar" id="buy-button">Submit Trade</button>
                     </div>
                 </form>
                 @else
                 <h2>You need to login first</h2>
                 <br>
                 <form method="POST" action="{{ route('login') }}" id="buy-coin-form">
-                    @method('post')
                     @csrf
                     <div class="d-flex flex-column gap-5">
                         <div class="single-input">
@@ -140,23 +134,20 @@ if (Auth::user() && Auth::user()->balance < floatval(env('SITE_MIN_DEPOSITE', 10
         buyButton = document.getElementById("buy-button");
 
     // Default invested money value
-    const defaultInvestedMoney = parseFloat("{{ $default_val }}");
+    // const defaultInvestedMoney = parseFloat("{{ $default_val }}");
 
     // Attach click event to each open button
     tradeModalOpenBtns.forEach(btn => {
         btn.onclick = async function() {
             // Get data from button
             let coin = btn.getAttribute("data-coin");
-            let rate = btn.getAttribute("data-price");
+            let balance = btn.getAttribute("data-balance");
 
             // Populate form fields
             coinInput.value = coin;
-            rateInput.value = rate;
-            investedMoneyInput.value = defaultInvestedMoney;
+            // investedMoneyInput.value = defaultInvestedMoney;
             highlightCoinName.innerHTML = coin;
-
-            // Calculate and set default coin amount
-            await calculateCoinPrice();
+            document.getElementById('user-balance-val').innerHTML = `${balance} ${coin}`;
 
             // Display the modal
             tradeModal.classList.remove('hidden');
@@ -179,12 +170,12 @@ if (Auth::user() && Auth::user()->balance < floatval(env('SITE_MIN_DEPOSITE', 10
     };
 
     // Calculate coin amount when invested money changes
-    investedMoneyInput.oninput = async function() {
+    /* investedMoneyInput.oninput = async function() {
         await calculateCoinPrice();
-    };
+    }; */
 
     async function calculateCoinPrice() {
-        let rate = parseFloat(rateInput.value);
+        // let rate = parseFloat(rateInput.value);
         let investedMoney = parseFloat(investedMoneyInput.value);
 
         let convertedMoney = await convertCurrency('{{ $site_currency }}', investedMoney);

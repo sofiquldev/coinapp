@@ -6,13 +6,12 @@
     <section class="paymemt-section">
         <div class="container">
             @if ($order)
-                @if ($order->result == null && $order->status == 2)
+                @if ($order->status == 2)
                     <h2>Thanks! Your Trade is processing now.</h2>
                     <br>
                 @else
                     <br>
                     <h2>Invalid Trade ID.</h2>
-                    <a class="btn btn-primary" href="{{ route('home') }}">Go Back</a>
                     <br>
                 @endif
 
@@ -24,6 +23,10 @@
                 <h2>Something went wrong!</h2>
                 <br><br>
             @endif
+
+            <br>
+            <a class="btn btn-primary" href="{{ route('home') }}">Go Back</a>
+
         </div>
     </section>
 
@@ -34,19 +37,19 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
-            let createdAt = new Date('{{ $order->createdAt }}').getTime();
-            let tradeTime = {{ $order->time }};
-            startCountdown(createdAt, tradeTime)
+            let currentTime = Date.now()
+            let createdAt = new Date('{{ $order->created_at }}').getTime();
+            let tradeTime = {{ $order->time * 1000 }};
+            startCountdown(createdAt, tradeTime);
 
             function startCountdown(createdAt, tradeTime) {
                 $('#countdown').show();
-                var endTime = createdAt + (tradeTime * 1000); // 5 minutes in milliseconds
+                var endTime = createdAt + tradeTime;
                 updateCountdown(endTime);
             }
 
             function updateCountdown(endTime) {
-                var now = new Date().getTime();
-                var distance = endTime - now;
+                var distance = endTime - Date.now();
                 var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                 var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
@@ -60,5 +63,6 @@
                 }
             }
         });
+
     </script>
 @endsection

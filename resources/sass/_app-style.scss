@@ -212,6 +212,12 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 16px;
+
+    @media (max-width: 570px) {
+        grid-template-columns: 1fr;
+    }
+
+
     input {
         &[type="radio"] {
             display: none;
@@ -240,6 +246,15 @@
             }
         }
     }
+    label.buy-sell {
+        position: relative;
+        padding-bottom: 50px !important;
+        .coin_balance {
+            position: absolute;
+            font-size: 16px;
+            bottom: 16px;
+        }
+    }
 }
 .deposit_amount_field input {
     padding: 24px 16px !important;
@@ -247,6 +262,25 @@
     text-align: center;
 }
 
+.form-group {
+    position: relative;
+    &.has-btn {
+        padding-bottom: 36px;
+    }
+}
+.sale-all-btn {
+    margin-top: 8px;
+    float: right;
+    background-color: #ddd;
+    color: #111;
+    padding: 2px 8px;
+    border-radius: 4px;
+    transition: all ease-in-out 300ms;
+    &:hover {
+        background-color: rgba(230, 51, 51, 0.678);
+        color: #fff;
+    }
+}
 .loading {
     display: none;
 }
@@ -276,7 +310,9 @@
 }
 
 .thank-you-message {
+    max-width: 720px;
     padding: clamp(200px, 20vw, 360px) 0;
+    margin: 0 auto;
     text-align: center;
     color: #c4f241;
 }
@@ -294,7 +330,20 @@
 .dt-search label {
     display: none;
 }
+.selected_coin_name {
+    text-transform: uppercase;
+}
 
+#trade_type {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    text-align: center;
+    margin: 16px 0 25px;
+    background-color: #333333;
+    border: 1px solid #444444;
+}
 /* #countdown {
     display: none;
     position: relative;
