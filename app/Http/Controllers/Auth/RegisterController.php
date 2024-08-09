@@ -34,6 +34,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'balance' => json_encode(['btc' => 0, 'usdt' => 0]),
             'ip_address' => request()->ip(),
         ]);
     }

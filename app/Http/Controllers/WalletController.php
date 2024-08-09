@@ -13,6 +13,6 @@ class WalletController extends Controller
         $user = Auth::user();
         $trades = Order::where('user_id', $user->id)->where('status', 1)->latest()->take(10)->get();
         $transections = Transaction::where('user_id', $user->id)->latest()->take(10)->get();
-        return view('wallet', compact('user', 'trades', 'transections'));
+        return view('wallet', compact('user'));
     }
 }

@@ -5,6 +5,7 @@
 
     @include('sections.wallet-wallet')
     @include('sections.wallet-transections')
+    @include('sections.wallet-trades')
     {{-- @include('sections.wallet-table') --}}
 
     {{-- @include('partials.app.cta') --}}

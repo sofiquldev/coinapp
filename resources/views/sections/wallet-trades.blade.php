@@ -21,7 +21,7 @@
         <div class="container">
             <div class="text-center">
                 <h2 class="mb-5 max-lg:text-[32px] text-[48px] font-semibold">
-                    Recent Transections
+                    Recent Trades
                 </h2>
                 {{-- <p class="max-lg:mt-6 mb-12 max-w-[400px] mx-auto">
                     By creating a custom Web design for your business, we can bring your vision to life.
@@ -34,25 +34,37 @@
                         <tr>
                             <th style="min-width: 36px">#</th>
                             <th style="text-align: left">Date</th>
-                            <th>Type</th>
+                            <th>Trade Coin</th>
+                            <th>Trade Type/Time</th>
                             <th>Amount</th>
-                            <th>Status</th>
+                            <th>Result</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($user->transections as $key => $tnx)
+                        @foreach ($user->trades as $key => $trade)
                             <tr>
                                 <td class="text-center">{{ $key + 1 }}</td>
-                                <td>{{ date('d-m-Y', strtotime($tnx->created_at)) }}</td>
-                                <td class="text-center">{{ $tnx->tnx_type == 1 ? 'Deposit' : 'Withdraw' }}</td>
-                                <td class="text-center" style="color: {{ $tnx->tnx_type == 1 ? 'green' : 'red' }}">{{ $tnx->tnx_type == 1 ? '+' : '-' }}{{ currencyHelper($tnx->amount) }}</td>
-                                <td class="text-center">{{ $tnx->status == 1 ? 'Success' : 'Pending' }}</td>
+                                <td>{{ date('d-m-Y', strtotime($trade->created_at)) }}</td>
+                                <td class="text-center">{{ $trade->coin_name }}</td>
+                                <td class="text-center">{{ ucwords(str_replace('_', ' ', $trade->trade_type)) }} ({{ gmdate("i", $trade->time) }} Minute)</td>
+                                <td class="text-center">{{ floatval($trade->amount) }} {{ $trade->coin_name }}</td>
+                                <td class="text-center">
+                                    @if($trade->status == 1)
+                                        @if ($trade->result > 0)
+                                            {{ floatval($trade->result) }} {{ $trade->coin_name }} Profited
+                                        @else
+                                            <span style="color: red">Trade Lost</span>
+                                        @endif
+                                    @else
+                                        Pending
+                                    @endif
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
-            @if($user->transections->count()>10)
+            @if($user->trades->count()>10)
             <div class="text-center" style="margin-top: 32px">
                 <a href="#" class="btn">
                     See All Trades

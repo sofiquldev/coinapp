@@ -8,7 +8,7 @@
         ->where('status', 1)
         ->sum('amount');
     // $balance = $total_deposit - $total_withdraw;
-    $balance = $user->balance;
+    $balance = json_decode($user->balance);
 @endphp
 
 @extends('layouts.dashboard')
@@ -39,12 +39,12 @@
                                 class="flex-wrap cus-border-dashed bottom pb-5 pb-lg-6 border-color-30 d-flex align-items-center gap-5 gap-lg-6">
                                 <div class="user_thumbs">
                                     @php
-                                        $profile_picture = $user->image == 'no-avatar.webp'
-                                            ? asset('images/no-avatar.webp')
-                                            : asset('storage/' . $user->image);
+                                        $profile_picture =
+                                            $user->image == 'no-avatar.webp'
+                                                ? asset('images/no-avatar.webp')
+                                                : asset('storage/' . $user->image);
                                     @endphp
-                                    <img src="{{ $profile_picture }}" class="box_30 cus-rounded-1"
-                                        alt="image">
+                                    <img src="{{ $profile_picture }}" class="box_30 cus-rounded-1" alt="image">
                                 </div>
                                 <div class="d-flex gap-4">
                                     <label for="user_image"
@@ -72,23 +72,26 @@
                             <div class="single-input">
                                 <label for="phone" class="fs-six-up fw-medium mb-2 mb-sm-4">Phone <span
                                         class="n100-color">(Optional)</span></label>
-                                <input type="text" class="fs-seven py-3 py-4 px-6 px-lg-8" value="{{ $user->phone_number }}"
-                                    id="phone" name="phone_number" placeholder="Enter Phone Number">
+                                <input type="text" class="fs-seven py-3 py-4 px-6 px-lg-8"
+                                    value="{{ $user->phone_number }}" id="phone" name="phone_number"
+                                    placeholder="Enter Phone Number">
                             </div>
                             <div class="single-input">
                                 <label for="phone" class="fs-six-up fw-medium mb-2 mb-sm-4">Gender :</label>
                                 <div class="d-flex gap-5 gap-lg-6">
                                     <div class="d-center gap-2">
-                                        <input class="form-radio-input" type="radio" name="gender" id="male" value="male"
-                                            {{ $user->gender == 'male' ? 'checked': '' }}>
+                                        <input class="form-radio-input" type="radio" name="gender" id="male"
+                                            value="male" {{ $user->gender == 'male' ? 'checked' : '' }}>
                                         <label class="form-radio-label" for="male">Male </label>
                                     </div>
                                     <div class="d-center gap-2">
-                                        <input class="form-radio-input" type="radio" name="gender" id="female" value="female" {{ $user->gender == 'female' ? 'checked': '' }}>
+                                        <input class="form-radio-input" type="radio" name="gender" id="female"
+                                            value="female" {{ $user->gender == 'female' ? 'checked' : '' }}>
                                         <label class="form-radio-label" for="female"> Female </label>
                                     </div>
                                     <div class="d-center gap-2">
-                                        <input class="form-radio-input" type="radio" name="gender" id="others" value="others" {{ $user->gender == 'others' ? 'checked': '' }}>
+                                        <input class="form-radio-input" type="radio" name="gender" id="others"
+                                            value="others" {{ $user->gender == 'others' ? 'checked' : '' }}>
                                         <label class="form-radio-label" for="others"> Others </label>
                                     </div>
                                 </div>
@@ -104,7 +107,8 @@
                             {{-- <h4>Address</h4> --}}
                             <div class="single-input">
                                 <label class="fs-six-up fw-medium mb-2 mb-sm-4" for="address">Address</label>
-                                <input type="text" name="address" class="fs-seven py-3 py-4 px-6 px-lg-8" value="{{ $user->address }}">
+                                <input type="text" name="address" class="fs-seven py-3 py-4 px-6 px-lg-8"
+                                    value="{{ $user->address }}">
                             </div>
                             {{-- <div class="row gap-3 gap-sm-0">
                                 <div class="col-sm-6">
@@ -146,60 +150,93 @@
                         <div class="n0-bg cus-rounded-1 p-4 p-lg-6 p-xxl-8 cus-border">
                             <div class="d-center justify-content-between">
                                 <span class="fw-medium">Balance</span>
-                                <p class="p1-color d-flex align-items-center gap-1"><span
-                                        class="material-symbols-outlined fs-five"> arrow_upward </span>15.4%</p>
                             </div>
-                            <h3 class="n700-color mt-4 mb-8 mb-lg-10">{{ currencyHelper($balance) }}</h3>
+                            <h3 class="n700-color mt-4">{{ floatval($balance->btc) }} <small>BTC</small></h3>
+                            <h3 class="n700-color mb-4">{{ floatval($balance->usdt) }} <small>USDT</small></h3>
+                            <hr>
                             <div class="d-center justify-content-between gap-6 flex-wrap">
-                                <div class="d-flex flex-column gap-4">
-                                    <p class="d-flex align-items-center gap-1"><span
-                                            class="material-symbols-outlined fs-five p1-color "> arrow_downward
-                                        </span>Deposite
+                                <div class="d-flex flex-column">
+                                    <p class="d-flex align-items-center gap-1 mb-2">
+                                        <img src="https://assets.coincap.io/assets/icons/btc@2x.png" alt="btc"
+                                            width="25">
+                                        Bitcoin
                                     </p>
-                                    <span class="fw-semibold">{{ currencyHelper($total_deposit) }}</span>
+                                    <div class="d-flex gap-2">
+                                        <p class="d-flex align-items-center gap-1"><span
+                                                class="material-symbols-outlined fs-five text-success"> arrow_upward
+                                            </span>
+                                        </p>
+                                        <span class="fw-semibold">{{ floatval($balance->btc) }} <small>BTC</small></span>
+                                    </div>
+                                    <div class="d-flex gap-2">
+                                        <p class="d-flex align-items-center gap-1"><span
+                                                class="material-symbols-outlined fs-five s2-color"> arrow_downward</span>
+                                        </p>
+                                        <span class="fw-semibold">{{ floatval($balance->btc) }} <small>BTC</small></span>
+                                    </div>
                                 </div>
-                                <div class="d-flex flex-column gap-4">
-                                    <p class="d-flex align-items-center gap-1"><span
-                                            class="material-symbols-outlined fs-five s2-color "> arrow_upward
-                                        </span>Withdraw
+
+                                <div class="d-flex flex-column">
+                                    <p class="d-flex align-items-center gap-1 mb-2">
+                                        <img src="https://assets.coincap.io/assets/icons/usdt@2x.png" alt="btc"
+                                            width="25">
+                                        USDT
                                     </p>
-                                    <span class="fw-semibold">{{ currencyHelper($total_withdraw) }}</span>
+                                    <div class="d-flex gap-2">
+                                        <p class="d-flex align-items-center gap-1"><span
+                                                class="material-symbols-outlined fs-five text-success"> arrow_upward
+                                            </span>
+                                        </p>
+                                        <span class="fw-semibold">{{ floatval($balance->btc) }} <small>BTC</small></span>
+                                    </div>
+                                    <div class="d-flex gap-2">
+                                        <p class="d-flex align-items-center gap-1"><span
+                                                class="material-symbols-outlined fs-five s2-color"> arrow_downward</span>
+                                        </p>
+                                        <span class="fw-semibold">{{ floatval($balance->btc) }} <small>BTC</small></span>
+                                    </div>
                                 </div>
+
                             </div>
                         </div>
                         <br>
                         <div class="box_part_area n0-bg cus-rounded-1 p-4 p-md-7 p-xxl-10 cus-border">
                             <div class="box_part__content">
                                 <h4>Recent Activities</h2>
-                                <br>
-                                <div class="table-area">
-                                    <div class="table-main align">
-                                        <table class="table-main align">
-                                            <tbody>
-                                                <tr>
-                                                    <th>Date</th>
-                                                    <th>Type</th>
-                                                    <th>Amount</th>
-                                                </tr>
-                                                @foreach(App\Models\Transaction::where('user_id', $user->id)->where('status', 1)->get() as $tnx)
-                                                <tr>
-                                                    <td>{{ date('d-m-Y', strtotime($tnx->created_at)) }}</td>
-                                                    <td style="font-size: 0.9em">
-                                                        @if($tnx->tnx_type == 1)
-                                                            <span class="bg2-opty s1-color cus-border py-1 px-2 px-lg-3 text-center cus-rounded-1 w-100" style="font-size: 0.9em">Deposite</span>
-                                                        @elseif($tnx->tnx_type == 2)
-                                                            <span class="bg3-opty s2-color cus-border py-1 px-2 px-lg-3 text-center cus-rounded-1 w-100" style="font-size: 0.9em">Withdraw</span>
-                                                        @else
-                                                            <span class="bg4-opty s4-color cus-border py-1 px-2 px-lg-3 text-center cus-rounded-1 w-100">Unknown</span>
-                                                        @endif
-                                                    </td>
-                                                    <td>{{ currencyHelper($tnx->amount) }}</td>
-                                                </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
+                                    <br>
+                                    <div class="table-area">
+                                        <div class="table-main align">
+                                            <table class="table-main align">
+                                                <tbody>
+                                                    <tr>
+                                                        <th>Date</th>
+                                                        <th>Type</th>
+                                                        <th>Amount</th>
+                                                    </tr>
+                                                    @foreach (App\Models\Transaction::where('user_id', $user->id)->where('status', 1)->get() as $tnx)
+                                                        <tr>
+                                                            <td>{{ date('d-m-Y', strtotime($tnx->created_at)) }}</td>
+                                                            <td style="font-size: 0.9em">
+                                                                @if ($tnx->tnx_type == 1)
+                                                                    <span
+                                                                        class="bg2-opty s1-color cus-border py-1 px-2 px-lg-3 text-center cus-rounded-1 w-100"
+                                                                        style="font-size: 0.9em">Deposite</span>
+                                                                @elseif($tnx->tnx_type == 2)
+                                                                    <span
+                                                                        class="bg3-opty s2-color cus-border py-1 px-2 px-lg-3 text-center cus-rounded-1 w-100"
+                                                                        style="font-size: 0.9em">Withdraw</span>
+                                                                @else
+                                                                    <span
+                                                                        class="bg4-opty s4-color cus-border py-1 px-2 px-lg-3 text-center cus-rounded-1 w-100">Unknown</span>
+                                                                @endif
+                                                            </td>
+                                                            <td>{{ currencyHelper($tnx->amount) }}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -211,22 +248,23 @@
 
 
 @section('scripts')
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {},
+            Tawk_LoadStart = new Date();
+        (function() {
+            var s1 = document.createElement("script"),
+                s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/66a9132d32dca6db2cb781ab/1i4275rus';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
 
-<!--Start of Tawk.to Script-->
-<script type="text/javascript">
-    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-    (function(){
-    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-    s1.async=true;
-    s1.src='https://embed.tawk.to/66a9132d32dca6db2cb781ab/1i4275rus';
-    s1.charset='UTF-8';
-    s1.setAttribute('crossorigin','*');
-    s0.parentNode.insertBefore(s1,s0);
-    })();
-</script>
-<!--End of Tawk.to Script-->
-
-<script>
+    <script>
         $(document).ready(function() {
             $('#user_image').change(function() {
                 var formData = new FormData();

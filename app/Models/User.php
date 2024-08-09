@@ -52,7 +52,7 @@ class User extends Authenticatable
         ];
     }
 
-    public function transactions()
+    public function transections()
     {
         return $this->hasMany(Transaction::class);
     }
@@ -68,6 +68,11 @@ class User extends Authenticatable
     }
 
     public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function trades()
     {
         return $this->hasMany(Order::class);
     }

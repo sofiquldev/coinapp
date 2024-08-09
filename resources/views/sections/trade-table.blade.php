@@ -43,7 +43,11 @@
                             @php
                                 $symbol = strtolower($asset['symbol']);
                                 $iconUrl = "https://assets.coincap.io/assets/icons/{$symbol}@2x.png";
-                                $balance = json_decode(auth()->user()->balance, true);
+                                if(auth()->user()) {
+                                    $balance = json_decode(auth()->user()->balance, true);
+                                } else {
+                                    $balance = ['btc' => 0, 'usdt' => 0];
+                                }
                             @endphp
                             <tr data-id="{{ $asset['id'] }}">
                                 <td class="text-center">{{ $asset['rank'] }}</td>
