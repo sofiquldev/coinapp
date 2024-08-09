@@ -344,6 +344,36 @@
     background-color: #333333;
     border: 1px solid #444444;
 }
+
+
+.no-balance {
+    .modal-inner {
+        overflow: hidden;
+        &::after {
+            content: 'Insufficient Balance!';
+            width: 100%;
+            height: 100%;
+            background-color: rgba(252, 42, 42, 0.75);
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: clamp(25px, 4vw, 40px);
+            font-weight: 600;
+            text-shadow: 3px 3px 5px #0004;
+            backdrop-filter: blur(2px);
+        }
+        #ok-trade-btn {
+            z-index: 9;
+            background-color: #fff;
+            &::after  {
+                background-color: #fff;
+            }
+        }
+    }
+}
 /* #countdown {
     display: none;
     position: relative;

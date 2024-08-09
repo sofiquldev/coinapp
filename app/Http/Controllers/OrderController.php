@@ -12,7 +12,7 @@ class OrderController extends Controller
 {
     public function store(Request $request)
     {
-        if($request->filled('amount')) {
+        if($request->filled('amount') && $request->input('amount') > 0) {
             $order = new Order();
             $order->user_id = auth()->user()->id;
             $order->coin_name = $request->input('coin');
@@ -31,7 +31,7 @@ class OrderController extends Controller
             // Redirect to deposit page with order details
             return redirect()->route('trade.process', ['trade_id' => $order->id]);
         } else {
-            return redirect()->route('trade');
+            return redirect()->route('trade')->with('message', 'Insufficient Balance!');
         }
     }
 

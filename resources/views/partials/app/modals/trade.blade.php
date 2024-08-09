@@ -25,7 +25,7 @@ if (Auth::user() && Auth::user()->balance < floatval(env('SITE_MIN_DEPOSITE', 10
     class="fixed z-[99999999990] hidden inset-0 top-0 items-start justify-center  bg-metal-900 bg-dark-200/25"
     id="trade-modal" role="dialog">
     <div class="relative w-full p-4 h-auto animate-keep-bounce max-w-xl">
-        <div class="relative bg-white dark:bg-dark-200 shadow-box rounded-medium p-2.5 ">
+        <div class="relative bg-white dark:bg-dark-200 shadow-box rounded-medium p-2.5 modal-inner">
             <div class="border border-dashed rounded border-gray-100 dark:border-borderColour-dark p-10 max-lg:p-5 ">
                 @if(Auth::user())
                 <div class="user-balance">
@@ -130,7 +130,7 @@ if (Auth::user() && Auth::user()->balance < floatval(env('SITE_MIN_DEPOSITE', 10
         rateInput = document.getElementById("rate"),
         investedMoneyInput = document.getElementById("invested-money"),
         coinAmountText = document.getElementById("coin-amount"),
-        coinAmountInput = document.getElementById("coin-amount-input"),
+        coinAmountInput = document.getElementById("amount"),
         buyButton = document.getElementById("buy-button");
 
     // Default invested money value
@@ -148,6 +148,12 @@ if (Auth::user() && Auth::user()->balance < floatval(env('SITE_MIN_DEPOSITE', 10
             // investedMoneyInput.value = defaultInvestedMoney;
             highlightCoinName.innerHTML = coin;
             document.getElementById('user-balance-val').innerHTML = `${balance} ${coin}`;
+            coinAmountInput.setAttribute("max", Number(balance));
+            if(!Number(balance)) {
+                tradeModal.classList.add('no-balance')
+            } else {
+                tradeModal.classList.remove('no-balance')
+            }
 
             // Display the modal
             tradeModal.classList.remove('hidden');
