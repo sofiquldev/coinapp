@@ -28,9 +28,9 @@ class AdminDashboardController extends Controller
     public function index()
     {
         $currency = SiteOption::where('key', 'site-currency')->first()->value ?? 'USD';
-        $transactions = Transaction::where('status', 1)->latest()->take(15)->get();
-        $deposites = Transaction::where('tnx_type', 1)->where('status', 1)->latest()->take(15)->sum('amount');
-        $withdraws = Transaction::where('tnx_type', 2)->where('status', 1)->latest()->take(15)->sum('amount');
+        $transactions = Transaction::where('status', 1)->latest()->get();
+        $deposites = Transaction::where('tnx_type', 1)->where('status', 1)->latest()->sum('amount');
+        $withdraws = Transaction::where('tnx_type', 2)->where('status', 1)->latest()->sum('amount');
         $users = User::all();
         return view('dashboard.admin.index', compact('currency', 'transactions', 'users', 'deposites', 'withdraws'));
     }
@@ -48,7 +48,7 @@ class AdminDashboardController extends Controller
         }
 
         // Pagination
-        $data = $query->paginate(16); // 16 items per page
+        $data = $query->get(); // 16 items per page
 
         return view('dashboard.user.index', compact('data'));
     }
@@ -117,7 +117,7 @@ class AdminDashboardController extends Controller
         }
 
         // Pagination
-        $transactions = $query->paginate(10); // 20 items per page
+        $transactions = $query->get(); // 20 items per page
 
         return view('dashboard.admin.trade.transactions', compact('transactions'));
     }
@@ -135,7 +135,7 @@ class AdminDashboardController extends Controller
         }
 
         // Pagination
-        $trades = $query->paginate(10); // 20 items per page
+        $trades = $query->get(); // 20 items per page
 
         return view('dashboard.admin.trade.trades', compact('trades'));
     }
