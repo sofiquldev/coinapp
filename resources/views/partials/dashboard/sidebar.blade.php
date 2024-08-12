@@ -40,6 +40,10 @@
                 </ul>
             </li>
 
+            <li><a href="{{ route('activity.index') }}">
+                <span class="material-symbols-outlined fs-four-up">
+                history </span> Activities</a></li>
+
             <li><a href="{{ route('dashboard.settings') }}">
                 <span class="material-symbols-outlined fs-four-up">
                     settings </span> Settings</a></li>

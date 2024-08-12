@@ -38,7 +38,7 @@
             </div>
         </div>
         <div class="row gy-5">
-            <div class="col-xxl-8 col-xl-7 col-sm-6">
+            <div class="col-xl-7 col-sm-6">
                 <div class="box_part_area n0-bg cus-rounded-1 p-4 p-md-7 p-xxl-10 cus-border h-100">
                     <div class="d-flex flex-wrap justify-content-between align-items-center gap-8 row-gap-3">
                         <h4 style="text-transform: capitalize;">{{ $user->name }}</h4>
@@ -155,7 +155,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xxl-4 col-xl-5 col-sm-6">
+            <div class="col-xl-5 col-sm-6">
                 <div class="row gy-5 gy-xxl-6">
                     <div class="col-12">
                         <div class="n0-bg cus-rounded-1 p-4 p-lg-6 p-xxl-8 cus-border">
@@ -213,22 +213,21 @@
                                             <tbody>
                                                 <tr>
                                                     <th>Date</th>
-                                                    <th>Type</th>
-                                                    <th>Amount</th>
+                                                    <th>Activity Message</th>
                                                 </tr>
-                                                @foreach(App\Models\Transaction::where('user_id', $user->id)->where('status', 1)->get() as $tnx)
+                                                @foreach($user->activities as $activity)
                                                 <tr>
-                                                    <td>{{ date('d-m-Y', strtotime($tnx->created_at)) }}</td>
+                                                    <td>{{ date('d-m-Y', strtotime($activity->created_at)) }}</td>
                                                     <td style="font-size: 0.9em">
-                                                        @if($tnx->tnx_type == 1)
-                                                            <span class="bg2-opty s1-color cus-border py-1 px-2 px-lg-3 text-center cus-rounded-1 w-100" style="font-size: 0.9em">Deposite</span>
-                                                        @elseif($tnx->tnx_type == 2)
-                                                            <span class="bg3-opty s2-color cus-border py-1 px-2 px-lg-3 text-center cus-rounded-1 w-100" style="font-size: 0.9em">Withdraw</span>
-                                                        @else
-                                                            <span class="bg4-opty s4-color cus-border py-1 px-2 px-lg-3 text-center cus-rounded-1 w-100">Unknown</span>
-                                                        @endif
+                                                        @php
+                                                            $activity_message = preg_replace(
+                                                                '/\{USER_NAME\}/',
+                                                                $activity->user->name . 's',
+                                                                $activity->message,
+                                                            );
+                                                        @endphp
+                                                        {!! $activity_message !!}
                                                     </td>
-                                                    <td>{{ floatval($tnx->amount) }} <small class="ms-1"> {{ strtoupper($tnx->account_type) }}</small></td>
                                                 </tr>
                                                 @endforeach
                                             </tbody>

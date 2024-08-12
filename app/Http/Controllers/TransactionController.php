@@ -39,9 +39,15 @@ class TransactionController extends Controller
         }
         $transaction->save();
 
+        $log_amount = floatval($transaction->amount). ' '. $transaction->account_type;
+
         if($request->input('tnx_type') == 1) {
-            return redirect()->route('thank-you')->with('message', 'Your transecion has been proceed!');
+            // log saved
+            activityLogger(1, "New deposit request of <b>{$log_amount}</b> using {$transaction->account_type}", $transaction->user_id);
+            return redirect()->route('thank-you')->with('message', 'Your transecion has been proceed!');    
         } else if($request->input('tnx_type') == 2) {
+            // log saved
+            activityLogger(1, "New withdraw request of <b>{$log_amount}</b> using {$transaction->account_type}", $transaction->user_id);
             return redirect()->route('withdraw.process')->with('message', 'Your transecion has been proceed!');
         } else {
             return redirect()->route('thank-you')->with('message', 'Your transecion has been proceed!');
@@ -77,6 +83,8 @@ class TransactionController extends Controller
         ]);
 
         $transaction = Transaction::find($request->input('tnx_id'));
+        $transaction_type = $transaction->tnx_type;
+        $transaction_status = $transaction->status;
         $user = User::findOrFail($transaction->user->id);
 
         $balance = json_decode($user->balance, true);
@@ -119,6 +127,14 @@ class TransactionController extends Controller
         }
         $user->balance = json_encode($balance);
         $user->save();
+
+        
+            // Store Activities
+            $request_type = $transaction_type == 1 ? 'Deposit' : 'Withdraw';
+            $request_status = $request->input('tnx_status') == 1 ? 'Approved!' : 'Rejected!';
+
+            $log_amount = floatval($transaction->amount). ' '. $transaction->account_type;
+            activityLogger(1, "{$request_type} of <b>{$log_amount}</b> has been {$request_status}", $transaction->user_id);
 
         // Return a response
         return response()->json(['message' => 'Transaction updated successfully.']);

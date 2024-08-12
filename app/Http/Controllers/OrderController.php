@@ -28,6 +28,12 @@ class OrderController extends Controller
             $user->balance = json_encode($balance);
             $user->update();
 
+
+            
+            // Store Activities
+            $log_amount = floatval($order->amount). ' ' . $order->coin_name;
+            activityLogger(1, "New trade added for <b>{$order->coin_name}</b>", $order->user_id);
+            
             // Redirect to deposit page with order details
             return redirect()->route('trade.process', ['trade_id' => $order->id]);
         } else {
@@ -58,13 +64,19 @@ class OrderController extends Controller
 
         if($trade_result > 0 && $old_status == 2) { // profit
             $user_balance[strtolower($order->coin_name)] += $trade_amount + $trade_result;
+            $log_amount = floatval($order->amount). ' ' . $order->coin_name;
+            $log_message = "<b class='text-success'>Trade Win!</b> {USER_NAME} profit <b>{$log_amount}</b> has been Added.";
         } else if($old_status == 1) {
             if($old_result !== $trade_result) {
                 if($trade_result == 0) {
                     $user_balance[strtolower($order->coin_name)] -= ($trade_amount + $old_result);
+                    $log_amount = floatval($order->amount). ' ' . $order->coin_name;
+                    $log_message = "<b class='text-danger'>Mistake Detected!</b> {USER_NAME} Trade has been lost.";
                 } else {
                     $user_balance[strtolower($order->coin_name)] -= ($trade_amount + $old_result);
                     $user_balance[strtolower($order->coin_name)] += $trade_amount + $trade_result;
+                    $log_amount = floatval($order->amount). ' ' . $order->coin_name;
+                    $log_message = "<b class='text-success'>Trade Win!</b> {USER_NAME} profit <b>{$log_amount}</b> has been Added.";
                 }
             }
         }
@@ -73,6 +85,8 @@ class OrderController extends Controller
 
         // Save the changes
         $order->update();
+
+        activityLogger(1, $log_message, $order->user_id);
 
         // Return a response
         return response()->json(['message' => 'Transaction updated successfully.', 'order'=>$order]);

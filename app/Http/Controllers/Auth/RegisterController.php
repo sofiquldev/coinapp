@@ -30,12 +30,15 @@ class RegisterController extends Controller
 
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'balance' => json_encode(['btc' => 0, 'usdt' => 0]),
             'ip_address' => request()->ip(),
         ]);
+        activityLogger(1, '{USER_NAME} just registation on this site!', $user->id);
+        
+        return $user;
     }
 }

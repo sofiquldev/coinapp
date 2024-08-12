@@ -58,6 +58,8 @@ Route::middleware([AdminMiddleware::class])->group(function () {
 
             Route::post('/order-update', [App\Http\Controllers\OrderController::class, 'updateOrder'])->name('dashboard.order.update');
             Route::post('/tnx-update', [App\Http\Controllers\TransactionController::class, 'updateTnx'])->name('dashboard.tnx.update');
+
+            Route::resource('activity', App\Http\Controllers\ActivityController::class);
         });
     });
 });
