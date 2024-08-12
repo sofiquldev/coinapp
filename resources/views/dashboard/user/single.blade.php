@@ -152,6 +152,31 @@
                                     class="btn_box btn_alt py-2 py-lg-3 px-5 px-lg-6 cus-rounded-1 cus-border border-color">Cancel</button>
                             </div>
                         </form>
+
+                        <br><br>
+                        <h4>Update Password</h4>
+                        <form action="{{ route('dashboard.user.password') }}" method="POST"
+                            class="d-flex flex-column gap-5 gap-lg-6 w-100 cus-border-dashed top border-color-30 pt-5 pt-xxl-6 mt-5 mt-xxl-6">
+                            @csrf
+                            <input type="hidden" name="user_id" value="{{ $user->id  }}">
+                            <div class="row gap-3 gap-sm-0">
+                                <div class="single-input">
+                                    <label for="new-password" class="fs-six-up fw-medium mb-2 mb-sm-4">New Password</label>
+                                    <input type="password" class="fs-seven py-3 py-4 px-6 px-lg-8" id="new-password" name="new-password" placeholder="Enter New Password" required>
+                                </div>
+                            </div>
+
+                            <div class="d-flex gap-5 gap-lg-6 pt-4">
+                                <button type="submit"
+                                    class="btn_box py-2 py-lg-3 px-5 px-lg-6 cus-rounded-1 cus-border border-color">Save
+                                    Update Password</button>
+                            </div>
+                            @if (session('success'))
+                                <div class="alert alert-success" role="alert">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+                        </form>
                     </div>
                 </div>
             </div>

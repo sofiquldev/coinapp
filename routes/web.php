@@ -36,6 +36,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/withdraw-process', [App\Http\Controllers\TransactionController::class,'withdrawProcess'])->name('withdraw.process');
     Route::get('/profile', [App\Http\Controllers\UserController::class, 'userProfile'])->name('user.profile');
     Route::post('/user/update', [App\Http\Controllers\UserController::class, 'updateUser'])->name('user.update');
+    Route::post('/user/update/password', [App\Http\Controllers\UserController::class, 'updateUserPassword'])->name('user.password');
 });
 
 
@@ -48,6 +49,8 @@ Route::middleware([AdminMiddleware::class])->group(function () {
             Route::get('/users', [App\Http\Controllers\AdminDashboardController::class, 'users'])->name('dashboard.users');
             Route::get('/user/{id}', [App\Http\Controllers\AdminDashboardController::class, 'singleUser'])->name('dashboard.user');
             Route::post('/user/freege', [App\Http\Controllers\AdminDashboardController::class, 'freegeUser'])->name('dashboard.user.freege');
+            Route::post('/user/update/password', [App\Http\Controllers\UserController::class, 'updatePassword'])->name('dashboard.user.password');
+
 
             Route::get('/active-coins', [App\Http\Controllers\AdminDashboardController::class, 'activeCoins'])->name('dashboard.active-coins');
             Route::get('/trades', [App\Http\Controllers\AdminDashboardController::class, 'trades'])->name('dashboard.trades');

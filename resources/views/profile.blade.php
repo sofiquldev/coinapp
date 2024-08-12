@@ -141,8 +141,42 @@
                                     class="btn_box btn_alt py-2 py-lg-3 px-5 px-lg-6 cus-rounded-1 cus-border border-color">Cancel</button>
                             </div>
                         </form>
+
+                        <br><br>
+                        <h4>Update your Password</h4>
+                        <form action="{{ route('user.password') }}" method="POST"
+                            class="d-flex flex-column gap-5 gap-lg-6 w-100 cus-border-dashed top border-color-30 pt-5 pt-xxl-6 mt-5 mt-xxl-6">
+                            @csrf
+
+                            <div class="row gap-3 gap-sm-0">
+                                <div class="single-input">
+                                    <label for="old-password" class="fs-six-up fw-medium mb-2 mb-sm-4">Old Password</label>
+                                    <input type="password" class="fs-seven py-3 py-4 px-6 px-lg-8" id="old-password" name="old-password" placeholder="Enter Old Password" required>
+                                </div>
+                            </div>
+                            <div class="row gap-3 gap-sm-0">
+                                <div class="single-input">
+                                    <label for="new-password" class="fs-six-up fw-medium mb-2 mb-sm-4">New Password</label>
+                                    <input type="password" class="fs-seven py-3 py-4 px-6 px-lg-8" id="new-password" name="new-password" placeholder="Enter New Password" required>
+                                </div>
+                            </div>
+
+                            <div class="row gap-3 gap-sm-0">
+                                <div class="single-input">
+                                    <label for="new-password_confirmation" class="fs-six-up fw-medium mb-2 mb-sm-4">Confirm New Password</label>
+                                    <input type="password" class="fs-seven py-3 py-4 px-6 px-lg-8" id="new-password_confirmation" name="new-password_confirmation" placeholder="Confirm New Password" required>
+                                </div>
+                            </div>
+                            <div class="d-flex gap-5 gap-lg-6 pt-4">
+                                <button type="submit"
+                                    class="btn_box py-2 py-lg-3 px-5 px-lg-6 cus-rounded-1 cus-border border-color">Save
+                                    Update Password</button>
+                            </div>
+                        </form>
+
                     </div>
                 </div>
+
             </div>
             <div class="col-xl-5 col-sm-6">
                 <div class="row gy-5 gy-xxl-6">
