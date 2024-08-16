@@ -15,8 +15,8 @@ $user_coins = json_decode(auth()->user()->coins);
 
     <section class="paymemt-section">
         <div class="container">
-            <h2>Buy or Sale Coins</h2>
-            <p>You can buy coin coins or sale coin to withdraw blance as money</p>
+            <h2>Buy or Sell Coins</h2>
+            <p>You can buy coin coins or Sell coin to withdraw blance as money</p>
             <br><br>
             <form method="post" enctype="multipart/form-data" id="payment-form" action="{{ route('buy-sell.post') }}">
                 @csrf
@@ -42,13 +42,13 @@ $user_coins = json_decode(auth()->user()->coins);
                     <label for="tnx_type">Select Type</label>
                     <select id="tnx_type" name="tnx_type" required>
                         <option value="1" selected>Buy Coin</option>
-                        <option value="2">Sale Coin</option>
+                        <option value="2">Sell Coin</option>
                     </select>
                 </div>
                 <div class="form-group has-btn">
                     <label for="amount">Set Amount (<span class="selected_coin_name">BTC</span>)</label>
                     <input type="number" id="amount" name="amount" step="0.00001" min="0" value="0" required>
-                    <button type="button" class="sale-all-btn">Sale All</button>
+                    <button type="button" class="sale-all-btn">Sell All</button>
                 </div>
                 <div class="loading">Loading...</div>
                 <div>

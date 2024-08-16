@@ -59,7 +59,7 @@
                         updateCountdown(endTime);
                     }, 1000);
                 } else {
-                    $('#time').text("Time's up! Trade Result shown soon.");
+                    $('#time').text("Please be patient while your trade is being processed, check in your wallet below for the results.");
                 }
             }
         });

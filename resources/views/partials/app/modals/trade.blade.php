@@ -50,8 +50,8 @@ if (Auth::user() && Auth::user()->balance < floatval(env('SITE_MIN_DEPOSITE', 10
                         <select name="trade_type" id="trade_type">
                             <option value="buy_up">Buy Up</option>
                             <option value="buy_down">Buy Down</option>
-                            <option value="sale_up">Sale Up</option>
-                            <option value="sale_down">Sale Down</option>
+                            <option value="sell_up">Sell Up</option>
+                            <option value="sell_down">Sell Down</option>
                         </select>
                     </div>
                     <div class="time-selector">
