@@ -10,10 +10,24 @@ class ActivityController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $query = Activity::query();
         $page_title = 'Activities List';
-        $data = Activity::where('status', 1)->latest()->get();
+
+        // Search functionality
+        if ($request->has('search__text')) {
+            $searchText = $request->input('search__text');
+            $query->where('message', 'like', '%' . $searchText . '%')
+                ->orWhere('id', $searchText)
+                ->orWhere('user_id', $searchText)
+                ->orWhere('ip_address', 'like', '%' . $searchText . '%');
+        }
+
+        // Pagination
+        $data = $query->paginate(10); // 10 items per page
+
+
         return view('dashboard.activities.index', compact('data', 'page_title'));
     }
 

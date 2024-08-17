@@ -16,9 +16,9 @@
                     <div class="table-area n0-bg cus-rounded-1 p-4 p-lg-6 cus-border ">
                         <div
                             class="header-part d-flex flex-wrap justify-content-between align-items-center gap-8 row-gap-3 pb-5 pb-xxl-6 mb-5 mb-xxl-6">
-                            <h4 class="fw-semibold">Activities List ({{ $data->count() }})</h4>
-                            {{-- <div class="d-flex flex-wrap flex-sm-nowrap gap-4 gap-xxl-6 ">
-                                <form method="GET" action="{{ route('dashboard.users') }}"
+                            <h4 class="fw-semibold">Activities List ({{ $data->total() }})</h4>
+                            <div class="d-flex flex-wrap flex-sm-nowrap gap-4 gap-xxl-6 ">
+                                <form method="GET" action="{{ route('activity.index') }}"
                                     class="search__form order-2 order-sm-0">
                                     <div class="d-center gap-1 bg1-opty p-1 ps-6 ps-lg-8 cus-border cus-rounded-1 alt_form">
                                         <input type="text" name="search__text" placeholder="Search"
@@ -29,10 +29,10 @@
                                         </button>
                                     </div>
                                 </form>
-                            </div> --}}
+                            </div>
                         </div>
                         <div class="table-main align">
-                            <table id="admin-users-table">
+                            <table>
                                 <thead>
                                     <tr>
                                         <th>#</th>
@@ -41,7 +41,7 @@
                                         <th>Activity Message</th>
                                         <th>IP Address</th>
                                         <th>Date</th>
-                                        <th>Action</th>
+                                        <!-- <th>Action</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -74,7 +74,7 @@
                                                 <td class="text-nowrap text-secondary">
                                                     {{ date('d-m-Y', strtotime($activity->created_at)) }}
                                                 </td>
-                                                <td>
+                                                <!-- <td>
                                                     <a href="#" class="dlt-btn" data-bs-toggle="modal"
                                                         data-bs-target="#modal-danger"
                                                         data-activity-id="{{ $activity->id }}">
@@ -88,7 +88,7 @@
                                                                 d="M14 2a2 2 0 0 1 2 2a1 1 0 0 1 -1.993 .117l-.007 -.117h-4l-.007 .117a1 1 0 0 1 -1.993 -.117a2 2 0 0 1 1.85 -1.995l.15 -.005h4z" />
                                                         </svg>
                                                     </a>
-                                                </td>
+                                                </td> -->
                                             </tr>
                                         @endforeach
                                     @else
@@ -98,9 +98,21 @@
                                         <td><i>null</i></td>
                                         <td><i>null</i></td>
                                         <td><i>null</i></td>
+                                        <!-- <td><i>null</i></td> -->
                                     @endif
                                 </tbody>
                             </table>
+                            <div class="table-bottom d-center justify-content-between mt-5 mt-lg-6 flex-wrap gap-6 row-gap-3">
+                                <!-- Pagination Summary -->
+                                    <p>
+                                        @if($data->total() > 0)
+                                            Showing {{ $data->firstItem() }} to {{ $data->lastItem() }} of {{ $data->total() }} entries
+                                        @else
+                                            No entries found
+                                        @endif
+                                    </p>
+                                {{ $data->links('partials.dashboard.widgets.pagination') }}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -111,10 +123,6 @@
 
 @section('scripts')
     <script>
-        let table = new DataTable('#admin-users-table', {
-            responsive: true
-        });
-
         $(document).ready(function() {
             $('.action_setting').on('click', function() {
                 $(this).siblings('.action_drop').toggle();

@@ -36,6 +36,7 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
+                                        <th>UID</th>
                                         <th>Name</th>
                                         <th>Mail</th>
                                         <th>Balance</th>
@@ -58,6 +59,7 @@
                                         @endphp
                                         <tr>
                                             <td>{{ $key + 1 }}</td>
+                                            <td>{{ $user->id }}</td>
                                             <td>
                                                 <div class="d-flex align-items-center gap-3">
                                                     <a href="{{ url('u/dashboard/user/' . $user->id) }}">
