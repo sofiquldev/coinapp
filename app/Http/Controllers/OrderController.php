@@ -62,6 +62,7 @@ class OrderController extends Controller
         $order->result = $trade_result;
         $user_balance = json_decode($user->balance, true);
 
+        $log_message = "Your trade has been updated.";
         if($trade_result > 0 && $old_status == 2) { // profit
             $user_balance[strtolower($order->coin_name)] += $trade_amount + $trade_result;
             $log_amount = floatval($order->amount). ' ' . $order->coin_name;
@@ -78,7 +79,11 @@ class OrderController extends Controller
                     $log_amount = floatval($order->amount). ' ' . $order->coin_name;
                     $log_message = "<b class='text-success'>Trade Win!</b> {USER_NAME} profit <b>{$log_amount}</b> has been Added.";
                 }
+            } else {
+                return response()->json(['message' => 'Nothing to updated!.', 'order'=>$order]);
             }
+        } else {
+            $log_message = "<b class='text-danger'>Mistake Detected!</b> {USER_NAME} Trade has been lost.";
         }
         $user->balance = json_encode($user_balance);
         $user->update();
@@ -89,7 +94,7 @@ class OrderController extends Controller
         activityLogger(1, $log_message, $order->user_id);
 
         // Return a response
-        return response()->json(['message' => 'Transaction updated successfully.', 'order'=>$order]);
+        return response()->json(['message' => 'Trade updated successfully.', 'order'=>$order]);
     }
 
 

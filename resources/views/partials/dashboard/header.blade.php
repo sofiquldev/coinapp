@@ -74,7 +74,7 @@
                                         ? asset('images/no-avatar.webp')
                                         : asset('storage/' . auth()->user()->image);
                                 @endphp
-                                <img src="{{ $profile_picture }}" class="box_30 cus-rounded-1"
+                                <img src="{{ asset('images/avater.jpg') }}" class="box_30 cus-rounded-1"
                                     alt="image">
                             </a>
                             <div class="user_profile_title flex-fill">

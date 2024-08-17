@@ -53,7 +53,7 @@
                                 ? asset('images/no-avatar.webp')
                                 : asset('storage/' . auth()->user()->image);
                         @endphp
-                        <img src="{{ $profile_picture }}" class="header-avatar"
+                        <img src="{{ asset('images/avater.jpg') }}" class="header-avatar"
                             alt="{{ Auth::user()->name }}">
 
                         <span class="max-lg:hidden">

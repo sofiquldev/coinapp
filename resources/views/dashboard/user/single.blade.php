@@ -49,9 +49,9 @@
                             @csrf
                             {{-- @method('put') --}}
                             <input type="hidden" name="user_id" value="{{ $user->id }}">
-                            <span class="fs-six-up fw-medium">Profile Photo</span>
+                            <span class="fs-six-up fw-medium d-none">Profile Photo</span>
                             <div
-                                class="flex-wrap cus-border-dashed bottom pb-5 pb-lg-6 border-color-30 d-flex align-items-center gap-5 gap-lg-6">
+                                class="flex-wrap cus-border-dashed bottom pb-5 pb-lg-6 border-color-30 d-flex align-items-center gap-5 gap-lg-6 d-none">
                                 <div class="user_thumbs">
                                     @php
                                         $profile_picture = $user->image == 'no-avatar.webp'

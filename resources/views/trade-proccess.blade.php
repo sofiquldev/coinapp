@@ -37,9 +37,11 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
-            let currentTime = Date.now()
-            let createdAt = new Date('{{ $order->created_at }}').getTime();
-            let tradeTime = {{ $order->time * 1000 }};
+            const timeZoneOffset = new Date().getTimezoneOffset() * 60 * 1000;
+            let currentTime  = new Date().getTime() + timeZoneOffset,
+                createdAt = new Date('{{ $order->created_at }}').getTime(),
+                tradeTime = {{ $order->time * 1000 }};
+
             startCountdown(createdAt, tradeTime);
 
             function startCountdown(createdAt, tradeTime) {
@@ -49,11 +51,12 @@
             }
 
             function updateCountdown(endTime) {
-                var distance = endTime - Date.now();
-                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                let currentTime  = new Date().getTime() + timeZoneOffset,
+                    distance = endTime - currentTime;
+                    minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-                if (distance > 0) {
+                if (endTime > currentTime) {
                     $('#time').text(minutes + "m " + seconds + "s ");
                     setTimeout(function() {
                         updateCountdown(endTime);

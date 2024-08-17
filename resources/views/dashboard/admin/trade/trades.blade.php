@@ -27,7 +27,7 @@
                     <div class="table-area n0-bg cus-rounded-1 p-4 p-lg-6 cus-border ">
                         <div
                             class="header-part d-flex flex-wrap justify-content-between align-items-center gap-8 row-gap-3 pb-5 pb-xxl-6 mb-5 mb-xxl-6">
-                            <h4 class="fw-semibold">Trades History ({{ $trades->count() }})</h4>
+                            <h4 class="fw-semibold">Trades History ({{ $trades->total() }})</h4>
                             <div class="d-flex flex-wrap flex-sm-nowrap gap-4 gap-xxl-6 ">
                                 <form method="GET" action="{{ route('dashboard.trades') }}"
                                     class="search__form order-2 order-sm-0">
@@ -43,7 +43,7 @@
                             </div>
                         </div>
                         <div class="table-main">
-                            <table id="admin-trades-table">
+                            <table>
                                 <thead>
                                     <tr>
                                         <th>#</th>
@@ -87,31 +87,29 @@
                                             <td>
                                                 <form class="orderActionForm" method="post">
                                                     @csrf
-                                                    {{-- <div class="form-group trade-action-profit-lose">
-                                                        <input type="radio" name="trade-result" id="trade-profit-{{ $trade->id }}" value="1" checked>
-                                                        <label for="trade-profit-{{ $trade->id }}">Profit</label>
-                                                        <input type="radio" name="trade-result" id="trade-lose-{{ $trade->id }}" value="2">
-                                                        <label for="trade-lose-{{ $trade->id }}" class="lose">Lose</label>
-                                                    </div> --}}
-                                                <div class="form-group" style="display: flex; align-items:center; gap:4px">
+                                                    <input type="hidden" value="{{ $trade->id }}" name="trade_id">
+                                                    <div class="form-group" style="display: flex; align-items:center; gap:4px">
                                                         <input type="number" name="trade-profit" step="0.000001" id="trade-profit-{{ $trade->id }}" class="profit-input" style="width:80px;padding:7px" value="{{ floatval($trade->result) }}">
                                                         <input type="button" value="Lose" class="btn btn-danger" style="width: 80px">
                                                         <input type="button" value="Profit" class="btn btn-success" id="profitBtn" style="width: 80px">
                                                     </div>
-                                                    <input type="hidden" value="{{ $trade->id }}" name="trade_id">
-                                                    {{-- @if ($trade->status == 1)
-                                                        <input type="hidden" value="2" name="trade_status">
-                                                        <button type="submit" class="btn btn-danger">Reject</button>
-                                                    @else
-                                                        <input type="hidden" value="1" name="trade_status">
-                                                        <button type="submit" class="btn btn-success">Approve</button>
-                                                    @endif --}}
                                                 </form>
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
+                            <div class="table-bottom d-center justify-content-between mt-5 mt-lg-6 flex-wrap gap-6 row-gap-3">
+                                <!-- Pagination Summary -->
+                                    <p>
+                                        @if($trades->total() > 0)
+                                            Showing {{ $trades->firstItem() }} to {{ $trades->lastItem() }} of {{ $trades->total() }} entries
+                                        @else
+                                            No entries found
+                                        @endif
+                                    </p>
+                                {{ $trades->links('partials.dashboard.widgets.pagination') }}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -122,13 +120,8 @@
 
 @section('scripts')
     <script>
-        let table = new DataTable('#admin-trades-table', {
-            responsive: true
-        });
-    </script>
-    <script>
         $(document).ready(function() {
-            $('.orderActionForm [type="button"]').on('click', function() {
+            $('.orderActionForm .btn[type="button"]').on('click', function() {
                 let trade_id = Number($(this).closest('form').find('[name="trade_id"]').val());
                 let profit_input = Number($(this).closest('form').find('.profit-input').val());
                 let formData;
@@ -140,10 +133,15 @@
                         trade_status: 1
                     }
                 } else {
-                    formData = {
-                        trade_id: trade_id,
-                        result: profit_input,
-                        trade_status: 1
+                    if(!profit_input) {
+                        alert('Profit value must be greter then Zero!')
+                        return;
+                    } else {
+                        formData = {
+                            trade_id: trade_id,
+                            result: profit_input,
+                            trade_status: 1
+                        }
                     }
                 }
                 $.ajax({
@@ -164,29 +162,6 @@
                     }
                 });
             })
-            /* $('.orderActionForm').on('submit', function(e) {
-                e.preventDefault(); // Prevent the default form submission
-
-                var formData = $(this).serialize(); // Serialize the form data
-
-                $.ajax({
-                    url: '{{ route('dashboard.order.update') }}',
-                    method: 'POST',
-                    data: formData,
-                    success: function(response) {
-                        // Handle the successful response here
-                        // console.log(response);
-                        location.reload();
-                        // alert('Transaction updated successfully.');
-                        // You can also update the UI based on the response
-                    },
-                    error: function(xhr, status, error) {
-                        // Handle errors here
-                        console.error(xhr.responseText);
-                        // alert('An error occurred while updating the transaction.');
-                    }
-                });
-            }); */
         });
     </script>
 @endsection

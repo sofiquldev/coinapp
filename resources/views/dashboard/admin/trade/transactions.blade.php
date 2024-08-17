@@ -27,7 +27,7 @@
                     <div class="table-area n0-bg cus-rounded-1 p-4 p-lg-6 cus-border ">
                         <div
                             class="header-part d-flex flex-wrap justify-content-between align-items-center gap-8 row-gap-3 pb-5 pb-xxl-6 mb-5 mb-xxl-6">
-                            <h4 class="fw-semibold">Transaction History ({{ $transactions->count() }})</h4>
+                            <h4 class="fw-semibold">Transaction History ({{ $transactions->total() }})</h4>
                             <div class="d-flex flex-wrap flex-sm-nowrap gap-4 gap-xxl-6 ">
                                 <form method="GET" action="{{ route('dashboard.transactions') }}"
                                     class="search__form order-2 order-sm-0">
@@ -43,7 +43,7 @@
                             </div>
                         </div>
                         <div class="table-main">
-                            <table id="admin-transections-table">
+                            <table>
                                 <thead>
                                     <tr>
                                         <th>#</th>
@@ -120,6 +120,17 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            <div class="table-bottom d-center justify-content-between mt-5 mt-lg-6 flex-wrap gap-6 row-gap-3">
+                                <!-- Pagination Summary -->
+                                    <p>
+                                        @if($transactions->total() > 0)
+                                            Showing {{ $transactions->firstItem() }} to {{ $transactions->lastItem() }} of {{ $transactions->total() }} entries
+                                        @else
+                                            No entries found
+                                        @endif
+                                    </p>
+                                {{ $transactions->links('partials.dashboard.widgets.pagination') }}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -130,11 +141,6 @@
 
 
 @section('scripts')
-    <script>
-        let table = new DataTable('#admin-transections-table', {
-            responsive: true
-        });
-    </script>
     <script>
         $(document).ready(function() {
             $('.orderActionForm').on('submit', function(e) {

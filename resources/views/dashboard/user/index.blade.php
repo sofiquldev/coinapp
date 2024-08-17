@@ -16,8 +16,8 @@
                     <div class="table-area n0-bg cus-rounded-1 p-4 p-lg-6 cus-border ">
                         <div
                             class="header-part d-flex flex-wrap justify-content-between align-items-center gap-8 row-gap-3 pb-5 pb-xxl-6 mb-5 mb-xxl-6">
-                            <h4 class="fw-semibold">Users List ({{ $data->count() }})</h4>
-                            {{-- <div class="d-flex flex-wrap flex-sm-nowrap gap-4 gap-xxl-6 ">
+                            <h4 class="fw-semibold">Users List ({{ $data->total() }})</h4>
+                            <div class="d-flex flex-wrap flex-sm-nowrap gap-4 gap-xxl-6 ">
                                 <form method="GET" action="{{ route('dashboard.users') }}"
                                     class="search__form order-2 order-sm-0">
                                     <div class="d-center gap-1 bg1-opty p-1 ps-6 ps-lg-8 cus-border cus-rounded-1 alt_form">
@@ -29,10 +29,10 @@
                                         </button>
                                     </div>
                                 </form>
-                            </div> --}}
+                            </div>
                         </div>
                         <div class="table-main align">
-                            <table id="admin-users-table">
+                            <table>
                                 <thead>
                                     <tr>
                                         <th>#</th>
@@ -66,7 +66,7 @@
                                                                 ? asset('dashboard/images/user.png')
                                                                 : asset('storage/' . $user->image);
                                                         @endphp
-                                                        <img src="{{ $profile_picture }}" class="box_8"
+                                                        <img src="{{ asset('images/avater.jpg') }}" class="box_8"
                                                             alt="icon">
                                                         <span>{{ $user->name }}</span>
                                                     </a>
@@ -102,6 +102,17 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            <div class="table-bottom d-center justify-content-between mt-5 mt-lg-6 flex-wrap gap-6 row-gap-3">
+                                <!-- Pagination Summary -->
+                                    <p>
+                                        @if($data->total() > 0)
+                                            Showing {{ $data->firstItem() }} to {{ $data->lastItem() }} of {{ $data->total() }} entries
+                                        @else
+                                            No entries found
+                                        @endif
+                                    </p>
+                                {{ $data->links('partials.dashboard.widgets.pagination') }}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -112,10 +123,6 @@
 
 @section('scripts')
     <script>
-        let table = new DataTable('#admin-users-table', {
-            responsive: true
-        });
-
         $(document).ready(function() {
             $('.action_setting').on('click', function() {
                 $(this).siblings('.action_drop').toggle();

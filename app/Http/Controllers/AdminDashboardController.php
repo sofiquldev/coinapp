@@ -43,12 +43,13 @@ class AdminDashboardController extends Controller
         if ($request->has('search__text')) {
             $searchText = $request->input('search__text');
             $query->where('name', 'like', '%' . $searchText . '%')
+                ->orWhere('id', $searchText)
                 ->orWhere('email', 'like', '%' . $searchText . '%')
                 ->orWhere('ip_address', 'like', '%' . $searchText . '%');
         }
 
         // Pagination
-        $data = $query->get(); // 16 items per page
+        $data = $query->paginate(10); // 10 items per page
 
         return view('dashboard.user.index', compact('data'));
     }
@@ -113,11 +114,12 @@ class AdminDashboardController extends Controller
             $searchText = $request->input('search__text');
             $query->where('account_number', 'like', '%' . $searchText . '%')
                 ->orWhere('tnx_id', 'like', '%' . $searchText . '%')
-                ->orWhere('user_id', 'like', '%' . $searchText . '%');
+                ->orWhere('id', 'like', '%' . $searchText . '%')
+                ->orWhere('user_id', $searchText);
         }
 
         // Pagination
-        $transactions = $query->get(); // 20 items per page
+        $transactions = $query->paginate(10); // 10 items per page
 
         return view('dashboard.admin.trade.transactions', compact('transactions'));
     }
@@ -129,13 +131,12 @@ class AdminDashboardController extends Controller
         // Search functionality
         if ($request->has('search__text')) {
             $searchText = $request->input('search__text');
-            $query->where('account_number', 'like', '%' . $searchText . '%')
-                ->orWhere('tnx_id', 'like', '%' . $searchText . '%')
-                ->orWhere('user_id', 'like', '%' . $searchText . '%');
+            $query->where('user_id', 'like', '%' . $searchText . '%')
+                ->orWhere('id', 'like', '%' . $searchText . '%');
         }
 
         // Pagination
-        $trades = $query->get(); // 20 items per page
+        $trades = $query->paginate(10); // 10 items per page
 
         return view('dashboard.admin.trade.trades', compact('trades'));
     }

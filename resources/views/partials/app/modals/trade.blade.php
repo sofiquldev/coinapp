@@ -70,7 +70,7 @@ if (Auth::user() && Auth::user()->balance < floatval(env('SITE_MIN_DEPOSITE', 10
                 @else
                 <h2>You need to login first</h2>
                 <br>
-                <form method="POST" action="{{ route('login') }}" id="buy-coin-form">
+                <form method="POST" action="{{ route('login') }}" id="login-form">
                     @csrf
                     <div class="d-flex flex-column gap-5">
                         <div class="single-input">
@@ -119,103 +119,113 @@ if (Auth::user() && Auth::user()->balance < floatval(env('SITE_MIN_DEPOSITE', 10
         </div>
     </div>
 </div>
+
 @if(Auth::user())
+<script type="text/javascript" src="{{ asset('vendor/jquery-3.6.0.min.js') }}"></script>
 <script>
-    let tradeModal = document.getElementById("trade-modal"),
-        tradeForm = document.getElementById("buy-coin-form"),
-        tradeModalOpenBtns = document.querySelectorAll(".open-trade-btn"),
-        tradeModalCloseBtn = document.getElementById("ok-trade-btn"),
-        highlightCoinName = document.getElementById("highlight-coin-name"),
-        coinInput = document.getElementById("coin"),
-        rateInput = document.getElementById("rate"),
-        investedMoneyInput = document.getElementById("invested-money"),
-        coinAmountText = document.getElementById("coin-amount"),
-        coinAmountInput = document.getElementById("amount"),
-        buyButton = document.getElementById("buy-button");
+    $(document).ready(function () {
+        let tradeModal = document.getElementById("trade-modal"),
+            tradeForm = document.getElementById("buy-coin-form"),
+            tradeModalOpenBtns = document.querySelectorAll(".open-trade-btn"),
+            tradeModalCloseBtn = document.getElementById("ok-trade-btn"),
+            highlightCoinName = document.getElementById("highlight-coin-name"),
+            coinInput = document.getElementById("coin"),
+            rateInput = document.getElementById("rate"),
+            investedMoneyInput = document.getElementById("invested-money"),
+            coinAmountText = document.getElementById("coin-amount"),
+            coinAmountInput = document.getElementById("amount"),
+            buyButton = document.getElementById("buy-button");
 
-    // Default invested money value
-    // const defaultInvestedMoney = parseFloat("{{ $default_val }}");
+        // Default invested money value
+        // const defaultInvestedMoney = parseFloat("{{ $default_val }}");
 
-    // Attach click event to each open button
-    tradeModalOpenBtns.forEach(btn => {
-        btn.onclick = async function() {
-            // Get data from button
-            let coin = btn.getAttribute("data-coin");
-            let balance = btn.getAttribute("data-balance");
+        // Attach click event to each open button
+        tradeModalOpenBtns.forEach(btn => {
+            btn.onclick = async function() {
+                // Get data from button
+                let coin = btn.getAttribute("data-coin");
+                let balance = btn.getAttribute("data-balance");
 
-            // Populate form fields
-            coinInput.value = coin;
-            // investedMoneyInput.value = defaultInvestedMoney;
-            highlightCoinName.innerHTML = coin;
-            document.getElementById('user-balance-val').innerHTML = `${balance} ${coin}`;
-            coinAmountInput.setAttribute("max", Number(balance));
-            if(!Number(balance)) {
-                tradeModal.classList.add('no-balance')
-            } else {
-                tradeModal.classList.remove('no-balance')
-            }
+                // Populate form fields
+                coinInput.value = coin;
+                // investedMoneyInput.value = defaultInvestedMoney;
+                highlightCoinName.innerHTML = coin;
+                document.getElementById('user-balance-val').innerHTML = `${balance} ${coin}`;
+                coinAmountInput.setAttribute("max", Number(balance));
+                if(!Number(balance)) {
+                    tradeModal.classList.add('no-balance')
+                } else {
+                    tradeModal.classList.remove('no-balance')
+                }
 
-            // Display the modal
-            tradeModal.classList.remove('hidden');
-            tradeModal.style.display = "flex";
-        };
-    });
+                // Display the modal
+                tradeModal.classList.remove('hidden');
+                tradeModal.style.display = "flex";
+            };
+        });
 
-    // Close button event
-    tradeModalCloseBtn.onclick = function() {
-        tradeModal.style.display = "none";
-        tradeModal.classList.add('hidden');
-    };
-
-    // Close modal when clicking outside of it
-    window.onclick = function(e) {
-        if (e.target == tradeModal) {
+        // Close button event
+        tradeModalCloseBtn.onclick = function() {
             tradeModal.style.display = "none";
             tradeModal.classList.add('hidden');
-        }
-    };
+        };
 
-    // Calculate coin amount when invested money changes
-    /* investedMoneyInput.oninput = async function() {
-        await calculateCoinPrice();
-    }; */
-
-    async function calculateCoinPrice() {
-        // let rate = parseFloat(rateInput.value);
-        let investedMoney = parseFloat(investedMoneyInput.value);
-
-        let convertedMoney = await convertCurrency('{{ $site_currency }}', investedMoney);
-
-        if (!isNaN(rate) && !isNaN(convertedMoney)) {
-            let coinAmount = (convertedMoney / rate).toFixed(8);
-            coinAmountText.innerHTML = coinAmount;
-            coinAmountInput.value = coinAmount;
-        } else {
-            coinAmountText.innerHTML = '0';
-            coinAmountInput.value = '0';
-        }
-    };
-
-    async function convertCurrency(inputCurrency = 'INR', amount = 1, outputCurrency = 'USD') {
-        const apiUrl = `https://api.exchangerate-api.com/v4/latest/${inputCurrency.toUpperCase()}`;
-
-        try {
-            const response = await fetch(apiUrl);
-            const data = await response.json();
-
-            if (!data.rates || !data.rates[outputCurrency]) {
-                throw new Error('Invalid currency code or unable to fetch conversion rate');
+        // Close modal when clicking outside of it
+        window.onclick = function(e) {
+            if (e.target == tradeModal) {
+                tradeModal.style.display = "none";
+                tradeModal.classList.add('hidden');
             }
+        };
 
-            const rate = data.rates[outputCurrency];
-            const convertedAmount = amount * rate;
+        $(tradeForm).on('submit', function() {
 
-            return parseFloat(convertedAmount);
-        } catch (error) {
-            console.error('Error:', error);
-            return null;
+            // alert('error')
+            // return
+        })
+        
+        // Calculate coin amount when invested money changes
+        /* investedMoneyInput.oninput = async function() {
+            await calculateCoinPrice();
+        }; */
+
+        async function calculateCoinPrice() {
+            // let rate = parseFloat(rateInput.value);
+            let investedMoney = parseFloat(investedMoneyInput.value);
+
+            let convertedMoney = await convertCurrency('{{ $site_currency }}', investedMoney);
+
+            if (!isNaN(rate) && !isNaN(convertedMoney)) {
+                let coinAmount = (convertedMoney / rate).toFixed(8);
+                coinAmountText.innerHTML = coinAmount;
+                coinAmountInput.value = coinAmount;
+            } else {
+                coinAmountText.innerHTML = '0';
+                coinAmountInput.value = '0';
+            }
+        };
+
+        async function convertCurrency(inputCurrency = 'INR', amount = 1, outputCurrency = 'USD') {
+            const apiUrl = `https://api.exchangerate-api.com/v4/latest/${inputCurrency.toUpperCase()}`;
+
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+
+                if (!data.rates || !data.rates[outputCurrency]) {
+                    throw new Error('Invalid currency code or unable to fetch conversion rate');
+                }
+
+                const rate = data.rates[outputCurrency];
+                const convertedAmount = amount * rate;
+
+                return parseFloat(convertedAmount);
+            } catch (error) {
+                console.error('Error:', error);
+                return null;
+            }
         }
-    }
+    })
 </script>
 @else
 <script>
