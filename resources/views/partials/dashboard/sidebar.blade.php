@@ -60,7 +60,7 @@
         <ul class="main-menu__part">
             <li class="main-menu__title fw-semibold ">Support</li>
             <li>
-                <a href="https://dashboard.tawk.to/#/inbox/66a9132d32dca6db2cb781ab/all" target="_blank"><span class="material-symbols-outlined p1-color fs-four-up"> support_agent </span> <span class="nav_text">Support Reply</span></a>
+                <a href="https://dashboard.tawk.to/#/inbox/67019c93256fb1049b1d6296/all" target="_blank"><span class="material-symbols-outlined p1-color fs-four-up"> support_agent </span> <span class="nav_text">Support Reply</span></a>
             </li>
         </ul>
         {{-- <ul class="main-menu__part logout_area mt-auto d-none">

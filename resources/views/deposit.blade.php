@@ -44,7 +44,7 @@ if(empty($site_currency)) {
                         <img class="wallet_qr" src="{{ asset('images/wallets/BTC.jpg') }}" alt="bc1pqtx8hcqt86qqmtnyrentn29kxet69dxdmex8w7xamm5t7llycp7sn5dt0e">
                         <p class="coin_address">bc1pqtx8hcqt86qqmtnyrentn29kxet69dxdmex8w7xamm5t7llycp7sn5dt0e</p>
                     </div>
-                    <div class="show_wallet_item usdt">
+                    <div class="show_wallet_item eth">
                         <img class="wallet_qr" src="{{ asset('images/wallets/ETH.jpg') }}" alt="0x0B7DB90b0D6f9a71d8233f37172Db16999b73Cf9">
                         <p class="coin_address">0x0B7DB90b0D6f9a71d8233f37172Db16999b73Cf9</p>
                     </div>
