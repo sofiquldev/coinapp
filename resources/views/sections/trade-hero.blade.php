@@ -3,7 +3,7 @@
         <div class="max-w-[948px] mx-auto text-center" data-aos="fade-up" data-aos-offset="200" data-aos-duration="1000"
             data-aos-once="true">
             <p class="mb-4 font-medium uppercase">Trading</p>
-            <h1 class="max-lg:mb-10 mb-10">The future of business is being shaped by coinApp</h1>
+            <h1 class="max-lg:mb-10 mb-10">The future of business is being shaped by CoinsferaFx</h1>
             <p class="max-lg:mb-10 mb-12 max-w-[590px] mx-auto">The key to successful trading is not perfection, but progress and resilience</p>
         </div>
     </div>

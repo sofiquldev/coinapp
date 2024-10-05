@@ -46,7 +46,7 @@
                                 if(auth()->user()) {
                                     $balance = json_decode(auth()->user()->balance, true);
                                 } else {
-                                    $balance = ['btc' => 0, 'usdt' => 0];
+                                    $balance = ['btc' => 0, 'eth' => 0];
                                 }
                             @endphp
                             <tr data-id="{{ $asset['id'] }}">

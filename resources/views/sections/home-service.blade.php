@@ -4,7 +4,7 @@
         <div class="mb-12 text-center max-w-[475px] mx-auto">
             <p class="section-tagline">our Services</p>
 
-            <h2>The world's best companies trust coinApp.</h2>
+            <h2>The world's best companies trust CoinsferaFx.</h2>
         </div>
 
         <div class="relative z-10">

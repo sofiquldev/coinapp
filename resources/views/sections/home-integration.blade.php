@@ -62,7 +62,7 @@
                 <div class="relative flex flex-row align-center justify-center mx-auto w-150 h-150 rounded-full bg-white dark:bg-dark-200 shadow-nav">
                     <div class="flex flex-row align-center justify-center mx-auto absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2  w-[122px] h-[122px] rounded-full bg-primary-100 dark:bg-[#2B2D2A]">
                         <span class="inline-block text-primary text-[30px] font-semibold py-[46px] px-[25px] leading-none">
-                            coinApp
+                            CoinsferaFx
                         </span>
                     </div>
                 </div>

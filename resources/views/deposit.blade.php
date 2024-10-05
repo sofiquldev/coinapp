@@ -29,10 +29,10 @@ if(empty($site_currency)) {
                         BTC
                     </label>
 
-                    <input type="radio" name="account_type" id="select_coin_usdt" value="usdt">
+                    <input type="radio" name="account_type" id="select_coin_usdt" value="eth">
                     <label for="select_coin_usdt">
-                        <img src="https://assets.coincap.io/assets/icons/usdt@2x.png" alt="usdt">
-                        USDT
+                        <img src="https://assets.coincap.io/assets/icons/eth@2x.png" alt="eth">
+                        ETH
                     </label>
                 </div>
                 <div class="deposit_amount_field">
@@ -41,12 +41,12 @@ if(empty($site_currency)) {
                 <div class="loading">Loading...</div>
                 <div id="show_wallet">
                     <div class="show_wallet_item btc">
-                        <img class="wallet_qr" src="{{ asset('images/wallets/BTC.jpg') }}" alt="0x3956cfbcddf1d75c2f24604653994c4a5fbc20b0">
-                        <p class="coin_address">0x3956cfbcddf1d75c2f24604653994c4a5fbc20b0</p>
+                        <img class="wallet_qr" src="{{ asset('images/wallets/BTC.jpg') }}" alt="bc1pqtx8hcqt86qqmtnyrentn29kxet69dxdmex8w7xamm5t7llycp7sn5dt0e">
+                        <p class="coin_address">bc1pqtx8hcqt86qqmtnyrentn29kxet69dxdmex8w7xamm5t7llycp7sn5dt0e</p>
                     </div>
                     <div class="show_wallet_item usdt">
-                        <img class="wallet_qr" src="{{ asset('images/wallets/USDT.jpg') }}" alt="TCFPY5TtXFZ15M68LZpgspNYkR65A3WTRP">
-                        <p class="coin_address">TCFPY5TtXFZ15M68LZpgspNYkR65A3WTRP</p>
+                        <img class="wallet_qr" src="{{ asset('images/wallets/ETH.jpg') }}" alt="0x0B7DB90b0D6f9a71d8233f37172Db16999b73Cf9">
+                        <p class="coin_address">0x0B7DB90b0D6f9a71d8233f37172Db16999b73Cf9</p>
                     </div>
                     <br>
                     <div class="screenshot">

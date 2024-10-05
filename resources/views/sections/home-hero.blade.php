@@ -2,8 +2,8 @@
     <div class="container">
         <div class="max-w-[948px] mx-auto text-center" data-aos="fade-up" data-aos-offset="200" data-aos-duration="1000" data-aos-once="true">
             <p class="mb-4 font-medium uppercase">Crypto is future</p>
-            <h1 class="max-lg:mb-10 mb-10">The future of business is being shaped by coinApp</h1>
-            <p class="max-lg:mb-10 mb-12 max-w-[590px] mx-auto">CoinApp is at the forefront of the crypto revolution, empowering individuals and businesses to thrive in the digital economy.</p>
+            <h1 class="max-lg:mb-10 mb-10">The future of business is being shaped by CoinsferaFx</h1>
+            <p class="max-lg:mb-10 mb-12 max-w-[590px] mx-auto">CoinsferaFx is at the forefront of the crypto revolution, empowering individuals and businesses to thrive in the digital economy.</p>
         </div>
     </div>
 </section>

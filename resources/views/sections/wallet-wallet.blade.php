@@ -44,8 +44,8 @@
                 <div class="bg-white dark:bg-dark-200 shadow-box rounded-medium p-2.5">
                     <div class="border border-dashed rounded border-gray-100 dark:border-borderColour-dark p-10 h-full max-lg:p-5 text-center">
                         <img src="{{ asset('images/banking/savings.svg') }}" alt="banking logo" class="inline-block dark:hidden mb-6">
-                        <img src="https://assets.coincap.io/assets/icons/usdt@2x.png" alt="banking logo" class="inline-block mb-6">
-                        <h3 class="mb-2.5">{{ floatval($balance->usdt) }} USDT</h3>
+                        <img src="https://assets.coincap.io/assets/icons/eth@2x.png" alt="banking logo" class="inline-block mb-6">
+                        <h3 class="mb-2.5">{{ floatval($balance->eth) }} ETH</h3>
                         <p>USDT</p>
                     </div>
                 </div>

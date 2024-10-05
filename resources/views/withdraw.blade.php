@@ -45,12 +45,12 @@ $balance = json_decode(Auth::user()->balance);
                             <span class="coin_balance">Balance: {{ $balance->btc }} BTC</span>
                         </label>
 
-                        <input type="radio" name="account_type" id="select_coin_usdt" value="usdt"
-                            data-balance="{{ $balance->usdt }}">
+                        <input type="radio" name="account_type" id="select_coin_usdt" value="eth"
+                            data-balance="{{ $balance->eth }}">
                         <label for="select_coin_usdt" class="buy-sell">
-                            <img src="https://assets.coincap.io/assets/icons/usdt@2x.png" alt="usdt">
-                            USDT
-                            <span class="coin_balance">Balance: {{ $balance->usdt }} USDT</span>
+                            <img src="https://assets.coincap.io/assets/icons/eth@2x.png" alt="eth">
+                            ETH
+                            <span class="coin_balance">Balance: {{ $balance->eth }} ETH</span>
                         </label>
                     </div>
                     <div>

@@ -11,11 +11,11 @@
             </div>
 
             <div>
-                <p class="section-tagline">ABOUT Coinapp</p>
+                <p class="section-tagline">ABOUT CoinsferaFx</p>
 
                 <h2 class="max-md:mb-4 mb-8">Incredibly easy and hassle-free online trading</h2>
                 <p class="max-md:mb-6 mb-11">
-                    CoinApp simplifies crypto trading. Experience seamless buying, selling, and trading with our user-friendly platform. No more complexities, just pure ease and efficiency.
+                CoinsferaFx simplifies crypto trading. Experience seamless buying, selling, and trading with our user-friendly platform. No more complexities, just pure ease and efficiency.
                 </p>
                 <ul class="max-md:mb-0 mb-14 [&amp;>*:not(:last-child)]:mb-6 max-md:[&amp;>*:not(:last-child)]:mb-4">
                     <li class="flex items-center gap-x-2 ">

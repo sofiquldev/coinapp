@@ -5,7 +5,7 @@
                 <img src="images/logo.png" alt="logo" class="inline-block dark:hidden mb-10">
                 <img src="images/logo-light.png" alt="logo dark version" class="hidden dark:inline-block  mb-10">
                 <p class="max-w-[350px] max-lg:mx-auto">
-                    The future of business is being shaped by coinApp
+                    The future of business is being shaped by CoinsferaFx
                 </p>
             </div>
             <div class="col-span-12 lg:col-span-2 max-lg:text-center">
@@ -96,7 +96,7 @@
 
         <div class="py-10 max-lg:text-center">
             <div class="flex max-lg:flex-col lg:items-center">
-                <p class="max-lg:mb-10">@ <span id="date"></span> coinApp. All Rights Reserved</p>
+                <p class="max-lg:mb-10">@ <span id="date"></span> CoinsferaFx. All Rights Reserved</p>
                 <ul class="lg:ml-auto flex items-center gap-15  max-lg:justify-center">
                     <li>
                         <a href="#privacy.html" class="relative inline-block overflow-hidden text-base capitalize text-paragraph dark:text-white before:absolute before:bottom-0 before:left-0 before:h-[1px] before:w-full before:origin-right before:scale-x-0 before:bg-paragraph dark:before:bg-white  before:transition-transform before:duration-500 before:content-[''] before:hover:origin-left before:hover:scale-x-100">
