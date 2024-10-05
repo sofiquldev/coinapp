@@ -146,3 +146,25 @@
       border: 2px solid #ddd;
       margin-right: 12px;
   }
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+  
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f100;
+}
+  
+  /* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 99px;
+}
+.trade-table {
+  overflow-x: auto;
+}
+.trade-table table{
+  min-width: max-content;
+}
