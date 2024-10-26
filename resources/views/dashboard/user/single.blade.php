@@ -188,7 +188,7 @@
                                 <span class="fw-medium">Balance</span>
                             </div>
                             <h3 class="n700-color mt-4">{{ floatval($balance->btc) }} <small>BTC</small></h3>
-                            <h3 class="n700-color mb-4">{{ floatval($balance->usdt) }} <small>USDT</small></h3>
+                            <h3 class="n700-color mb-4">{{ floatval($balance->eth) }} <small>ETH</small></h3>
                             <hr>
                             <div class="d-center justify-content-between gap-6 flex-wrap">
                                 <div class="d-flex flex-column">

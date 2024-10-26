@@ -4,6 +4,7 @@
     @include('partials.app.header')
     @include('sections.trade-hero')
     @include('sections.trade-table')
+    @include('sections.trade-table-wss')
     @include('sections.home-service')
     {{-- @include('sections.home-integration')
     @include('sections.home-testimonial') --}}

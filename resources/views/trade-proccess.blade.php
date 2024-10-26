@@ -4,10 +4,22 @@
     @include('partials.app.header')
 
     <section class="paymemt-section">
+        <style>
+            #time {
+                font-size: 5em;
+                font-weight: 100;
+            }
+            @media (max-width: 575px) {
+                #time {
+                    font-size: 3em;
+                }
+            }
+        </style>
         <div class="container">
             @if ($order)
                 @if ($order->status == 2)
                     <h2>Thanks! Your Trade is processing now.</h2>
+                    <iframe src="https://cdn.lottielab.com/l/895KVrLkjGtTkH.html" width="100%" height="800" frameborder="0"></iframe>
                     <br>
                 @else
                     <br>

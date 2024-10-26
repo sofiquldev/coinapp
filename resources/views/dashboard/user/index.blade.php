@@ -80,7 +80,7 @@
                                                 $balance = json_decode($user->balance)
                                             @endphp
                                                 {{ floatval($balance->btc) }} <small>BTC</small><br>
-                                                {{ floatval($balance->usdt) }} <small>USDT</small>
+                                                {{ floatval($balance->eth) }} <small>ETH</small>
                                             </td>
                                             <td>
                                                 @if ($user->status == 1)
