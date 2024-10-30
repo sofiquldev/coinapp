@@ -22,7 +22,7 @@ $balance = json_decode(Auth::user()->balance);
             <h2 id="form-title">Withdraw Request</h2>
             <br><br>
             @if (Auth::user()->status == 5)
-                <h3 style="color: #c4f241">Your Account has been &nbsp; <b>Freege</b></h3>
+                <h3 style="color: #c4f241">Your Account has been &nbsp; <b>Freeze</b></h3>
                 <br>
                 <p>Please Contact with <a href="mailto:support@mail.com" style="color: #c4f241">Support</a></p>
                 <br>

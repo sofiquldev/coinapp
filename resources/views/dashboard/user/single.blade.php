@@ -25,13 +25,13 @@
                         <input type="hidden" name="user_id" value="{{ $user->id }}">
                         @if($user->status == 1)
                             <input type="hidden" name="user_status" value="5">
-                            <button type="submit" class="btn btn-danger">Freege</button>
+                            <button type="submit" class="btn btn-danger">Freeze</button>
                         @elseif($user->status == 5)
                             <input type="hidden" name="user_status" value="1">
-                            <button type="submit" class="btn btn-success"><i>un-</i>Freege</button>
+                            <button type="submit" class="btn btn-success"><i>un-</i>Freeze</button>
                         @else
                             <input type="hidden" name="user_status" value="1">
-                            <button type="submit" class="btn btn-success"><i>un-</i>Freege</button>
+                            <button type="submit" class="btn btn-success"><i>un-</i>Freeze</button>
                         @endif
                     </form>
                 </div>
