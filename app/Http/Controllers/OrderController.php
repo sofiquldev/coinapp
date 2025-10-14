@@ -23,8 +23,8 @@ class OrderController extends Controller
             $order->save();
 
             $user = User::findOrFail(auth()->user()->id);
-            $balance = json_decode($user->balance, true);
-            $balance[strtolower($order->coin_name)] -= $order->amount;
+            $balance = json_decode($user->balance ?? '{"btc": 0, "eth": 0, "usdt": 0}', true);
+            $balance[strtolower($order->coin_name)] = ($balance[strtolower($order->coin_name)] ?? 0) - $order->amount;
             $user->balance = json_encode($balance);
             $user->update();
 
@@ -60,22 +60,22 @@ class OrderController extends Controller
         // Update the status
         $order->status = $trade_status;
         $order->result = $trade_result;
-        $user_balance = json_decode($user->balance, true);
+        $user_balance = json_decode($user->balance ?? '{"btc": 0, "eth": 0, "usdt": 0}', true);
 
         $log_message = "Your trade has been updated.";
         if($trade_result > 0 && $old_status == 2) { // profit
-            $user_balance[strtolower($order->coin_name)] += $trade_amount + $trade_result;
+            $user_balance[strtolower($order->coin_name)] = ($user_balance[strtolower($order->coin_name)] ?? 0) + $trade_amount + $trade_result;
             $log_amount = floatval($order->amount). ' ' . $order->coin_name;
             $log_message = "<b class='text-success'>Trade Win!</b> {USER_NAME} profit <b>{$log_amount}</b> has been Added.";
         } else if($old_status == 1) {
             if($old_result !== $trade_result) {
                 if($trade_result == 0) {
-                    $user_balance[strtolower($order->coin_name)] -= ($trade_amount + $old_result);
+                    $user_balance[strtolower($order->coin_name)] = ($user_balance[strtolower($order->coin_name)] ?? 0) - ($trade_amount + $old_result);
                     $log_amount = floatval($order->amount). ' ' . $order->coin_name;
                     $log_message = "<b class='text-danger'>Mistake Detected!</b> {USER_NAME} Trade has been lost.";
                 } else {
-                    $user_balance[strtolower($order->coin_name)] -= ($trade_amount + $old_result);
-                    $user_balance[strtolower($order->coin_name)] += $trade_amount + $trade_result;
+                    $user_balance[strtolower($order->coin_name)] = ($user_balance[strtolower($order->coin_name)] ?? 0) - ($trade_amount + $old_result);
+                    $user_balance[strtolower($order->coin_name)] = ($user_balance[strtolower($order->coin_name)] ?? 0) + $trade_amount + $trade_result;
                     $log_amount = floatval($order->amount). ' ' . $order->coin_name;
                     $log_message = "<b class='text-success'>Trade Win!</b> {USER_NAME} profit <b>{$log_amount}</b> has been Added.";
                 }

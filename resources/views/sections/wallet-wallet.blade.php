@@ -12,7 +12,7 @@
         ->sum('amount');
     $balance = $total_deposit - $total_withdraw; */
 
-    $balance = json_decode(auth()->user()->balance);
+    $balance = json_decode(auth()->user()->balance ?? '{"btc": 0, "eth": 0, "usdt": 0}');
 
     $site_currency = App\Models\SiteOption::where('key', 'site-currency')->first();
     if(empty($site_currency)) {

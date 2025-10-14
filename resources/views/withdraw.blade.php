@@ -9,7 +9,7 @@ if (empty($site_currency)) {
 }
 
 // use App\Models\User;
-$balance = json_decode(Auth::user()->balance);
+$balance = json_decode(Auth::user()->balance ?? '{"btc": 0, "eth": 0, "usdt": 0}');
 ?>
 
 @extends('layouts.app')

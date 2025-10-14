@@ -5,7 +5,7 @@ if(empty($site_currency)) {
 } else {
     $site_currency = $site_currency['value'];
 }
-$user_coins = json_decode(auth()->user()->coins);
+$user_coins = json_decode(auth()->user()->balance ?? '{"btc": 0, "eth": 0, "usdt": 0}');
 ?>
 
 @extends('layouts.app')

@@ -21,9 +21,21 @@
         <div class="container">
             @php
                 $assets = fetchCryptoData();
+                $error = null;
+                
+                // Check if fetchCryptoData returned an error
+                if (is_array($assets) && isset($assets['error'])) {
+                    $error = $assets['error'];
+                    $assets = [];
+                } elseif (!is_array($assets)) {
+                    $error = 'Failed to fetch cryptocurrency data';
+                    $assets = [];
+                }
             @endphp
-            @if (isset($error))
+            @if ($error)
                 <div class="alert alert-danger">{{ $error }}</div>
+            @elseif (empty($assets))
+                <div class="alert alert-warning">No cryptocurrency data available at the moment.</div>
             @else
             <div class="trade-table">
                 <table>
@@ -42,11 +54,12 @@
                         @foreach ($assets as $asset)
                             @php
                                 $symbol = strtolower($asset['symbol']);
-                                $iconUrl = "https://assets.coincap.io/assets/icons/{$symbol}@2x.png";
+                                // Use image from CoinGecko data
+                                $iconUrl = $asset['image'] ?? "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png?1696501400";
                                 if(auth()->user()) {
-                                    $balance = json_decode(auth()->user()->balance, true);
+                                    $balance = json_decode(auth()->user()->balance ?? '{"btc": 0, "eth": 0, "usdt": 0}', true);
                                 } else {
-                                    $balance = ['btc' => 0, 'eth' => 0];
+                                    $balance = ['btc' => 0, 'eth' => 0, 'usdt' => 0];
                                 }
                             @endphp
                             <tr data-id="{{ $asset['id'] }}">
@@ -67,7 +80,7 @@
                                         class="btn btn-navbar btn-sm open-trade-btn"
                                         data-coin="{{ $asset['symbol'] }}"
                                         {{-- data-price="{{ $asset['priceUsd'] }}" --}}
-                                        data-balance={{ $balance[strtolower($asset['symbol'])] }}
+                                        data-balance={{ $balance[strtolower($asset['symbol'])] ?? 0 }}
                                     >Trade</button>
                                 </td>
                             </tr>

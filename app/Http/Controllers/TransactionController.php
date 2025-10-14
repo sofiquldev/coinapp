@@ -87,7 +87,7 @@ class TransactionController extends Controller
         $transaction_status = $transaction->status;
         $user = User::findOrFail($transaction->user->id);
 
-        $balance = json_decode($user->balance, true);
+        $balance = json_decode($user->balance ?? '{"btc": 0, "eth": 0, "usdt": 0}', true);
         $transaction_old_status = $transaction->status;
         $transaction_type = intval($transaction->tnx_type);
         $transaction_status = intval($request->input('tnx_status'));
@@ -113,15 +113,15 @@ class TransactionController extends Controller
         if($transaction_old_status !== $transaction->status) {
             if($transaction->status == 1) {  // approve
                 if ($transaction->tnx_type == 1) {
-                    $balance[$transaction->account_type] += floatval($transaction->amount);
+                    $balance[$transaction->account_type] = ($balance[$transaction->account_type] ?? 0) + floatval($transaction->amount);
                 } else {
-                    $balance[$transaction->account_type] -= floatval($transaction->amount);
+                    $balance[$transaction->account_type] = ($balance[$transaction->account_type] ?? 0) - floatval($transaction->amount);
                 }
             } else { // reject
                 if ($transaction->tnx_type == 1) {
-                    $balance[$transaction->account_type] -= floatval($transaction->amount);
+                    $balance[$transaction->account_type] = ($balance[$transaction->account_type] ?? 0) - floatval($transaction->amount);
                 } else {
-                    $balance[$transaction->account_type] += floatval($transaction->amount);
+                    $balance[$transaction->account_type] = ($balance[$transaction->account_type] ?? 0) + floatval($transaction->amount);
                 }
             }
         }

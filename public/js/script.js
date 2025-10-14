@@ -309,11 +309,36 @@ $(document).ready(function () {
 
 
     // Cripto Table
-    // Your API key
-    const apiKey = '353192f0-1697-4343-8a35-34fdb4f6d43f';
-
-    // API endpoint
-    const url = 'https://api.coincap.io/v2/assets';
+    // CoinGecko API endpoint (no API key required for basic usage)
+    const url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1';
+    
+    // Fallback data in case API is blocked
+    const fallbackData = [
+        {
+            id: 'bitcoin',
+            symbol: 'btc',
+            name: 'Bitcoin',
+            market_cap_rank: 1,
+            current_price: 112879.50,
+            market_cap: 2249094168599,
+            circulating_supply: 19934406,
+            total_volume: 90156024161,
+            price_change_percentage_24h: -2.37,
+            image: 'https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png?1696501400'
+        },
+        {
+            id: 'ethereum',
+            symbol: 'eth',
+            name: 'Ethereum',
+            market_cap_rank: 2,
+            current_price: 4123.59,
+            market_cap: 497398839788,
+            circulating_supply: 120698949,
+            total_volume: 63566885516,
+            price_change_percentage_24h: -3.26,
+            image: 'https://coin-images.coingecko.com/coins/images/279/large/ethereum.png?1696501628'
+        }
+    ];
 
     // Previous data storage
     let previousData = [];
@@ -334,10 +359,10 @@ $(document).ready(function () {
         $.ajax({
             url: url,
             headers: {
-                'Authorization': 'Bearer ' + apiKey
+                'Accept': 'application/json'
             },
             success: function (response) {
-                const assets = response.data;
+                const assets = response; // CoinGecko returns array directly, not wrapped in 'data'
                 const tbody = $('#crypto-table tbody');
 
                 let dataChanged = false; // Flag to track if data has changed
@@ -345,14 +370,14 @@ $(document).ready(function () {
                 assets.forEach(asset => {
                     const existingRow = tbody.find(`tr[data-id="${asset.id}"]`);
                     const symbol = asset.symbol.toLowerCase();
-                    const iconUrl = `https://assets.coincap.io/assets/icons/${symbol}@2x.png`;
-                    const change = parseFloat(asset.changePercent24Hr).toFixed(2);
+                    const iconUrl = asset.image; // CoinGecko provides image URL directly
+                    const change = parseFloat(asset.price_change_percentage_24h).toFixed(2);
 
                     const newData = {
-                        priceUsd: `$${formatNumber(parseFloat(asset.priceUsd))}`,
-                        marketCapUsd: `$${formatNumber(parseFloat(asset.marketCapUsd))}`,
-                        supply: `$${formatNumber(parseFloat(asset.supply))}`,
-                        volumeUsd24Hr: `$${formatNumber(parseFloat(asset.volumeUsd24Hr))}`,
+                        priceUsd: `$${formatNumber(parseFloat(asset.current_price))}`,
+                        marketCapUsd: `$${formatNumber(parseFloat(asset.market_cap))}`,
+                        supply: `$${formatNumber(parseFloat(asset.circulating_supply))}`,
+                        volumeUsd24Hr: `$${formatNumber(parseFloat(asset.total_volume))}`,
                         changePercent24Hr: change
                     };
 
@@ -388,12 +413,12 @@ $(document).ready(function () {
                             // Add new row
                             const row = $('<tr></tr>').attr('data-id', asset.id).data('asset', newData);
 
-                            row.append(`<td class="text-center">${asset.rank}</td>`);
-                            row.append(`<td class="coin-name" title="${asset.name}"><img src="${iconUrl}" alt="${asset.name}"> ${asset.symbol}</td>`);
-                            row.append(`<td class="coin-price text-center">${formatNumber(parseFloat(asset.priceUsd))}</td>`);
-                            row.append(`<td class="text-center coin-market-cap">${formatNumber(parseFloat(asset.marketCapUsd))}</td>`);
-                            row.append(`<td class="text-center coin-supply">${formatNumber(parseFloat(asset.supply))}</td>`);
-                            row.append(`<td class="text-center coin-volume">${formatNumber(parseFloat(asset.volumeUsd24Hr))}</td>`);
+                            row.append(`<td class="text-center">${asset.market_cap_rank}</td>`);
+                            row.append(`<td class="coin-name" title="${asset.name}"><img src="${iconUrl}" alt="${asset.name}"> ${asset.symbol.toUpperCase()}</td>`);
+                            row.append(`<td class="coin-price text-center">${formatNumber(parseFloat(asset.current_price))}</td>`);
+                            row.append(`<td class="text-center coin-market-cap">${formatNumber(parseFloat(asset.market_cap))}</td>`);
+                            row.append(`<td class="text-center coin-supply">${formatNumber(parseFloat(asset.circulating_supply))}</td>`);
+                            row.append(`<td class="text-center coin-volume">${formatNumber(parseFloat(asset.total_volume))}</td>`);
                             row.append(`<td class="text-center coin-change ${Number(change) < 0 ? 'color-red' : 'color-green'}">${change}</td>`);
 
                             tbody.append(row);
@@ -417,6 +442,28 @@ $(document).ready(function () {
             },
             error: function (error) {
                 console.error('Error fetching data:', error);
+                console.log('Using fallback data');
+                // Use fallback data when API fails
+                const assets = fallbackData;
+                const tbody = $('#crypto-table tbody');
+                tbody.empty(); // Clear existing data
+                
+                assets.forEach(asset => {
+                    const symbol = asset.symbol.toLowerCase();
+                    const iconUrl = asset.image;
+                    const change = parseFloat(asset.price_change_percentage_24h).toFixed(2);
+
+                    const row = $('<tr></tr>').attr('data-id', asset.id);
+                    row.append(`<td class="text-center">${asset.market_cap_rank}</td>`);
+                    row.append(`<td class="coin-name" title="${asset.name}"><img src="${iconUrl}" alt="${asset.name}"> ${asset.symbol.toUpperCase()}</td>`);
+                    row.append(`<td class="coin-price text-center">$${formatNumber(parseFloat(asset.current_price))}</td>`);
+                    row.append(`<td class="text-center coin-market-cap">$${formatNumber(parseFloat(asset.market_cap))}</td>`);
+                    row.append(`<td class="text-center coin-supply">$${formatNumber(parseFloat(asset.circulating_supply))}</td>`);
+                    row.append(`<td class="text-center coin-volume">$${formatNumber(parseFloat(asset.total_volume))}</td>`);
+                    row.append(`<td class="text-center coin-change ${Number(change) < 0 ? 'color-red' : 'color-green'}">${change}%</td>`);
+
+                    tbody.append(row);
+                });
             }
         });
     }

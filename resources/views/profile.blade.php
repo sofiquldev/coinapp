@@ -8,7 +8,7 @@
         ->where('status', 1)
         ->sum('amount');
     // $balance = $total_deposit - $total_withdraw;
-    $balance = json_decode($user->balance);
+    $balance = json_decode($user->balance ?? '{"btc": 0, "eth": 0, "usdt": 0}');
 @endphp
 
 @extends('layouts.dashboard')
